@@ -401,17 +401,17 @@ export default function FlipbookHero({ isLoading }) {
         {/* Left Panel */}
         <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
           
-          <div ref={fold1PanelRef} className="max-w-3xl backdrop-blur-md">
-            <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <div ref={fold1IconRef} className="w-12 h-12 bg-[#d4af37] shrink-0 hidden sm:block"></div>
+          <div ref={fold1PanelRef} className="max-w-3xl backdrop-blur-md w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 w-full justify-center sm:justify-start">
+              <div ref={fold1IconRef} className="w-12 h-12 bg-[#D4AF37] shrink-0 hidden sm:block"></div>
               <h1
                 ref={fold1TitleRef}
-                className="m-0"
+                className="m-0 text-center sm:text-left w-full sm:w-auto"
                 style={{
-                  color: "#e2e8f0", // ks-champagne approx
+                  color: "oklch(91% 0 0)", // champagne
                   fontFamily: "'Alumni Sans', sans-serif",
                   fontSize: "clamp(2.5rem, 7.5vw, 6.8rem)",
-                  fontWeight: 500,
+                  fontWeight: 400, // wordmark weight
                   lineHeight: 1.02,
                   letterSpacing: "0.15em",
                   textTransform: "uppercase"
@@ -423,16 +423,16 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div ref={fold1Card1Ref} className="bg-dom/90 border border-acc/30 p-4 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc/80 to-transparent"></div>
+          <div ref={fold1Card1Ref} className="bg-[#1A1A1B] border border-[#D4AF37]/30 p-5 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
-              <span className="w-8 h-[1px] bg-acc/50"></span>
+              <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
               <ShinyText 
                 text="D-696, Opp. Market No. 2, C.R. Park"
                 speed={3} 
-                className="text-xs font-medium uppercase tracking-[0.2em] text-acc" 
-                color="#00E5FF"
+                className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4AF37]" 
+                color="#D4AF37"
                 shineColor="#ffffff"
               />
             </div>
@@ -442,7 +442,7 @@ export default function FlipbookHero({ isLoading }) {
               delay={100}
               animateBy="words"
               direction="bottom"
-              className="text-3xl font-light text-[#F8FAFC] leading-tight mb-4 tracking-tight"
+              className="text-2xl md:text-3xl font-light text-[oklch(91%_0_0)] leading-tight mb-4 tracking-tight"
             />
             
             <BlurText
@@ -450,14 +450,14 @@ export default function FlipbookHero({ isLoading }) {
               delay={50}
               animateBy="words"
               direction="top"
-              className="text-[#CBD5E1] text-sm font-normal leading-relaxed mb-6"
+              className="text-[oklch(88%_0_0)] text-sm font-normal leading-relaxed mb-6"
             />
 
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <a href="https://maps.google.com/?q=D-696,+Opp.+Market+No.+2,+C.R.+Park,+New+Delhi,+110019" target="_blank" rel="noreferrer" className="px-6 py-3 bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs tracking-wide text-center">
+              <a href="https://maps.google.com/?q=D-696,+Opp.+Market+No.+2,+C.R.+Park,+New+Delhi,+110019" target="_blank" rel="noreferrer" className="px-6 py-3 bg-[#D4AF37] text-[#0A0A0A] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs tracking-wide text-center">
                 Get Directions
               </a>
-              <button onClick={() => setContactModalOpen(true)} className="text-acc text-xs font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1 cursor-pointer">
+              <button onClick={() => setContactModalOpen(true)} className="text-[#D4AF37] text-xs font-medium hover:text-[#F3E5AB] transition-colors border-b border-[#D4AF37]/30 hover:border-[#F3E5AB] pb-1 cursor-pointer">
                 Contact Desk
               </button>
             </div>
@@ -470,19 +470,19 @@ export default function FlipbookHero({ isLoading }) {
 
         {/* Right Panel */}
         <div className="flex flex-col justify-start pt-8 md:pt-[45vh] items-end pointer-events-auto h-full">
-          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-dom border border-white/5 p-4 md:p-8 rounded-sm shadow-2xl">
+          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-[#1A1A1B] border border-[#D4AF37]/30 p-5 md:p-8 rounded-sm shadow-2xl">
             <ShinyText 
               text="Book Your Consultation"
               disabled={false} 
               speed={3} 
-              className="text-xl font-semibold uppercase tracking-widest mb-4 text-[#F8FAFC]" 
-              color="#E2E8F0"
-              shineColor="#00E5FF"
+              className="text-xl font-semibold uppercase tracking-widest mb-4 text-[oklch(91%_0_0)]" 
+              color="oklch(91% 0 0)"
+              shineColor="#D4AF37"
             />
-            <p className="text-[#94A3B8] mb-6 font-medium text-sm leading-relaxed">
+            <p className="text-[oklch(88%_0_0)] mb-6 font-normal text-sm leading-relaxed">
               Schedule an appointment with our expert general physicians or experience holistic acupuncture therapy.
             </p>
-            <button onClick={() => setServicesModalOpen(true)} className="inline-block bg-acc hover:bg-[#00B3CC] transition-colors duration-300 text-dom font-bold py-3 px-8 rounded-sm text-xs md:text-sm tracking-wide cursor-pointer">
+            <button onClick={() => setServicesModalOpen(true)} className="inline-block bg-[#D4AF37] hover:bg-[#F3E5AB] transition-colors duration-300 text-[#0A0A0A] font-bold py-3 px-8 rounded-sm text-xs md:text-sm tracking-wide cursor-pointer">
               Discover Services
             </button>
           </div>
