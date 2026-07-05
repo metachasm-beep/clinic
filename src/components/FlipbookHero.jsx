@@ -247,7 +247,8 @@ export default function FlipbookHero({ isLoading }) {
     }, (context) => {
       let { isMobile, reduceMotion } = context.conditions;
 
-      const scrollEnd = isMobile ? "+=3000%" : "+=2100%";
+      // Dramatically increase mobile scroll length so a single swipe doesn't fly past all folds
+      const scrollEnd = isMobile ? "+=8000%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
