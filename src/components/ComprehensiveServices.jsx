@@ -97,16 +97,16 @@ export default function ComprehensiveServices() {
 
       {/* The Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-md">
-          <div className="bg-[#050A10] border border-acc/20 rounded-sm w-full max-w-6xl h-[85vh] flex flex-col relative shadow-[0_0_50px_rgba(0,229,255,0.1)]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-8 bg-black/90 backdrop-blur-md">
+          <div className="bg-[#050A10] border border-acc/20 rounded-sm w-full max-w-6xl h-[95vh] md:h-[85vh] flex flex-col relative shadow-[0_0_50px_rgba(0,229,255,0.1)]">
             
             {/* Header */}
-            <div className="flex justify-between items-center p-6 border-b border-acc/20 bg-acc/5">
-              <h3 className="text-2xl font-light text-white tracking-tight">Comprehensive Services Directory</h3>
+            <div className="flex justify-between items-center p-4 md:p-6 border-b border-acc/20 bg-acc/5 shrink-0">
+              <h3 className="text-lg md:text-2xl font-light text-white tracking-tight pr-4">Comprehensive Services Directory</h3>
               <Magnet padding={10} disabled={false} magnetStrength={3}>
                 <button 
                   onClick={() => setIsOpen(false)} 
-                  className="text-white/50 hover:text-white transition-colors p-2 text-2xl cursor-pointer"
+                  className="text-white/50 hover:text-white transition-colors p-1 md:p-2 text-xl md:text-2xl cursor-pointer"
                 >
                   ✕
                 </button>
@@ -117,40 +117,40 @@ export default function ComprehensiveServices() {
             <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
               
               {/* Sidebar Tabs */}
-              <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-acc/10 overflow-y-auto max-h-48 md:max-h-full bg-black/50 scrollbar-hide flex-shrink-0">
+              <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-acc/10 overflow-x-auto md:overflow-y-auto flex flex-row md:flex-col bg-black/50 scrollbar-hide flex-shrink-0">
                 {categories.map((cat, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveTab(idx)}
-                    className={`w-full text-left p-6 border-l-4 transition-all duration-300 ${
+                    className={`whitespace-nowrap md:whitespace-normal flex-shrink-0 w-auto md:w-full text-left px-4 py-3 md:p-6 border-b-2 md:border-b-0 md:border-l-4 transition-all duration-300 ${
                       activeTab === idx 
                         ? 'border-acc bg-acc/10 text-white' 
                         : 'border-transparent text-gray-500 hover:text-gray-300 hover:bg-white/5'
                     }`}
                   >
-                    <div className="text-lg font-light">{cat.title}</div>
+                    <div className="text-sm md:text-lg font-light">{cat.title}</div>
                   </button>
                 ))}
               </div>
 
               {/* Content Area */}
-              <div className="md:w-2/3 p-8 overflow-y-auto custom-scrollbar relative bg-dom/40">
+              <div className="md:w-2/3 p-4 md:p-8 overflow-y-auto custom-scrollbar relative bg-dom/40">
                 {/* Subtle watermark */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-                  <span className="text-[150px] font-bold text-acc leading-none text-center">
+                <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none overflow-hidden">
+                  <span className="text-[100px] md:text-[150px] font-bold text-acc leading-none text-center">
                     {categories[activeTab].title.split(' ')[0]}
                   </span>
                 </div>
                 
-                <h4 className="text-3xl font-light text-acc mb-8 relative z-10 border-b border-acc/20 pb-4 inline-block">
+                <h4 className="text-xl md:text-3xl font-light text-acc mb-4 md:mb-8 relative z-10 border-b border-acc/20 pb-2 md:pb-4 inline-block">
                   {categories[activeTab].title}
                 </h4>
                 
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4 relative z-10">
                   {categories[activeTab].items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 p-3 rounded bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
-                      <span className="text-acc mt-1 text-xs">◆</span>
-                      <span className="text-gray-200 text-sm">{item}</span>
+                    <li key={i} className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+                      <span className="text-acc mt-1 text-[10px] md:text-xs">◆</span>
+                      <span className="text-gray-200 text-xs md:text-sm">{item}</span>
                     </li>
                   ))}
                 </ul>
