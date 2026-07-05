@@ -285,7 +285,7 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p7E + pause;
 
       // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=1600%" : "+=2100%";
+      const scrollEnd = isMobile ? "+=2400%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -317,7 +317,20 @@ export default function FlipbookHero({ isLoading }) {
             onUpdate: (self) => {
               if (isMobile) {
                  const p = self.progress;
-                 let step = Math.min(15, Math.max(0, Math.floor(p * 16)));
+                 // We use a weighted system: 2 parts for reading text, 1 part for panning background.
+                 // Total parts = 8 folds * 3 parts = 24.
+                 const weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1];
+                 const currentWeight = p * 24;
+                 
+                 let step = 0;
+                 let acc = 0;
+                 for (let i = 0; i < 16; i++) {
+                   acc += weights[i];
+                   if (currentWeight <= acc || i === 15) {
+                     step = i;
+                     break;
+                   }
+                 }
                  
                  let newBgFold = Math.ceil(step / 2);
                  if (newBgFold > 7) newBgFold = 7;
