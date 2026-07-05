@@ -222,13 +222,27 @@ export default function FlipbookHero({ isLoading }) {
     window.addEventListener('resize', handleResize);
     handleResize(); 
 
-    const ctxGsap = gsap.context(() => {
+    let mm = gsap.matchMedia();
+
+    mm.add({
+      isDesktop: "(min-width: 768px)",
+      isMobile: "(max-width: 767px)",
+      reduceMotion: "(prefers-reduced-motion: reduce)"
+    }, (context) => {
+      let { isMobile, reduceMotion } = context.conditions;
+
+      const scrollEnd = isMobile ? "+=1400%" : "+=2100%";
+      const scrubValue = isMobile ? 0.5 : 1.5;
+      const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
+      const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
+      const yOffsetSmall = reduceMotion ? 0 : (isMobile ? 5 : 10);
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=2100%", // 21 scrolls (3 scrolls per fold)
-          scrub: 1.5,
+          end: scrollEnd,
+          scrub: scrubValue,
           pin: true,
         }
       });
@@ -261,60 +275,60 @@ export default function FlipbookHero({ isLoading }) {
       const titleSplit = new SplitText(titleRef.current, { type: "chars,words" });
       const descSplit = new SplitText(descRef.current, { type: "words" });
 
-      tl.fromTo(fold2Ref.current, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 4.5);
-      tl.fromTo(titleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: 20 }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 4.6);
-      tl.fromTo(descSplit.words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 4.8);
-      tl.fromTo(actionRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 5.0);
+      tl.fromTo(fold2Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 4.5);
+      tl.fromTo(titleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 4.6);
+      tl.fromTo(descSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 4.8);
+      tl.fromTo(actionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 5.0);
       tl.to(fold2Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 5.9);
 
       // Fold 3: Acupuncture Therapy
       const fold3TitleSplit = new SplitText(fold3TitleRef.current, { type: "chars,words" });
       const fold3DescSplit = new SplitText(fold3DescRef.current, { type: "words" });
 
-      tl.fromTo(fold3Ref.current, { autoAlpha: 0, x: 20 }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 7.5);
-      tl.fromTo(fold3TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: 20 }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 7.6);
-      tl.fromTo(fold3ActionRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 7.8);
-      tl.fromTo(fold3DescSplit.words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 8.0);
+      tl.fromTo(fold3Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 7.5);
+      tl.fromTo(fold3TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 7.6);
+      tl.fromTo(fold3ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 7.8);
+      tl.fromTo(fold3DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 8.0);
       tl.to(fold3Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 8.9);
 
       // Fold 4: Preventive Healthcare
       const fold4TitleSplit = new SplitText(fold4TitleRef.current, { type: "chars,words" });
       const fold4DescSplit = new SplitText(fold4DescRef.current, { type: "words" });
 
-      tl.fromTo(fold4Ref.current, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 10.5);
-      tl.fromTo(fold4TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: 20 }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 10.6);
-      tl.fromTo(fold4ActionRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 10.8);
-      tl.fromTo(fold4DescSplit.words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 11.0);
+      tl.fromTo(fold4Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 10.5);
+      tl.fromTo(fold4TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 10.6);
+      tl.fromTo(fold4ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 10.8);
+      tl.fromTo(fold4DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 11.0);
       tl.to(fold4Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 11.9);
 
       // Fold 5: Advanced ENT Care
       const fold5TitleSplit = new SplitText(fold5TitleRef.current, { type: "chars,words" });
       const fold5DescSplit = new SplitText(fold5DescRef.current, { type: "words" });
 
-      tl.fromTo(fold5Ref.current, { autoAlpha: 0, x: 20 }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 13.5);
-      tl.fromTo(fold5TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: 20 }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 13.6);
-      tl.fromTo(fold5ActionRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 13.8);
-      tl.fromTo(fold5DescSplit.words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 14.0);
+      tl.fromTo(fold5Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 13.5);
+      tl.fromTo(fold5TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 13.6);
+      tl.fromTo(fold5ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 13.8);
+      tl.fromTo(fold5DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 14.0);
       tl.to(fold5Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 14.9);
 
       // Fold 6: The Legacy of Care (Dr. Ashok K. Gulati)
       const fold6TitleSplit = new SplitText(fold6TitleRef.current, { type: "chars,words" });
       const fold6DescSplit = new SplitText(fold6DescRef.current, { type: "words" });
 
-      tl.fromTo(fold6Ref.current, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 16.5);
-      tl.fromTo(fold6TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: 20 }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 16.6);
-      tl.fromTo(fold6ActionRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 16.8);
-      tl.fromTo(fold6DescSplit.words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 17.0);
+      tl.fromTo(fold6Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 16.5);
+      tl.fromTo(fold6TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 16.6);
+      tl.fromTo(fold6ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 16.8);
+      tl.fromTo(fold6DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 17.0);
       tl.to(fold6Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 17.9);
 
       // Fold 7: Chronic Care Management
       const fold7TitleSplit = new SplitText(fold7TitleRef.current, { type: "chars,words" });
       const fold7DescSplit = new SplitText(fold7DescRef.current, { type: "words" });
 
-      tl.fromTo(fold7Ref.current, { autoAlpha: 0, x: 20 }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 19.5);
-      tl.fromTo(fold7TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: 20 }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 19.6);
-      tl.fromTo(fold7ActionRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 19.8);
-      tl.fromTo(fold7DescSplit.words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 20.0);
+      tl.fromTo(fold7Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 19.5);
+      tl.fromTo(fold7TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 19.6);
+      tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 19.8);
+      tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 20.0);
 
       // Pad timeline to exactly 21 duration so scrub aligns perfectly
       tl.set({}, {}, 21);
@@ -323,7 +337,7 @@ export default function FlipbookHero({ isLoading }) {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      ctxGsap.revert();
+      mm.revert();
     };
   }, [images]);
 
