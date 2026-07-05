@@ -356,12 +356,7 @@ export default function FlipbookHero({ isLoading }) {
                  setTextFold(prev => prev !== newTextFold ? newTextFold : prev);
               }
             },
-            snap: isMobile ? {
-              snapTo: snapPoints,
-              duration: { min: 0.4, max: 0.8 },
-              delay: 0.15,
-              ease: "sine.inOut"
-            } : false
+            snap: false /* Mobile snap disabled */
           }
         });
 
