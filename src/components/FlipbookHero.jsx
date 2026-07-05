@@ -316,43 +316,18 @@ export default function FlipbookHero({ isLoading }) {
             pin: true,
             onUpdate: (self) => {
               if (isMobile) {
-                 const p = self.progress;
-                 // We use a weighted system: 2 parts for reading text, 1 part for panning background.
-                 // Total parts = 8 folds * 3 parts = 24.
-                 const weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1];
-                 const currentWeight = p * 24;
+                 const t = self.progress * totalDuration;
+                 let newTextFold = null;
                  
-                 let step = 0;
-                 let acc = 0;
-                 for (let i = 0; i < 16; i++) {
-                   acc += weights[i];
-                   if (currentWeight <= acc || i === 15) {
-                     step = i;
-                     break;
-                   }
-                 }
+                 if (t < p1S) newTextFold = 0;
+                 else if (t >= p1E && t < p2S) newTextFold = 1;
+                 else if (t >= p2E && t < p3S) newTextFold = 2;
+                 else if (t >= p3E && t < p4S) newTextFold = 3;
+                 else if (t >= p4E && t < p5S) newTextFold = 4;
+                 else if (t >= p5E && t < p6S) newTextFold = 5;
+                 else if (t >= p6E && t < p7S) newTextFold = 6;
+                 else if (t >= p7E) newTextFold = 7;
                  
-                 let newBgFold = Math.ceil(step / 2);
-                 if (newBgFold > 7) newBgFold = 7;
-                 
-                 let newTextFold = (step % 2 === 0) ? (step / 2) : null;
-                 if (step >= 14) newTextFold = 7;
-
-                 if (newBgFold !== currentMobileFold) {
-                   currentMobileFold = newBgFold;
-                   const targetFrames = [0, 51, 102, 156, 208, 253, 303, 355];
-                   const targetFrame = targetFrames[newBgFold];
-                   
-                   gsap.to(playhead, {
-                      frame: targetFrame,
-                      duration: 2.4, // 200% slower
-                      ease: "power2.inOut",
-                      overwrite: "auto",
-                      onUpdate: renderFrame
-                   });
-                 }
-                 
-                 setBgFold(prev => prev !== newBgFold ? newBgFold : prev);
                  setTextFold(prev => prev !== newTextFold ? newTextFold : prev);
               }
             },
@@ -505,7 +480,7 @@ export default function FlipbookHero({ isLoading }) {
                   textTransform: "uppercase"
                 }}
             >
-              Get Well Clinic
+              {textFold === 0 ? <ReactBitsSplitText text="Get Well Clinic" splitType="words,chars" delay={40} /> : "Get Well Clinic"}
             </h1>
         </div>
       </div>
