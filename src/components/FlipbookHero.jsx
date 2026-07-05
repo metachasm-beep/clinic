@@ -317,7 +317,7 @@ export default function FlipbookHero({ isLoading }) {
       const descSplit = new SplitText(descRef.current, { type: "words" });
       tl.to(fold2Ref.current, { autoAlpha: 1, duration: 0.1 }, t2);
       tl.fromTo(fold2Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t2);
-      tl.fromTo(titleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t2 + 0.1);
+      tl.fromTo(titleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t2 + 0.1);
       tl.fromTo(descSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t2 + 0.3);
       tl.fromTo(actionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t2 + 0.5);
       tl.to(fold2Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p3S - 0.1);
@@ -328,7 +328,7 @@ export default function FlipbookHero({ isLoading }) {
       tl.to(fold3Ref.current, { autoAlpha: 1, duration: 0.1 }, t3);
       tl.fromTo(fold3Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
       tl.fromTo(fold3Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
-      tl.fromTo(fold3TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t3 + 0.1);
+      tl.fromTo(fold3TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t3 + 0.1);
       tl.fromTo(fold3ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t3 + 0.3);
       tl.fromTo(fold3DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t3 + 0.5);
       tl.to(fold3Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p4S - 0.1);
@@ -339,7 +339,7 @@ export default function FlipbookHero({ isLoading }) {
       tl.to(fold4Ref.current, { autoAlpha: 1, duration: 0.1 }, t4);
       tl.fromTo(fold4Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
       tl.fromTo(fold4Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
-      tl.fromTo(fold4TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t4 + 0.1);
+      tl.fromTo(fold4TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t4 + 0.1);
       tl.fromTo(fold4ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t4 + 0.3);
       tl.fromTo(fold4DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t4 + 0.5);
       tl.to(fold4Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p5S - 0.1);
@@ -350,7 +350,7 @@ export default function FlipbookHero({ isLoading }) {
       tl.to(fold5Ref.current, { autoAlpha: 1, duration: 0.1 }, t5);
       tl.fromTo(fold5Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
       tl.fromTo(fold5Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
-      tl.fromTo(fold5TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t5 + 0.1);
+      tl.fromTo(fold5TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t5 + 0.1);
       tl.fromTo(fold5ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t5 + 0.3);
       tl.fromTo(fold5DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t5 + 0.5);
       tl.to(fold5Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p6S - 0.1);
@@ -361,7 +361,7 @@ export default function FlipbookHero({ isLoading }) {
       tl.to(fold6Ref.current, { autoAlpha: 1, duration: 0.1 }, t6);
       tl.fromTo(fold6Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
       tl.fromTo(fold6Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
-      tl.fromTo(fold6TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t6 + 0.1);
+      tl.fromTo(fold6TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t6 + 0.1);
       tl.fromTo(fold6ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t6 + 0.3);
       tl.fromTo(fold6DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t6 + 0.5);
       tl.to(fold6Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p7S - 0.1);
@@ -372,7 +372,7 @@ export default function FlipbookHero({ isLoading }) {
       tl.to(fold7Ref.current, { autoAlpha: 1, duration: 0.1 }, t7);
       tl.fromTo(fold7Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
       tl.fromTo(fold7Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
-      tl.fromTo(fold7TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t7 + 0.1);
+      tl.fromTo(fold7TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t7 + 0.1);
       tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t7 + 0.3);
       tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t7 + 0.5);
 
