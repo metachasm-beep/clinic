@@ -25,6 +25,8 @@ export default function FlipbookHero({ isLoading }) {
   const fold1TitleRef = useRef(null);
   const fold1PanelRef = useRef(null);
   const fold1IconRef = useRef(null);
+  const fold1Card1Ref = useRef(null);
+  const fold1Card2Ref = useRef(null);
 
   // Refs for Fold 2 Text Animation
   const titleRef = useRef(null);
@@ -290,7 +292,14 @@ export default function FlipbookHero({ isLoading }) {
       const t7 = isMobile ? p7E : p7S + 1.5;
 
       // Fold 1: Get Well Clinic
-      tl.to(fold1Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p1E + 0.9); // fade out just before pan 2
+      if (isMobile) {
+        tl.fromTo([fold1Card1Ref.current, fold1Card2Ref.current], 
+          { autoAlpha: 0, y: yOffsetSmall }, 
+          { autoAlpha: 1, y: 0, duration: 0.2, ease: "power2.out" }, 
+          p1E
+        );
+      }
+      tl.to(fold1Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p2S - 0.1);
 
       // Fold 2: Dr. Ankur Gupta
       const titleSplit = new SplitText(titleRef.current, { type: "chars,words" });
@@ -392,7 +401,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div className="bg-dom/90 border border-acc/30 p-4 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+          <div ref={fold1Card1Ref} className="bg-dom/90 border border-acc/30 p-4 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
@@ -439,7 +448,7 @@ export default function FlipbookHero({ isLoading }) {
 
         {/* Right Panel */}
         <div className="flex flex-col justify-start pt-8 md:pt-[45vh] items-end pointer-events-auto h-full">
-          <div className="max-w-sm text-right bg-dom border border-white/5 p-4 md:p-8 rounded-sm shadow-2xl">
+          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-dom border border-white/5 p-4 md:p-8 rounded-sm shadow-2xl">
             <ShinyText 
               text="Book Your Consultation"
               disabled={false} 
