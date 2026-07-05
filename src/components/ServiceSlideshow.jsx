@@ -10,7 +10,7 @@ const services = [
     title: "Get Well Clinic CR Park",
     desc: "Your premier destination for comprehensive healthcare in Chittaranjan Park, New Delhi. Featuring expert general physicians and holistic treatments.",
     bgColor: "bg-dom",
-    bgAsset: "/assets/heroscroll2/scene-052.jpg"
+    bgAsset: "/assets/heroscroll2/scene-052.webp"
   },
   {
     title: "Dr. Ashok Kumar Gulati",

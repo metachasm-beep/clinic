@@ -8,6 +8,9 @@ import ShinyText from './ShinyText';
 // React-Bits Components
 import TextPressure from './react-bits/TextPressure';
 import SpotlightCard from './react-bits/SpotlightCard';
+import ReactBitsSplitText from './react-bits/SplitText';
+import DecryptedText from './react-bits/DecryptedText';
+import FuzzyText from './react-bits/FuzzyText';
 import Magnet from './react-bits/Magnet';
 import GlassIcons from './react-bits/GlassIcons';
 import StarBorder from './react-bits/StarBorder';
@@ -77,7 +80,8 @@ export default function FlipbookHero({ isLoading }) {
   const [images, setImages] = useState([]);
   const [isContactModalOpen, setContactModalOpen] = useState(false);
   const [isServicesModalOpen, setServicesModalOpen] = useState(false);
-  const [activeFold, setActiveFold] = useState(1);
+  const [bgFold, setBgFold] = useState(1);
+  const [textFold, setTextFold] = useState(1);
   const [expandedFolds, setExpandedFolds] = useState({});
   const frameCount = 356; // 52(heroscroll2) + 51(heroscroll3) + 54(heroscroll4) + 52(heroscroll5) + 45(heroscroll6) + 50(heroscroll7) + 52(heroscroll8)
 
@@ -281,7 +285,7 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p7E + pause;
 
       // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=700%" : "+=2100%";
+      const scrollEnd = isMobile ? "+=1400%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -313,31 +317,35 @@ export default function FlipbookHero({ isLoading }) {
             onUpdate: (self) => {
               if (isMobile) {
                  const p = self.progress;
-                 // Calculate which fold we are in (1 to 7) based on scroll progress
-                 let fold = Math.min(7, Math.max(1, Math.ceil(p * 7)));
-                 if (p === 0) fold = 1;
+                 // 14 steps for 7 folds:
+                 // Step 0: Bg 1, Text 1
+                 // Step 1: Bg 2, Text null
+                 // Step 2: Bg 2, Text 2
+                 // ...
+                 let step = Math.min(13, Math.max(0, Math.floor(p * 14)));
                  
-                 if (fold !== currentMobileFold) {
-                   currentMobileFold = fold;
-                   // Fold 1: Frame 0. Fold 2: Frame 51. Fold 3: Frame 102.
+                 let newBgFold = Math.floor((step + 1) / 2) + 1;
+                 if (step >= 12) newBgFold = 7;
+                 
+                 let newTextFold = (step % 2 === 0) ? newBgFold : null;
+                 if (step >= 12) newTextFold = 7;
+
+                 if (newBgFold !== currentMobileFold) {
+                   currentMobileFold = newBgFold;
                    const targetFrames = [0, 0, 51, 102, 156, 208, 253, 303];
-                   const targetFrame = targetFrames[fold];
+                   const targetFrame = targetFrames[newBgFold];
                    
                    gsap.to(playhead, {
                       frame: targetFrame,
-                      duration: 0.8,
+                      duration: 2.4, // 200% slower
                       ease: "power2.inOut",
                       overwrite: "auto",
-                      onUpdate: () => {
-                        const currentFrame = Math.round(playhead.frame);
-                        if (images[currentFrame]) {
-                          drawImageCover(canvasRef.current.getContext('2d'), images[currentFrame], canvasRef.current, currentFrame);
-                        }
-                      }
+                      onUpdate: renderFrame
                    });
                  }
                  
-                 setActiveFold(prev => prev !== fold ? fold : prev);
+                 setBgFold(prev => prev !== newBgFold ? newBgFold : prev);
+                 setTextFold(prev => prev !== newTextFold ? newTextFold : prev);
               }
             },
             snap: isMobile ? {
@@ -349,7 +357,7 @@ export default function FlipbookHero({ isLoading }) {
           }
         });
 
-        const renderFrame = () => {
+        function renderFrame() {
           const currentFrame = Math.round(playhead.frame);
           if (images[currentFrame]) {
             drawImageCover(ctx, images[currentFrame], canvas, currentFrame);
@@ -469,7 +477,7 @@ export default function FlipbookHero({ isLoading }) {
       {/* Wayfinding Dots (Mobile Only) */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 md:hidden flex">
         {[1, 2, 3, 4, 5, 6, 7].map(f => (
-          <div key={f} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeFold === f ? 'bg-white scale-150 shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-white/20'}`} />
+          <div key={f} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${textFold === f ? 'bg-white scale-150 shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-white/20'}`} />
         ))}
       </div>
       
@@ -480,7 +488,7 @@ export default function FlipbookHero({ isLoading }) {
       />
 
       {/* Fold 1 Overlays */}
-      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center transition-all duration-700 ease-out ${activeFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
+      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center transition-all duration-700 ease-out ${textFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
         
         {/* Left Panel */}
         <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
@@ -575,7 +583,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 2 Overlays (Initially hidden, animated by GSAP) */}
-      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none opacity-0 transition-all duration-700 ease-out ${activeFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none opacity-0 transition-all duration-700 ease-out ${textFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         <div ref={fold2Box1Ref} className="bg-dom border border-acc/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
           {/* Impeccable Hairline accent instead of glowing glow */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/60"></div>
@@ -592,7 +600,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           <h2 ref={titleRef} className="text-2xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
-            Dr. Ankur Gupta
+            {textFold === 2 ? <BlurText text="Dr. Ankur Gupta" delay={50} /> : "Dr. Ankur Gupta"}
           </h2>
           
           <p ref={descRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed max-w-xl mb-10 ${!expandedFolds[2] ? 'max-md:line-clamp-2' : ''}`}>
@@ -618,7 +626,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 3 Overlay (Acupuncture Therapy) */}
-      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Title and CTAs */}
         <div ref={fold3Box1Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
@@ -637,7 +645,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           <h2 ref={fold3TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
-            Acupuncture Therapy
+            {textFold === 3 ? <DecryptedText text="Acupuncture Therapy" animateOn="view" speed={80} /> : "Acupuncture Therapy"}
           </h2>
           
           <div ref={fold3ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
@@ -668,7 +676,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 4 Overlay (Preventive Healthcare) */}
-      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Description */}
         <div ref={fold4Box1Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
@@ -702,7 +710,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           <h2 ref={fold4TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
-            Preventive Healthcare
+            {textFold === 4 ? <ReactBitsSplitText text="Preventive Healthcare" splitType="chars" delay={30} /> : "Preventive Healthcare"}
           </h2>
           
           <div ref={fold4ActionRef} className="flex flex-col sm:flex-row items-end sm:items-center justify-end gap-6">
@@ -718,7 +726,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 5 Overlay (Advanced ENT Care) */}
-      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Description */}
         <div ref={fold5Box1Ref} className="bg-dom border border-white/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
@@ -768,7 +776,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 6 Overlay (The Legacy of Care) */}
-      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Description */}
         <div ref={fold6Box1Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
@@ -802,7 +810,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           <h2 ref={fold6TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
-            Dr. Ashok K. Gulati
+            {textFold === 6 ? <ReactBitsSplitText text="Dr. Ashok K. Gulati" splitType="words" delay={40} /> : "Dr. Ashok K. Gulati"}
           </h2>
           
           <div ref={fold6ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-10">
@@ -818,7 +826,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 7 Overlay (Chronic Care Management) */}
-      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Title and CTAs */}
         <div ref={fold7Box1Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
@@ -837,7 +845,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           <h2 ref={fold7TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
-            Chronic Care Management
+            {textFold === 7 ? <BlurText text="Chronic Care Management" delay={60} /> : "Chronic Care Management"}
           </h2>
           
           <div ref={fold7ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">

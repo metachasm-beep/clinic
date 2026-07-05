@@ -18,7 +18,7 @@ export default function FlipbookReverse() {
     for (let i = 1; i <= frameCount; i++) {
       const img = new Image();
       // Using the same sequence
-      img.src = `/assets/heroscroll_new/scene-${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll_new/scene-${i.toString().padStart(3, '0')}.webp`;
       img.onload = () => {
         loadedCount++;
         if (loadedCount === frameCount) {

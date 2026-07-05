@@ -12,49 +12,49 @@ export default function LoadingScreen({ onLoaded }) {
     // Mathematically track caching of all 103 high-res frames
     for (let i = 1; i <= 52; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll2/scene-${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll2/scene-${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }
 
     for (let i = 1; i <= 51; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll3/scene-${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll3/scene-${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }
 
     for (let i = 0; i <= 53; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }
 
     for (let i = 0; i <= 51; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }
 
     for (let i = 0; i <= 44; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }
 
     for (let i = 0; i <= 49; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }
 
     for (let i = 0; i <= 51; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
     }

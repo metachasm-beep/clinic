@@ -26,7 +26,7 @@ export default function AcupunctureHero() {
     // Load heroscroll4 (frames 0-53)
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
-      img.src = `/assets/heroscroll4/pan_camera_to_right_rapidly_to_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll4/pan_camera_to_right_rapidly_to_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[i] = img;
