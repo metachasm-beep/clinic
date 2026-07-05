@@ -133,7 +133,25 @@ export default function FlipbookHero({ isLoading }) {
     const isMobileDevice = window.innerWidth < 768;
     const step = isMobileDevice ? 2 : 1;
     
-    // Load heroscroll2 (frames 1-52)
+    if (isMobileDevice) {
+      const mobileKeyframes = [
+        '/assets/heroscroll2/scene-001.webp',
+        '/assets/heroscroll3/scene-001.webp',
+        '/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_000.webp',
+        '/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_000.webp',
+        '/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_000.webp',
+        '/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_000.webp',
+        '/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_000.webp'
+      ];
+      expectedCount = mobileKeyframes.length;
+      mobileKeyframes.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => { loadedImages.push(img); checkLoad(); };
+        img.onerror = () => { loadedImages.push(img); checkLoad(); };
+      });
+    } else {
+      // Load heroscroll2 (frames 1-52)
     for (let i = 1; i <= 52; i += step) {
       expectedCount++;
       const img = new Image();
@@ -210,6 +228,9 @@ export default function FlipbookHero({ isLoading }) {
       if (isMobileDevice && i < 51) loadedImages[304 + i + 1] = img;
     }
 
+    
+    }
+
     function checkLoad() {
       loadedCount++;
       if (loadedCount === expectedCount) {
@@ -280,7 +301,7 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p7E + pause;
 
       // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=1400%" : "+=2100%";
+      const scrollEnd = isMobile ? "+=700%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -334,13 +355,15 @@ export default function FlipbookHero({ isLoading }) {
         };
 
         // --- 1. CAMERA PAN SEQUENCE ---
-        tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
+        if (!isMobile) {
+          tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
         tl.to(playhead, { frame: 102, ease: "none", duration: pan, onUpdate: renderFrame }, p2S);
         tl.to(playhead, { frame: 156, ease: "none", duration: pan, onUpdate: renderFrame }, p3S);
         tl.to(playhead, { frame: 208, ease: "none", duration: pan, onUpdate: renderFrame }, p4S);
         tl.to(playhead, { frame: 253, ease: "none", duration: pan, onUpdate: renderFrame }, p5S);
         tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
         tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
+        }
 
         // --- 2. TEXT ANIMATION SEQUENCE (DESKTOP ONLY) ---
         if (!isMobile) {
@@ -448,14 +471,33 @@ export default function FlipbookHero({ isLoading }) {
         ))}
       </div>
       
-      {/* Background Canvas */}
+      {/* Background Divs (Mobile Only) */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 md:hidden bg-dom">
+        {[
+          '/assets/heroscroll2/scene-001.webp',
+          '/assets/heroscroll3/scene-001.webp',
+          '/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_000.webp',
+          '/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_000.webp',
+          '/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_000.webp',
+          '/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_000.webp',
+          '/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_000.webp'
+        ].map((src, idx) => (
+          <div 
+            key={idx}
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out origin-center ${activeFold === (idx + 1) ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+            style={{ backgroundImage: `url('${src}')` }}
+          />
+        ))}
+      </div>
+
+      {/* Background Canvas (Desktop Only) */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 w-full h-full pointer-events-none z-0" 
+        className="absolute inset-0 w-full h-full pointer-events-none z-0 hidden md:block" 
       />
 
       {/* Fold 1 Overlays */}
-      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center transition-all duration-700 ease-out ${activeFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
+      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center transition-all duration-700 ease-out ${activeFold === 1 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 -translate-y-8 md:translate-y-0'}`}>
         
         {/* Left Panel */}
         <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
@@ -550,7 +592,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 2 Overlays (Initially hidden, animated by GSAP) */}
-      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none opacity-0 transition-all duration-700 ease-out ${activeFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none transition-all duration-700 ease-out ${activeFold === 2 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 translate-y-8 md:translate-y-0'}`}>
         <div ref={fold2Box1Ref} className="bg-dom border border-acc/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
           {/* Impeccable Hairline accent instead of glowing glow */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/60"></div>
@@ -593,7 +635,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 3 Overlay (Acupuncture Therapy) */}
-      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 3 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 translate-y-8 md:translate-y-0'}`}>
         
         {/* Left Side: Title and CTAs */}
         <div ref={fold3Box1Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
@@ -643,7 +685,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 4 Overlay (Preventive Healthcare) */}
-      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 4 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 translate-y-8 md:translate-y-0'}`}>
         
         {/* Left Side: Description */}
         <div ref={fold4Box1Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
@@ -693,7 +735,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 5 Overlay (Advanced ENT Care) */}
-      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 5 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 translate-y-8 md:translate-y-0'}`}>
         
         {/* Left Side: Description */}
         <div ref={fold5Box1Ref} className="bg-dom border border-white/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
@@ -743,7 +785,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 6 Overlay (The Legacy of Care) */}
-      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 6 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 translate-y-8 md:translate-y-0'}`}>
         
         {/* Left Side: Description */}
         <div ref={fold6Box1Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
@@ -793,7 +835,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 7 Overlay (Chronic Care Management) */}
-      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${activeFold === 7 ? 'opacity-100 translate-y-0 md:translate-y-0' : 'opacity-0 translate-y-8 md:translate-y-0'}`}>
         
         {/* Left Side: Title and CTAs */}
         <div ref={fold7Box1Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
