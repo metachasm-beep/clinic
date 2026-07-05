@@ -194,7 +194,10 @@ export default function FlipbookHero({ isLoading }) {
     
     const drawImageCover = (ctx, img, canvas, frameIndex) => {
       if (!img) return;
-      const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
+      const isMobileCanvas = window.innerWidth < 768;
+      // On mobile, cap the height ratio to 75% to prevent excessive zoom (cinematic letterboxing)
+      const heightRatio = isMobileCanvas ? (canvas.height * 0.75) / img.height : canvas.height / img.height;
+      const ratio = Math.max(canvas.width / img.width, heightRatio);
       const centerShift_x = (canvas.width - img.width * ratio) / 2;
       const centerShift_y = (canvas.height - img.height * ratio) / 2;  
       
@@ -360,7 +363,7 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold1Ref} className="absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
         
         {/* Left Panel */}
-        <div className="flex flex-col justify-start pt-[10vh] md:pt-[15vh] pointer-events-auto h-full space-y-[4vh]">
+        <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
           
           <div ref={fold1PanelRef} className="max-w-3xl backdrop-blur-md">
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -371,7 +374,7 @@ export default function FlipbookHero({ isLoading }) {
                 style={{
                   color: "#e2e8f0", // ks-champagne approx
                   fontFamily: "'Alumni Sans', sans-serif",
-                  fontSize: "clamp(4.2rem, 7.5vw, 6.8rem)",
+                  fontSize: "clamp(2.5rem, 7.5vw, 6.8rem)",
                   fontWeight: 500,
                   lineHeight: 1.02,
                   letterSpacing: "0.15em",
@@ -384,7 +387,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div className="bg-dom/90 border border-acc/30 p-6 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+          <div className="bg-dom/90 border border-acc/30 p-4 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
@@ -431,7 +434,7 @@ export default function FlipbookHero({ isLoading }) {
 
         {/* Right Panel */}
         <div className="flex flex-col justify-start pt-8 md:pt-[45vh] items-end pointer-events-auto h-full">
-          <div className="max-w-sm text-right bg-dom border border-white/5 p-6 md:p-8 rounded-sm shadow-2xl">
+          <div className="max-w-sm text-right bg-dom border border-white/5 p-4 md:p-8 rounded-sm shadow-2xl">
             <ShinyText 
               text="Book Your Consultation"
               disabled={false} 
