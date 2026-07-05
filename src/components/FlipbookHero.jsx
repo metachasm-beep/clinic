@@ -239,7 +239,8 @@ export default function FlipbookHero({ isLoading }) {
     };
 
     const handleResize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const isMobileForDpr = window.innerWidth < 768;
+      const dpr = isMobileForDpr ? 1 : (window.devicePixelRatio || 1);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
@@ -280,7 +281,7 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p7E + pause;
 
       // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=1400%" : "+=2100%";
+      const scrollEnd = isMobile ? "+=700%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -288,6 +289,7 @@ export default function FlipbookHero({ isLoading }) {
 
       // Defer GSAP timeline creation to allow the browser to paint the LCP frame first
       let tl;
+      let currentMobileFold = 1;
       const buildTimelineTimer = setTimeout(() => {
         // Snap points for each fold's reading pause so one swipe perfectly aligns to the next text card
         const snapPoints = isMobile ? [
@@ -314,6 +316,27 @@ export default function FlipbookHero({ isLoading }) {
                  // Calculate which fold we are in (1 to 7) based on scroll progress
                  let fold = Math.min(7, Math.max(1, Math.ceil(p * 7)));
                  if (p === 0) fold = 1;
+                 
+                 if (fold !== currentMobileFold) {
+                   currentMobileFold = fold;
+                   // Fold 1: Frame 0. Fold 2: Frame 51. Fold 3: Frame 102.
+                   const targetFrames = [0, 0, 51, 102, 156, 208, 253, 303];
+                   const targetFrame = targetFrames[fold];
+                   
+                   gsap.to(playhead, {
+                      frame: targetFrame,
+                      duration: 0.8,
+                      ease: "power2.inOut",
+                      overwrite: "auto",
+                      onUpdate: () => {
+                        const currentFrame = Math.round(playhead.frame);
+                        if (images[currentFrame]) {
+                          drawImageCover(canvasRef.current.getContext('2d'), images[currentFrame], canvasRef.current, currentFrame);
+                        }
+                      }
+                   });
+                 }
+                 
                  setActiveFold(prev => prev !== fold ? fold : prev);
               }
             },
@@ -334,13 +357,15 @@ export default function FlipbookHero({ isLoading }) {
         };
 
         // --- 1. CAMERA PAN SEQUENCE ---
-        tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
-        tl.to(playhead, { frame: 102, ease: "none", duration: pan, onUpdate: renderFrame }, p2S);
-        tl.to(playhead, { frame: 156, ease: "none", duration: pan, onUpdate: renderFrame }, p3S);
-        tl.to(playhead, { frame: 208, ease: "none", duration: pan, onUpdate: renderFrame }, p4S);
-        tl.to(playhead, { frame: 253, ease: "none", duration: pan, onUpdate: renderFrame }, p5S);
-        tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
-        tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
+        if (!isMobile) {
+          tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
+          tl.to(playhead, { frame: 102, ease: "none", duration: pan, onUpdate: renderFrame }, p2S);
+          tl.to(playhead, { frame: 156, ease: "none", duration: pan, onUpdate: renderFrame }, p3S);
+          tl.to(playhead, { frame: 208, ease: "none", duration: pan, onUpdate: renderFrame }, p4S);
+          tl.to(playhead, { frame: 253, ease: "none", duration: pan, onUpdate: renderFrame }, p5S);
+          tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
+          tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
+        }
 
         // --- 2. TEXT ANIMATION SEQUENCE (DESKTOP ONLY) ---
         if (!isMobile) {
