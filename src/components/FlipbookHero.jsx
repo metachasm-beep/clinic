@@ -135,7 +135,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 1; i <= 52; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll2/scene-${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll2/scene-${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[i - 1] = img;
@@ -146,7 +146,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 1; i <= 51; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll3/scene-${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll3/scene-${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[52 + i - 1] = img;
@@ -157,7 +157,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 0; i <= 53; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[103 + i] = img;
@@ -168,7 +168,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 0; i <= 51; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[157 + i] = img;
@@ -179,7 +179,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 0; i <= 44; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[209 + i] = img;
@@ -190,7 +190,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 0; i <= 49; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[254 + i] = img;
@@ -201,7 +201,7 @@ export default function FlipbookHero({ isLoading }) {
     for (let i = 0; i <= 51; i += step) {
       expectedCount++;
       const img = new Image();
-      img.src = `/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_${i.toString().padStart(3, '0')}.jpg`;
+      img.src = `/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_${i.toString().padStart(3, '0')}.webp`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[304 + i] = img;
@@ -284,134 +284,137 @@ export default function FlipbookHero({ isLoading }) {
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetSmall = reduceMotion ? 0 : (isMobile ? 5 : 10);
 
-      // Snap points for each fold's reading pause so one swipe perfectly aligns to the next text card
-      const snapPoints = isMobile ? [
-        0, 
-        p1E/totalDuration, 
-        p2E/totalDuration, 
-        p3E/totalDuration, 
-        p4E/totalDuration, 
-        p5E/totalDuration, 
-        p6E/totalDuration, 
-        p7E/totalDuration
-      ] : false;
+      // Defer GSAP timeline creation to allow the browser to paint the LCP frame first
+      let tl;
+      const buildTimelineTimer = setTimeout(() => {
+        // Snap points for each fold's reading pause so one swipe perfectly aligns to the next text card
+        const snapPoints = isMobile ? [
+          0, 
+          p1E/totalDuration, 
+          p2E/totalDuration, 
+          p3E/totalDuration, 
+          p4E/totalDuration, 
+          p5E/totalDuration, 
+          p6E/totalDuration, 
+          p7E/totalDuration
+        ] : false;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: scrollEnd,
-          scrub: scrubValue,
-          pin: true,
-          snap: isMobile ? {
-            snapTo: snapPoints,
-            duration: { min: 0.2, max: 0.6 },
-            ease: "power2.inOut"
-          } : false
-        }
-      });
+        tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: scrollEnd,
+            scrub: scrubValue,
+            pin: true,
+            snap: isMobile ? {
+              snapTo: snapPoints,
+              duration: { min: 0.2, max: 0.6 },
+              ease: "power2.inOut"
+            } : false
+          }
+        });
 
-      const renderFrame = () => {
-        const currentFrame = Math.round(playhead.frame);
-        if (images[currentFrame]) {
-          drawImageCover(ctx, images[currentFrame], canvas, currentFrame);
-        }
-      };
+        const renderFrame = () => {
+          const currentFrame = Math.round(playhead.frame);
+          if (images[currentFrame]) {
+            drawImageCover(ctx, images[currentFrame], canvas, currentFrame);
+          }
+        };
 
-      // --- 1. CAMERA PAN SEQUENCE ---
-      tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
-      tl.to(playhead, { frame: 102, ease: "none", duration: pan, onUpdate: renderFrame }, p2S);
-      tl.to(playhead, { frame: 156, ease: "none", duration: pan, onUpdate: renderFrame }, p3S);
-      tl.to(playhead, { frame: 208, ease: "none", duration: pan, onUpdate: renderFrame }, p4S);
-      tl.to(playhead, { frame: 253, ease: "none", duration: pan, onUpdate: renderFrame }, p5S);
-      tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
-      tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
+        // --- 1. CAMERA PAN SEQUENCE ---
+        tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
+        tl.to(playhead, { frame: 102, ease: "none", duration: pan, onUpdate: renderFrame }, p2S);
+        tl.to(playhead, { frame: 156, ease: "none", duration: pan, onUpdate: renderFrame }, p3S);
+        tl.to(playhead, { frame: 208, ease: "none", duration: pan, onUpdate: renderFrame }, p4S);
+        tl.to(playhead, { frame: 253, ease: "none", duration: pan, onUpdate: renderFrame }, p5S);
+        tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
+        tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
 
-      // --- 2. TEXT ANIMATION SEQUENCE ---
-      
-      // On desktop, fade in starts 75% into the pan (p_S + 1.5). On mobile, starts right at the end of the pan (p_E).
-      const t2 = isMobile ? p2E : p2S + 1.5;
-      const t3 = isMobile ? p3E : p3S + 1.5;
-      const t4 = isMobile ? p4E : p4S + 1.5;
-      const t5 = isMobile ? p5E : p5S + 1.5;
-      const t6 = isMobile ? p6E : p6S + 1.5;
-      const t7 = isMobile ? p7E : p7S + 1.5;
+        // --- 2. TEXT ANIMATION SEQUENCE ---
+        
+        // On desktop, fade in starts 75% into the pan (p_S + 1.5). On mobile, starts right at the end of the pan (p_E).
+        const t2 = isMobile ? p2E : p2S + 1.5;
+        const t3 = isMobile ? p3E : p3S + 1.5;
+        const t4 = isMobile ? p4E : p4S + 1.5;
+        const t5 = isMobile ? p5E : p5S + 1.5;
+        const t6 = isMobile ? p6E : p6S + 1.5;
+        const t7 = isMobile ? p7E : p7S + 1.5;
 
-      // Fold 1: Get Well Clinic
-      // Fold 1: Get Well Clinic
-      tl.fromTo([fold1Card1Ref.current, fold1Card2Ref.current], 
-        { autoAlpha: 0, y: yOffsetSmall }, 
-        { autoAlpha: 1, y: 0, duration: 0.2, ease: "power2.out" }, 
-        p1E
-      );
-      tl.to(fold1Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p2S - 0.1);
+        // Fold 1: Get Well Clinic
+        tl.fromTo([fold1Card1Ref.current, fold1Card2Ref.current], 
+          { autoAlpha: 0, y: yOffsetSmall }, 
+          { autoAlpha: 1, y: 0, duration: 0.2, ease: "power2.out" }, 
+          p1E
+        );
+        tl.to(fold1Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p2S - 0.1);
 
-      // Fold 2: Dr. Ankur Gupta
-      const titleSplit = new SplitText(titleRef.current, { type: "chars,words" });
-      const descSplit = new SplitText(descRef.current, { type: "words" });
-      tl.to(fold2Ref.current, { autoAlpha: 1, duration: 0.1 }, t2);
-      tl.fromTo(fold2Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t2);
-      tl.fromTo(titleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t2 + 0.1);
-      tl.fromTo(descSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t2 + 0.3);
-      tl.fromTo(actionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t2 + 0.5);
-      tl.to(fold2Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p3S - 0.1);
+        // Fold 2: Dr. Ankur Gupta
+        const titleSplit = new SplitText(titleRef.current, { type: "chars,words" });
+        const descSplit = new SplitText(descRef.current, { type: "words" });
+        tl.to(fold2Ref.current, { autoAlpha: 1, duration: 0.1 }, t2);
+        tl.fromTo(fold2Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t2);
+        tl.fromTo(titleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t2 + 0.1);
+        tl.fromTo(descSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t2 + 0.3);
+        tl.fromTo(actionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t2 + 0.5);
+        tl.to(fold2Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p3S - 0.1);
 
-      // Fold 3: Acupuncture Therapy
-      const fold3TitleSplit = new SplitText(fold3TitleRef.current, { type: "chars,words" });
-      const fold3DescSplit = new SplitText(fold3DescRef.current, { type: "words" });
-      tl.to(fold3Ref.current, { autoAlpha: 1, duration: 0.1 }, t3);
-      tl.fromTo(fold3Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
-      tl.fromTo(fold3Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
-      tl.fromTo(fold3TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t3 + 0.1);
-      tl.fromTo(fold3ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t3 + 0.3);
-      tl.fromTo(fold3DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t3 + 0.5);
-      tl.to(fold3Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p4S - 0.1);
+        // Fold 3: Acupuncture Therapy
+        const fold3TitleSplit = new SplitText(fold3TitleRef.current, { type: "chars,words" });
+        const fold3DescSplit = new SplitText(fold3DescRef.current, { type: "words" });
+        tl.to(fold3Ref.current, { autoAlpha: 1, duration: 0.1 }, t3);
+        tl.fromTo(fold3Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
+        tl.fromTo(fold3Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
+        tl.fromTo(fold3TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t3 + 0.1);
+        tl.fromTo(fold3ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t3 + 0.3);
+        tl.fromTo(fold3DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t3 + 0.5);
+        tl.to(fold3Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p4S - 0.1);
 
-      // Fold 4: Preventive Healthcare
-      const fold4TitleSplit = new SplitText(fold4TitleRef.current, { type: "chars,words" });
-      const fold4DescSplit = new SplitText(fold4DescRef.current, { type: "words" });
-      tl.to(fold4Ref.current, { autoAlpha: 1, duration: 0.1 }, t4);
-      tl.fromTo(fold4Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
-      tl.fromTo(fold4Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
-      tl.fromTo(fold4TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t4 + 0.1);
-      tl.fromTo(fold4ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t4 + 0.3);
-      tl.fromTo(fold4DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t4 + 0.5);
-      tl.to(fold4Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p5S - 0.1);
+        // Fold 4: Preventive Healthcare
+        const fold4TitleSplit = new SplitText(fold4TitleRef.current, { type: "chars,words" });
+        const fold4DescSplit = new SplitText(fold4DescRef.current, { type: "words" });
+        tl.to(fold4Ref.current, { autoAlpha: 1, duration: 0.1 }, t4);
+        tl.fromTo(fold4Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
+        tl.fromTo(fold4Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
+        tl.fromTo(fold4TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t4 + 0.1);
+        tl.fromTo(fold4ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t4 + 0.3);
+        tl.fromTo(fold4DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t4 + 0.5);
+        tl.to(fold4Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p5S - 0.1);
 
-      // Fold 5: Advanced ENT Care
-      const fold5TitleSplit = new SplitText(fold5TitleRef.current, { type: "chars,words" });
-      const fold5DescSplit = new SplitText(fold5DescRef.current, { type: "words" });
-      tl.to(fold5Ref.current, { autoAlpha: 1, duration: 0.1 }, t5);
-      tl.fromTo(fold5Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
-      tl.fromTo(fold5Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
-      tl.fromTo(fold5TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t5 + 0.1);
-      tl.fromTo(fold5ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t5 + 0.3);
-      tl.fromTo(fold5DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t5 + 0.5);
-      tl.to(fold5Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p6S - 0.1);
+        // Fold 5: Advanced ENT Care
+        const fold5TitleSplit = new SplitText(fold5TitleRef.current, { type: "chars,words" });
+        const fold5DescSplit = new SplitText(fold5DescRef.current, { type: "words" });
+        tl.to(fold5Ref.current, { autoAlpha: 1, duration: 0.1 }, t5);
+        tl.fromTo(fold5Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
+        tl.fromTo(fold5Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
+        tl.fromTo(fold5TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t5 + 0.1);
+        tl.fromTo(fold5ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t5 + 0.3);
+        tl.fromTo(fold5DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t5 + 0.5);
+        tl.to(fold5Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p6S - 0.1);
 
-      // Fold 6: The Legacy of Care (Dr. Ashok K. Gulati)
-      const fold6TitleSplit = new SplitText(fold6TitleRef.current, { type: "chars,words" });
-      const fold6DescSplit = new SplitText(fold6DescRef.current, { type: "words" });
-      tl.to(fold6Ref.current, { autoAlpha: 1, duration: 0.1 }, t6);
-      tl.fromTo(fold6Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
-      tl.fromTo(fold6Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
-      tl.fromTo(fold6TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t6 + 0.1);
-      tl.fromTo(fold6ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t6 + 0.3);
-      tl.fromTo(fold6DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t6 + 0.5);
-      tl.to(fold6Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p7S - 0.1);
+        // Fold 6: The Legacy of Care (Dr. Ashok K. Gulati)
+        const fold6TitleSplit = new SplitText(fold6TitleRef.current, { type: "chars,words" });
+        const fold6DescSplit = new SplitText(fold6DescRef.current, { type: "words" });
+        tl.to(fold6Ref.current, { autoAlpha: 1, duration: 0.1 }, t6);
+        tl.fromTo(fold6Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
+        tl.fromTo(fold6Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
+        tl.fromTo(fold6TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t6 + 0.1);
+        tl.fromTo(fold6ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t6 + 0.3);
+        tl.fromTo(fold6DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t6 + 0.5);
+        tl.to(fold6Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p7S - 0.1);
 
-      // Fold 7: Chronic Care Management
-      const fold7TitleSplit = new SplitText(fold7TitleRef.current, { type: "chars,words" });
-      const fold7DescSplit = new SplitText(fold7DescRef.current, { type: "words" });
-      tl.to(fold7Ref.current, { autoAlpha: 1, duration: 0.1 }, t7);
-      tl.fromTo(fold7Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
-      tl.fromTo(fold7Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
-      tl.fromTo(fold7TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t7 + 0.1);
-      tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t7 + 0.3);
-      tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t7 + 0.5);
+        // Fold 7: Chronic Care Management
+        const fold7TitleSplit = new SplitText(fold7TitleRef.current, { type: "chars,words" });
+        const fold7DescSplit = new SplitText(fold7DescRef.current, { type: "words" });
+        tl.to(fold7Ref.current, { autoAlpha: 1, duration: 0.1 }, t7);
+        tl.fromTo(fold7Box1Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
+        tl.fromTo(fold7Box2Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
+        tl.fromTo(fold7TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t7 + 0.1);
+        tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t7 + 0.3);
+        tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t7 + 0.5);
 
-      // Pad timeline to exact total duration
-      tl.set({}, {}, totalDuration);
+        // Pad timeline to exact total duration
+        tl.set({}, {}, totalDuration);
+      }, 50);
 
     }, containerRef);
 
