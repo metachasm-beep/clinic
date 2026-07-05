@@ -285,7 +285,7 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p7E + pause;
 
       // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=1400%" : "+=2100%";
+      const scrollEnd = isMobile ? "+=1600%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -317,22 +317,17 @@ export default function FlipbookHero({ isLoading }) {
             onUpdate: (self) => {
               if (isMobile) {
                  const p = self.progress;
-                 // 14 steps for 7 folds:
-                 // Step 0: Bg 1, Text 1
-                 // Step 1: Bg 2, Text null
-                 // Step 2: Bg 2, Text 2
-                 // ...
-                 let step = Math.min(13, Math.max(0, Math.floor(p * 14)));
+                 let step = Math.min(15, Math.max(0, Math.floor(p * 16)));
                  
-                 let newBgFold = Math.floor((step + 1) / 2) + 1;
-                 if (step >= 12) newBgFold = 7;
+                 let newBgFold = Math.ceil(step / 2);
+                 if (newBgFold > 7) newBgFold = 7;
                  
-                 let newTextFold = (step % 2 === 0) ? newBgFold : null;
-                 if (step >= 12) newTextFold = 7;
+                 let newTextFold = (step % 2 === 0) ? (step / 2) : null;
+                 if (step >= 14) newTextFold = 7;
 
                  if (newBgFold !== currentMobileFold) {
                    currentMobileFold = newBgFold;
-                   const targetFrames = [0, 0, 51, 102, 156, 208, 253, 303];
+                   const targetFrames = [0, 51, 102, 156, 208, 253, 303, 355];
                    const targetFrame = targetFrames[newBgFold];
                    
                    gsap.to(playhead, {
@@ -487,13 +482,33 @@ export default function FlipbookHero({ isLoading }) {
         className="absolute inset-0 w-full h-full pointer-events-none z-0" 
       />
 
+      {/* Fold 0: Mobile Hero Header */}
+      <div className={`md:hidden absolute inset-0 z-30 flex items-center justify-center transition-all duration-700 ease-out pointer-events-none ${textFold === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+        <div className="pointer-events-auto w-full px-4 text-center flex flex-col items-center">
+            <h1
+                className="m-0 text-center drop-shadow-2xl"
+                style={{
+                  color: "oklch(91% 0 0)", // champagne
+                  fontFamily: "'Alumni Sans', sans-serif",
+                  fontSize: "clamp(5rem, 18vw, 8rem)",
+                  fontWeight: 400,
+                  lineHeight: 1.02,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase"
+                }}
+            >
+              Get Well Clinic
+            </h1>
+        </div>
+      </div>
+      
       {/* Fold 1 Overlays */}
       <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center transition-all duration-700 ease-out ${textFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
         
         {/* Left Panel */}
         <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
           
-          <div ref={fold1PanelRef} className="max-w-3xl backdrop-blur-md w-full">
+          <div ref={fold1PanelRef} className="max-w-3xl backdrop-blur-md w-full max-md:hidden">
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 w-full justify-center sm:justify-start">
               <div ref={fold1IconRef} className="w-12 h-12 bg-[#D4AF37] shrink-0 hidden sm:block"></div>
               <h1
