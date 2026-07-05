@@ -336,10 +336,10 @@ export default function FlipbookHero({ isLoading }) {
       />
 
       {/* Fold 1 Overlays */}
-      <div ref={fold1Ref} className="absolute inset-0 z-10 w-full h-full p-8 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+      <div ref={fold1Ref} className="absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
         
         {/* Left Panel */}
-        <div className="flex flex-col justify-start pt-[15vh] pointer-events-auto h-full space-y-[4vh]">
+        <div className="flex flex-col justify-start pt-[10vh] md:pt-[15vh] pointer-events-auto h-full space-y-[4vh]">
           
           <div ref={fold1PanelRef} className="max-w-3xl backdrop-blur-md">
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -363,7 +363,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div className="bg-dom/90 border border-acc/30 p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+          <div className="bg-dom/90 border border-acc/30 p-6 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
@@ -409,8 +409,8 @@ export default function FlipbookHero({ isLoading }) {
         <div className="hidden lg:block h-full"></div>
 
         {/* Right Panel */}
-        <div className="flex flex-col justify-start pt-[45vh] items-end pointer-events-auto h-full">
-          <div className="max-w-sm text-right bg-dom border border-white/5 p-8 rounded-sm shadow-2xl">
+        <div className="flex flex-col justify-start pt-8 md:pt-[45vh] items-end pointer-events-auto h-full">
+          <div className="max-w-sm text-right bg-dom border border-white/5 p-6 md:p-8 rounded-sm shadow-2xl">
             <ShinyText 
               text="Book Your Consultation"
               disabled={false} 
@@ -431,8 +431,8 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 2 Overlays (Initially hidden, animated by GSAP) */}
-      <div ref={fold2Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-start px-8 md:px-24 pointer-events-none opacity-0">
-        <div className="bg-dom border border-acc/20 p-10 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
+      <div ref={fold2Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none opacity-0">
+        <div className="bg-dom border border-acc/20 p-8 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
           {/* Impeccable Hairline accent instead of glowing glow */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/60"></div>
           
@@ -467,10 +467,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 3 Overlay (Acupuncture Therapy) */}
-      <div ref={fold3Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-between px-8 md:px-24 pointer-events-none opacity-0">
+      <div ref={fold3Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Title and CTAs */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Kinpaku Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -500,7 +500,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group ml-8 text-right">
+        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
            <p ref={fold3DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-left">
             Advanced holistic treatment by Dr. Swarajit Ghosh. Effective for chronic pain management, stress relief, and restoring bodily balance using traditional and modern techniques.
@@ -510,10 +510,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 4 Overlay (Preventive Healthcare) */}
-      <div ref={fold4Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-between px-8 md:px-24 pointer-events-none opacity-0">
+      <div ref={fold4Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Description */}
-        <div className="bg-dom border border-acc/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group mr-8 text-left">
+        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
            <p ref={fold4DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-right">
             Routine health check-ups and baseline health monitoring designed to catch potential medical issues before they become serious.
@@ -521,7 +521,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div className="bg-dom border border-acc/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -553,10 +553,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 5 Overlay (Advanced ENT Care) */}
-      <div ref={fold5Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-between px-8 md:px-24 pointer-events-none opacity-0">
+      <div ref={fold5Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Description */}
-        <div className="bg-dom border border-white/20 p-10 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group mr-8 text-left">
+        <div className="bg-dom border border-white/20 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-white/60"></div>
            <p ref={fold5DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-left">
             Dedicated medical care for complex ear, nose, and throat conditions. We provide accurate diagnoses and personalized treatment plans using advanced diagnostic techniques.
@@ -564,7 +564,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div className="bg-dom border border-white/20 p-10 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group ml-8 text-right flex flex-col items-end">
+        <div className="bg-dom border border-white/20 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
           {/* White Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-white/60"></div>
           
@@ -596,10 +596,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 6 Overlay (The Legacy of Care) */}
-      <div ref={fold6Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-between px-8 md:px-24 pointer-events-none opacity-0">
+      <div ref={fold6Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Description */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group mr-8 text-left">
+        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
            <p ref={fold6DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-right">
             Experience proactive, patient-centric healthcare with Dr. Gulati. Offering decades of clinical excellence in general medicine, internal medicine, and family health for the CR Park community.
@@ -607,7 +607,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
           {/* Gold Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -639,10 +639,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 7 Overlay (Chronic Care Management) */}
-      <div ref={fold7Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-between px-8 md:px-24 pointer-events-none opacity-0">
+      <div ref={fold7Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Title and CTAs */}
-        <div className="bg-dom border border-acc/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
           {/* Cyan Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -672,7 +672,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div className="bg-dom border border-acc/30 p-10 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group ml-8 text-right">
+        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
            <p ref={fold7DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-left">
             Dedicated lifestyle support and meticulous medical care for long-term conditions like diabetes, hypertension, thyroid disorders, and asthma. We walk the journey with you.

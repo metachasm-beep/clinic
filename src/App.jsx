@@ -52,9 +52,9 @@ function App() {
 
         <ComprehensiveServices />
         
-        <section className="min-h-screen bg-black flex flex-col items-center justify-center pb-24 relative z-20">
-           <h2 className="text-4xl font-bold mb-4">Visit Us Today</h2>
-           <p className="text-xl mb-8 font-medium text-gray-300 text-center max-w-2xl">D-696, Opposite Market No. 2, Chittaranjan Park, New Delhi, 110019</p>
+        <section className="min-h-screen bg-black flex flex-col items-center justify-center pb-24 px-6 md:px-0 relative z-20">
+           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Visit Us Today</h2>
+           <p className="text-lg md:text-xl mb-8 font-medium text-gray-300 text-center max-w-2xl">D-696, Opposite Market No. 2, Chittaranjan Park, New Delhi, 110019</p>
            <a href="tel:+91" className="inline-block bg-white text-black font-bold py-4 px-10 rounded-full hover:scale-105 transition-transform">
              Call Now
            </a>

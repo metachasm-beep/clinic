@@ -117,7 +117,7 @@ export default function ComprehensiveServices() {
             <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
               
               {/* Sidebar Tabs */}
-              <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-acc/10 overflow-y-auto bg-black/50 scrollbar-hide">
+              <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-acc/10 overflow-y-auto max-h-48 md:max-h-full bg-black/50 scrollbar-hide flex-shrink-0">
                 {categories.map((cat, idx) => (
                   <button
                     key={idx}
