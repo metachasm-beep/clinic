@@ -285,7 +285,7 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p7E + pause;
 
       // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=2400%" : "+=2100%";
+      const scrollEnd = isMobile ? "+=3200%" : "+=2100%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
