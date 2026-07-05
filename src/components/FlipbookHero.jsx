@@ -127,73 +127,90 @@ export default function FlipbookHero({ isLoading }) {
   useEffect(() => {
     const loadedImages = [];
     let loadedCount = 0;
+    let expectedCount = 0;
+    const isMobileDevice = window.innerWidth < 768;
+    const step = isMobileDevice ? 2 : 1;
     
     // Load heroscroll2 (frames 1-52)
-    for (let i = 1; i <= 52; i++) {
+    for (let i = 1; i <= 52; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll2/scene-${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[i - 1] = img;
+      if (isMobileDevice && i < 52) loadedImages[i] = img;
     }
 
-    // Load heroscroll3 (frames 1-51, mapped to 53-103)
-    for (let i = 1; i <= 51; i++) {
+    // Load heroscroll3 (frames 1-51)
+    for (let i = 1; i <= 51; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll3/scene-${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[52 + i - 1] = img;
+      if (isMobileDevice && i < 51) loadedImages[52 + i] = img;
     }
 
-    // Load heroscroll4 (frames 0-53, mapped to 104-157)
-    for (let i = 0; i <= 53; i++) {
+    // Load heroscroll4 (frames 0-53)
+    for (let i = 0; i <= 53; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[103 + i] = img;
+      if (isMobileDevice && i < 53) loadedImages[103 + i + 1] = img;
     }
 
-    // Load heroscroll5 (frames 0-51, mapped to 158-209)
-    for (let i = 0; i <= 51; i++) {
+    // Load heroscroll5 (frames 0-51)
+    for (let i = 0; i <= 51; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[157 + i] = img;
+      if (isMobileDevice && i < 51) loadedImages[157 + i + 1] = img;
     }
 
-    // Load heroscroll6 (frames 0-44, mapped to 210-254)
-    for (let i = 0; i <= 44; i++) {
+    // Load heroscroll6 (frames 0-44)
+    for (let i = 0; i <= 44; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[209 + i] = img;
+      if (isMobileDevice && i < 44) loadedImages[209 + i + 1] = img;
     }
 
-    // Load heroscroll7 (frames 0-49, mapped to 255-304)
-    for (let i = 0; i <= 49; i++) {
+    // Load heroscroll7 (frames 0-49)
+    for (let i = 0; i <= 49; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[254 + i] = img;
+      if (isMobileDevice && i < 49) loadedImages[254 + i + 1] = img;
     }
 
-    // Load heroscroll8 (frames 0-51, mapped to 305-356)
-    for (let i = 0; i <= 51; i++) {
+    // Load heroscroll8 (frames 0-51)
+    for (let i = 0; i <= 51; i += step) {
+      expectedCount++;
       const img = new Image();
       img.src = `/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_${i.toString().padStart(3, '0')}.jpg`;
       img.onload = checkLoad;
       img.onerror = checkLoad;
       loadedImages[304 + i] = img;
+      if (isMobileDevice && i < 51) loadedImages[304 + i + 1] = img;
     }
 
     function checkLoad() {
       loadedCount++;
-      if (loadedCount === frameCount) {
+      if (loadedCount === expectedCount) {
         setImages(loadedImages);
       }
     }
@@ -247,30 +264,6 @@ export default function FlipbookHero({ isLoading }) {
     }, (context) => {
       let { isMobile, reduceMotion } = context.conditions;
 
-      // Balance mobile scroll length so it takes 1-2 distinct swipes per fold
-      const scrollEnd = isMobile ? "+=4500%" : "+=2100%";
-      const scrubValue = isMobile ? 0.5 : 1.5;
-      const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
-      const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
-      const yOffsetSmall = reduceMotion ? 0 : (isMobile ? 5 : 10);
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: scrollEnd,
-          scrub: scrubValue,
-          pin: true,
-        }
-      });
-
-      const renderFrame = () => {
-        const currentFrame = Math.round(playhead.frame);
-        if (images[currentFrame]) {
-          drawImageCover(ctx, images[currentFrame], canvas, currentFrame);
-        }
-      };
-
       // --- DYNAMIC TIMELINE CALCULATIONS ---
       const pan = 2; // Duration of camera pan
       const pause = isMobile ? 3 : 1; // 3x longer reading pause on mobile
@@ -283,6 +276,47 @@ export default function FlipbookHero({ isLoading }) {
       const p6S = p5E + pause; const p6E = p6S + pan;
       const p7S = p6E + pause; const p7E = p7S + pan;
       const totalDuration = p7E + pause;
+
+      // Make scroll perfectly match the number of folds (700% = 7 viewport heights = 7 swipes)
+      const scrollEnd = isMobile ? "+=700%" : "+=2100%";
+      const scrubValue = isMobile ? 0.5 : 1.5;
+      const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
+      const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
+      const yOffsetSmall = reduceMotion ? 0 : (isMobile ? 5 : 10);
+
+      // Snap points for each fold's reading pause so one swipe perfectly aligns to the next text card
+      const snapPoints = isMobile ? [
+        0, 
+        p1E/totalDuration, 
+        p2E/totalDuration, 
+        p3E/totalDuration, 
+        p4E/totalDuration, 
+        p5E/totalDuration, 
+        p6E/totalDuration, 
+        p7E/totalDuration
+      ] : false;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: scrollEnd,
+          scrub: scrubValue,
+          pin: true,
+          snap: isMobile ? {
+            snapTo: snapPoints,
+            duration: { min: 0.2, max: 0.6 },
+            ease: "power2.inOut"
+          } : false
+        }
+      });
+
+      const renderFrame = () => {
+        const currentFrame = Math.round(playhead.frame);
+        if (images[currentFrame]) {
+          drawImageCover(ctx, images[currentFrame], canvas, currentFrame);
+        }
+      };
 
       // --- 1. CAMERA PAN SEQUENCE ---
       tl.to(playhead, { frame: 51, ease: "none", duration: pan, onUpdate: renderFrame }, p1S);
