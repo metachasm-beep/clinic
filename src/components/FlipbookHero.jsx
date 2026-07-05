@@ -266,6 +266,13 @@ export default function FlipbookHero({ isLoading }) {
       tl.to(playhead, { frame: 355, ease: "none", duration: 2, onUpdate: renderFrame }, 18);
 
       // --- 2. TEXT ANIMATION SEQUENCE ---
+      
+      const t2 = isMobile ? 5.0 : 4.5;
+      const t3 = isMobile ? 8.0 : 7.5;
+      const t4 = isMobile ? 11.0 : 10.5;
+      const t5 = isMobile ? 14.0 : 13.5;
+      const t6 = isMobile ? 17.0 : 16.5;
+      const t7 = isMobile ? 20.0 : 19.5;
 
       // Fold 1: Get Well Clinic
       // Text is visible initially. Fades out at the very end of Fold 1's segment.
@@ -275,60 +282,60 @@ export default function FlipbookHero({ isLoading }) {
       const titleSplit = new SplitText(titleRef.current, { type: "chars,words" });
       const descSplit = new SplitText(descRef.current, { type: "words" });
 
-      tl.fromTo(fold2Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 4.5);
-      tl.fromTo(titleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 4.6);
-      tl.fromTo(descSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 4.8);
-      tl.fromTo(actionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 5.0);
+      tl.fromTo(fold2Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t2);
+      tl.fromTo(titleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t2 + 0.1);
+      tl.fromTo(descSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t2 + 0.3);
+      tl.fromTo(actionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t2 + 0.5);
       tl.to(fold2Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 5.9);
 
       // Fold 3: Acupuncture Therapy
       const fold3TitleSplit = new SplitText(fold3TitleRef.current, { type: "chars,words" });
       const fold3DescSplit = new SplitText(fold3DescRef.current, { type: "words" });
 
-      tl.fromTo(fold3Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 7.5);
-      tl.fromTo(fold3TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 7.6);
-      tl.fromTo(fold3ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 7.8);
-      tl.fromTo(fold3DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 8.0);
+      tl.fromTo(fold3Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t3);
+      tl.fromTo(fold3TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t3 + 0.1);
+      tl.fromTo(fold3ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t3 + 0.3);
+      tl.fromTo(fold3DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t3 + 0.5);
       tl.to(fold3Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 8.9);
 
       // Fold 4: Preventive Healthcare
       const fold4TitleSplit = new SplitText(fold4TitleRef.current, { type: "chars,words" });
       const fold4DescSplit = new SplitText(fold4DescRef.current, { type: "words" });
 
-      tl.fromTo(fold4Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 10.5);
-      tl.fromTo(fold4TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 10.6);
-      tl.fromTo(fold4ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 10.8);
-      tl.fromTo(fold4DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 11.0);
+      tl.fromTo(fold4Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t4);
+      tl.fromTo(fold4TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t4 + 0.1);
+      tl.fromTo(fold4ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t4 + 0.3);
+      tl.fromTo(fold4DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t4 + 0.5);
       tl.to(fold4Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 11.9);
 
       // Fold 5: Advanced ENT Care
       const fold5TitleSplit = new SplitText(fold5TitleRef.current, { type: "chars,words" });
       const fold5DescSplit = new SplitText(fold5DescRef.current, { type: "words" });
 
-      tl.fromTo(fold5Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 13.5);
-      tl.fromTo(fold5TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 13.6);
-      tl.fromTo(fold5ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 13.8);
-      tl.fromTo(fold5DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 14.0);
+      tl.fromTo(fold5Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t5);
+      tl.fromTo(fold5TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t5 + 0.1);
+      tl.fromTo(fold5ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t5 + 0.3);
+      tl.fromTo(fold5DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t5 + 0.5);
       tl.to(fold5Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 14.9);
 
       // Fold 6: The Legacy of Care (Dr. Ashok K. Gulati)
       const fold6TitleSplit = new SplitText(fold6TitleRef.current, { type: "chars,words" });
       const fold6DescSplit = new SplitText(fold6DescRef.current, { type: "words" });
 
-      tl.fromTo(fold6Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 16.5);
-      tl.fromTo(fold6TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 16.6);
-      tl.fromTo(fold6ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 16.8);
-      tl.fromTo(fold6DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 17.0);
+      tl.fromTo(fold6Ref.current, { autoAlpha: 0, x: -xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t6);
+      tl.fromTo(fold6TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t6 + 0.1);
+      tl.fromTo(fold6ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t6 + 0.3);
+      tl.fromTo(fold6DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t6 + 0.5);
       tl.to(fold6Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, 17.9);
 
       // Fold 7: Chronic Care Management
       const fold7TitleSplit = new SplitText(fold7TitleRef.current, { type: "chars,words" });
       const fold7DescSplit = new SplitText(fold7DescRef.current, { type: "words" });
 
-      tl.fromTo(fold7Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, 19.5);
-      tl.fromTo(fold7TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, 19.6);
-      tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 19.8);
-      tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, 20.0);
+      tl.fromTo(fold7Ref.current, { autoAlpha: 0, x: xOffsetLarge }, { autoAlpha: 1, x: 0, ease: "power2.out", duration: 0.1 }, t7);
+      tl.fromTo(fold7TitleSplit.chars, { filter: 'blur(8px)', opacity: 0, y: yOffsetLarge }, { filter: 'blur(0px)', opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t7 + 0.1);
+      tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t7 + 0.3);
+      tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t7 + 0.5);
 
       // Pad timeline to exactly 21 duration so scrub aligns perfectly
       tl.set({}, {}, 21);
@@ -446,7 +453,7 @@ export default function FlipbookHero({ isLoading }) {
 
       {/* Fold 2 Overlays (Initially hidden, animated by GSAP) */}
       <div ref={fold2Ref} className="absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none opacity-0">
-        <div className="bg-dom border border-acc/20 p-8 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-acc/20 p-5 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
           {/* Impeccable Hairline accent instead of glowing glow */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/60"></div>
           
@@ -461,11 +468,11 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={titleRef} className="text-4xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
+          <h2 ref={titleRef} className="text-3xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
             Dr. Ankur Gupta
           </h2>
           
-          <p ref={descRef} className="text-[#CBD5E1] text-base md:text-lg font-normal leading-relaxed max-w-xl mb-10">
+          <p ref={descRef} className="text-[#CBD5E1] text-sm md:text-lg font-normal leading-relaxed max-w-xl mb-10">
             Consult with Dr. Ankur Gupta for expert general medical care. Specializing in acute infections, fevers, and comprehensive proactive health monitoring to keep you at your best.
           </p>
           
@@ -484,7 +491,7 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold3Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Title and CTAs */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-[#D4AF37]/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Kinpaku Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -499,7 +506,7 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold3TitleRef} className="text-4xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
+          <h2 ref={fold3TitleRef} className="text-3xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
             Acupuncture Therapy
           </h2>
           
@@ -514,9 +521,9 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div className="bg-dom border border-[#D4AF37]/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
-           <p ref={fold3DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-left">
+           <p ref={fold3DescRef} className="text-[#CBD5E1] text-sm md:text-lg font-normal leading-relaxed text-left">
             Advanced holistic treatment by Dr. Swarajit Ghosh. Effective for chronic pain management, stress relief, and restoring bodily balance using traditional and modern techniques.
           </p>
         </div>
@@ -527,15 +534,15 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold4Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Description */}
-        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
+        <div className="bg-dom border border-acc/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
-           <p ref={fold4DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-right">
+           <p ref={fold4DescRef} className="text-[#CBD5E1] text-sm md:text-lg font-normal leading-relaxed text-right">
             Routine health check-ups and baseline health monitoring designed to catch potential medical issues before they become serious.
           </p>
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div className="bg-dom border border-acc/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -550,7 +557,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-acc/50"></span>
           </div>
 
-          <h2 ref={fold4TitleRef} className="text-4xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
+          <h2 ref={fold4TitleRef} className="text-3xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
             Preventive Healthcare
           </h2>
           
@@ -570,15 +577,15 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold5Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Description */}
-        <div className="bg-dom border border-white/20 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
+        <div className="bg-dom border border-white/20 p-5 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-white/60"></div>
-           <p ref={fold5DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-left">
+           <p ref={fold5DescRef} className="text-[#CBD5E1] text-sm md:text-lg font-normal leading-relaxed text-left">
             Dedicated medical care for complex ear, nose, and throat conditions. We provide accurate diagnoses and personalized treatment plans using advanced diagnostic techniques.
           </p>
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div className="bg-dom border border-white/20 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
+        <div className="bg-dom border border-white/20 p-5 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
           {/* White Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-white/60"></div>
           
@@ -593,7 +600,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-white/40"></span>
           </div>
 
-          <h2 ref={fold5TitleRef} className="text-4xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
+          <h2 ref={fold5TitleRef} className="text-3xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
             ENT Specialists
           </h2>
           
@@ -613,15 +620,15 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold6Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Description */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
+        <div className="bg-dom border border-[#D4AF37]/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
-           <p ref={fold6DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-right">
+           <p ref={fold6DescRef} className="text-[#CBD5E1] text-sm md:text-lg font-normal leading-relaxed text-right">
             Experience proactive, patient-centric healthcare with Dr. Gulati. Offering decades of clinical excellence in general medicine, internal medicine, and family health for the CR Park community.
           </p>
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div className="bg-dom border border-[#D4AF37]/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
+        <div className="bg-dom border border-[#D4AF37]/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
           {/* Gold Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -636,7 +643,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
           </div>
 
-          <h2 ref={fold6TitleRef} className="text-4xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
+          <h2 ref={fold6TitleRef} className="text-3xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
             Dr. Ashok K. Gulati
           </h2>
           
@@ -656,7 +663,7 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold7Ref} className="absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0">
         
         {/* Left Side: Title and CTAs */}
-        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
+        <div className="bg-dom border border-acc/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
           {/* Cyan Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -671,7 +678,7 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold7TitleRef} className="text-4xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
+          <h2 ref={fold7TitleRef} className="text-3xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
             Chronic Care Management
           </h2>
           
@@ -686,9 +693,9 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div className="bg-dom border border-acc/30 p-8 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div className="bg-dom border border-acc/30 p-5 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
-           <p ref={fold7DescRef} className="text-[#CBD5E1] text-lg font-normal leading-relaxed text-left">
+           <p ref={fold7DescRef} className="text-[#CBD5E1] text-sm md:text-lg font-normal leading-relaxed text-left">
             Dedicated lifestyle support and meticulous medical care for long-term conditions like diabetes, hypertension, thyroid disorders, and asthma. We walk the journey with you.
           </p>
         </div>
