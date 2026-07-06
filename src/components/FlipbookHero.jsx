@@ -526,7 +526,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
       
       {/* Fold 1 Overlays */}
-      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 max-md:items-end max-md:pb-[15vh] transition-all duration-700 ease-out ${textFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
+      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8 max-md:items-end max-md:pb-[15vh] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
         
         {/* Left Panel */}
         <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
@@ -553,7 +553,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div ref={fold1Card1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+          <div ref={fold1Card1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-md relative overflow-hidden group text-left flex flex-col items-start">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
@@ -621,8 +621,8 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 2 Overlays (Initially hidden, animated by GSAP) */}
-      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 max-md:justify-center max-md:items-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 transition-all duration-700 ease-out ${textFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
-        <div ref={fold2Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-2xl pointer-events-auto relative overflow-hidden group">
+      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 max-md:justify-center max-md:items-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
+        <div ref={fold2Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-2xl pointer-events-auto relative overflow-hidden group">
           {/* Impeccable Hairline accent instead of glowing glow */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/60"></div>
           
@@ -664,10 +664,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 3 Overlay (Acupuncture Therapy) */}
-      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
         
         {/* Left Side: Title and CTAs */}
-        <div ref={fold3Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold3Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Kinpaku Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -697,7 +697,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div ref={fold3Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold3Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
            <p ref={fold3DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[3] ? 'max-md:line-clamp-2' : ''}`}>
             Advanced holistic treatment by Dr. Swarajit Ghosh. Effective for chronic pain management, stress relief, and restoring bodily balance using traditional and modern techniques.
@@ -714,10 +714,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 4 Overlay (Preventive Healthcare) */}
-      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
         
         {/* Left Side: Description */}
-        <div ref={fold4Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold4Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
            <p ref={fold4DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[4] ? 'max-md:line-clamp-2' : ''}`}>
             Routine health check-ups and baseline health monitoring designed to catch potential medical issues before they become serious.
@@ -732,7 +732,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold4Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold4Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -764,10 +764,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 5 Overlay (Advanced ENT Care) */}
-      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
         
         {/* Left Side: Description */}
-        <div ref={fold5Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
+        <div ref={fold5Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-white/60"></div>
            <p ref={fold5DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[5] ? 'max-md:line-clamp-2' : ''}`}>
             Dedicated medical care for complex ear, nose, and throat conditions. We provide accurate diagnoses and personalized treatment plans using advanced diagnostic techniques.
@@ -782,7 +782,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold5Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
+        <div ref={fold5Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
           {/* White Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-white/60"></div>
           
@@ -814,25 +814,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 6 Overlay (The Legacy of Care) */}
-      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
         
-        {/* Left Side: Description */}
-        <div ref={fold6Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
-           <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
-           <p ref={fold6DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[6] ? 'max-md:line-clamp-2' : ''}`}>
-            Experience proactive, patient-centric healthcare with Dr. Gulati. Offering decades of clinical excellence in general medicine, internal medicine, and family health for the CR Park community.
-          </p>
-          <button 
-            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[6] ? 'block' : 'hidden'} text-[#D4AF37]`}
-            onClick={() => setExpandedFolds(prev => ({...prev, [6]: true}))}
-            style={{ pointerEvents: 'auto' }}
-          >
-            Read More +
-          </button>
-        </div>
-
-        {/* Right Side: Title and CTAs */}
-        <div ref={fold6Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
+        {/* Left Side: Title and CTAs */}
+        <div ref={fold6Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Gold Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -851,7 +836,7 @@ export default function FlipbookHero({ isLoading }) {
             {textFold === 6 ? <ReactBitsSplitText text="Dr. Ashok K. Gulati" splitType="words" delay={40} /> : "Dr. Ashok K. Gulati"}
           </h2>
           
-          <div ref={fold6ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-10">
+          <div ref={fold6ActionRef} className="flex flex-col sm:flex-row items-end sm:items-center justify-end gap-6 mt-10">
             <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[#D4AF37] text-[#04090F] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs md:text-sm tracking-wide text-center">
               Schedule Consultation
             </button>
@@ -861,13 +846,28 @@ export default function FlipbookHero({ isLoading }) {
           </div>
         </div>
 
+        {/* Right Side: Description */}
+        <div ref={fold6Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+           <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
+           <p ref={fold6DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[6] ? 'max-md:line-clamp-2' : ''}`}>
+            Experience proactive, patient-centric healthcare with Dr. Gulati. Offering decades of clinical excellence in general medicine, internal medicine, and family health for the CR Park community.
+          </p>
+          <button 
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[6] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            onClick={() => setExpandedFolds(prev => ({...prev, [6]: true}))}
+            style={{ pointerEvents: 'auto' }}
+          >
+            Read More +
+          </button>
+        </div>
+
       </div>
 
       {/* Fold 7 Overlay (Chronic Care Management) */}
-      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
         
         {/* Left Side: Title and CTAs */}
-        <div ref={fold7Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
+        <div ref={fold7Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -897,7 +897,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div ref={fold7Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold7Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
            <p ref={fold7DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[7] ? 'max-md:line-clamp-2' : ''}`}>
             Dedicated lifestyle support and meticulous medical care for long-term conditions like diabetes, hypertension, thyroid disorders, and asthma. We walk the journey with you.
