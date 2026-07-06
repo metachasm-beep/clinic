@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -12,7 +12,8 @@ import ReactBitsSplitText from './react-bits/SplitText';
 import DecryptedText from './react-bits/DecryptedText';
 import FuzzyText from './react-bits/FuzzyText';
 import Magnet from './react-bits/Magnet';
-import GlassIcons from './react-bits/GlassIcons';
+import ContactModal from './ContactModal';
+import ServicesModal from './ServicesModal';
 import StarBorder from './react-bits/StarBorder';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
@@ -83,6 +84,8 @@ export default function FlipbookHero({ isLoading }) {
   const [bgFold, setBgFold] = useState(1);
   const [textFold, setTextFold] = useState(1);
   const [expandedFolds, setExpandedFolds] = useState({});
+  const [canvasBlur, setCanvasBlur] = useState(0);
+  const [scrollOpacity, setScrollOpacity] = useState(1);
   const frameCount = 356; // 52(heroscroll2) + 51(heroscroll3) + 54(heroscroll4) + 52(heroscroll5) + 45(heroscroll6) + 50(heroscroll7) + 52(heroscroll8)
 
   const scrollToFold = (units) => {
@@ -329,7 +332,27 @@ export default function FlipbookHero({ isLoading }) {
                  // Mobile background is natively driven by the timeline via scrub below.
                  
                  setBgFold(prev => prev !== newBgFold ? newBgFold : prev);
-                 setTextFold(prev => prev !== newTextFold ? newTextFold : prev);
+                 setTextFold(prev => {
+                    if (typeof navigator !== 'undefined' && navigator.vibrate && newTextFold !== null && prev !== newTextFold) {
+                      navigator.vibrate(50);
+                    }
+                    return prev !== newTextFold ? newTextFold : prev;
+                  });
+                  
+                  // Blur canvas on text pauses (even steps)
+                  setCanvasBlur(step % 2 === 0 ? 8 : 0);
+                  
+                  // Velocity reactive UI
+                  if (self && typeof self.getVelocity === 'function') {
+                    const velocity = Math.abs(self.getVelocity());
+                    if (velocity > 1500) {
+                      setScrollOpacity(0.3);
+                    } else if (velocity > 500) {
+                      setScrollOpacity(0.6);
+                    } else {
+                      setScrollOpacity(1);
+                    }
+                  }
               }
             },
             snap: false // Snapping was forcing jumps that bypassed odd steps (text folds)
@@ -476,7 +499,8 @@ export default function FlipbookHero({ isLoading }) {
       {/* Background Canvas */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 w-full h-full pointer-events-none z-0" 
+        className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-all duration-700 ease-out" 
+        style={{ filter: `blur(${canvasBlur}px)` }}
       />
 
       {/* Fold 0: Mobile Hero Header */}
@@ -500,7 +524,7 @@ export default function FlipbookHero({ isLoading }) {
       </div>
       
       {/* Fold 1 Overlays */}
-      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 items-center transition-all duration-700 ease-out ${textFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
+      <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-8 max-md:items-end max-md:pb-[15vh] transition-all duration-700 ease-out ${textFold === 1 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:-translate-y-8'}`}>
         
         {/* Left Panel */}
         <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
@@ -527,7 +551,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div ref={fold1Card1Ref} className="bg-[#1A1A1B] border border-[#D4AF37]/30 p-5 md:p-8 rounded-sm shadow-2xl w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+          <div ref={fold1Card1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-md relative overflow-hidden group text-left flex flex-col items-start">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
@@ -554,11 +578,11 @@ export default function FlipbookHero({ isLoading }) {
               delay={50}
               animateBy="words"
               direction="top"
-              className="text-[oklch(88%_0_0)] text-sm font-normal leading-relaxed mb-6"
+              className="text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-sm font-normal leading-relaxed mb-6"
             />
 
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <a href="https://maps.google.com/?q=D-696,+Opp.+Market+No.+2,+C.R.+Park,+New+Delhi,+110019" target="_blank" rel="noreferrer" className="px-6 py-3 bg-[#D4AF37] text-[#0A0A0A] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs tracking-wide text-center">
+              <a href="https://maps.google.com/?q=D-696,+Opp.+Market+No.+2,+C.R.+Park,+New+Delhi,+110019" target="_blank" rel="noreferrer" className="px-6 py-4 min-h-[48px] min-w-[48px] bg-[#D4AF37] text-[#0A0A0A] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs tracking-wide text-center">
                 Get Directions
               </a>
               <button onClick={() => setContactModalOpen(true)} className="text-[#D4AF37] text-xs font-medium hover:text-[#F3E5AB] transition-colors border-b border-[#D4AF37]/30 hover:border-[#F3E5AB] pb-1 cursor-pointer">
@@ -574,7 +598,7 @@ export default function FlipbookHero({ isLoading }) {
 
         {/* Right Panel */}
         <div className="flex flex-col justify-start pt-8 md:pt-[45vh] items-end pointer-events-auto h-full">
-          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-[#1A1A1B] border border-[#D4AF37]/30 p-5 md:p-8 rounded-sm shadow-2xl">
+          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform">
             <ShinyText 
               text="Book Your Consultation"
               disabled={false} 
@@ -583,10 +607,10 @@ export default function FlipbookHero({ isLoading }) {
               color="oklch(91% 0 0)"
               shineColor="#D4AF37"
             />
-            <p className="text-[oklch(88%_0_0)] mb-6 font-normal text-sm leading-relaxed">
+            <p className="text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 mb-6 font-normal text-sm leading-relaxed">
               Schedule an appointment with our expert general physicians or experience holistic acupuncture therapy.
             </p>
-            <button onClick={() => setServicesModalOpen(true)} className="inline-block bg-[#D4AF37] hover:bg-[#F3E5AB] transition-colors duration-300 text-[#0A0A0A] font-bold py-3 px-8 rounded-sm text-xs md:text-sm tracking-wide cursor-pointer">
+            <button onClick={() => setServicesModalOpen(true)} className="inline-block bg-[#D4AF37] hover:bg-[#F3E5AB] transition-colors duration-300 text-[#0A0A0A] font-bold py-4 px-8 min-h-[48px] min-w-[48px] rounded-sm text-xs md:text-sm tracking-wide cursor-pointer">
               Discover Services
             </button>
           </div>
@@ -595,8 +619,8 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 2 Overlays (Initially hidden, animated by GSAP) */}
-      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 md:px-24 pointer-events-none opacity-0 transition-all duration-700 ease-out ${textFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
-        <div ref={fold2Box1Ref} className="bg-dom border border-acc/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-2xl pointer-events-auto relative overflow-hidden group">
+      <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-start px-4 max-md:justify-center max-md:items-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 transition-all duration-700 ease-out ${textFold === 2 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+        <div ref={fold2Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-2xl pointer-events-auto relative overflow-hidden group">
           {/* Impeccable Hairline accent instead of glowing glow */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/60"></div>
           
@@ -611,15 +635,15 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={titleRef} className="text-2xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
+          <h2 ref={titleRef} className="text-2xl md:text-6xl font-light text-white leading-tight mb-6 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             {textFold === 2 ? <BlurText text="Dr. Ankur Gupta" delay={50} /> : "Dr. Ankur Gupta"}
           </h2>
           
-          <p ref={descRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed max-w-xl mb-10 ${!expandedFolds[2] ? 'max-md:line-clamp-2' : ''}`}>
+          <p ref={descRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 max-w-xl mb-10 ${!expandedFolds[2] ? 'max-md:line-clamp-2' : ''}`}>
             Consult with Dr. Ankur Gupta for expert general medical care. Specializing in acute infections, fevers, and comprehensive proactive health monitoring to keep you at your best.
           </p>
           <button 
-            className={`md:hidden text-[10px] font-bold uppercase tracking-wider mt-4 mb-2 ${!expandedFolds[2] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[2] ? 'block' : 'hidden'} text-[#D4AF37]`}
             onClick={() => setExpandedFolds(prev => ({...prev, [2]: true}))}
             style={{ pointerEvents: 'auto' }}
           >
@@ -627,7 +651,7 @@ export default function FlipbookHero({ isLoading }) {
           </button>
           
           <div ref={actionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-3 md:px-8 md:py-4 bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide">
               Schedule Appointment
             </button>
             <button onClick={() => setServicesModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
@@ -638,10 +662,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 3 Overlay (Acupuncture Therapy) */}
-      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 3 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Title and CTAs */}
-        <div ref={fold3Box1Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold3Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Kinpaku Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -656,12 +680,12 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold3TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
+          <h2 ref={fold3TitleRef} className="text-2xl md:text-5xl font-light text-white leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             {textFold === 3 ? <DecryptedText text="Acupuncture Therapy" animateOn="view" speed={80} /> : "Acupuncture Therapy"}
           </h2>
           
           <div ref={fold3ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-3 md:px-8 md:py-4 bg-[#D4AF37] text-[#04090F] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[#D4AF37] text-[#04090F] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs md:text-sm tracking-wide text-center">
               Consult Specialist
             </button>
             <button onClick={() => setServicesModalOpen(true)} className="text-[#D4AF37] text-xs md:text-sm font-medium hover:text-[#F3E5AB] transition-colors border-b border-[#D4AF37]/30 hover:border-[#F3E5AB] pb-1">
@@ -671,13 +695,13 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div ref={fold3Box2Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold3Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
-           <p ref={fold3DescRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed text-left ${!expandedFolds[3] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold3DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[3] ? 'max-md:line-clamp-2' : ''}`}>
             Advanced holistic treatment by Dr. Swarajit Ghosh. Effective for chronic pain management, stress relief, and restoring bodily balance using traditional and modern techniques.
           </p>
           <button 
-            className={`md:hidden text-[10px] font-bold uppercase tracking-wider mt-4 mb-2 ${!expandedFolds[3] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[3] ? 'block' : 'hidden'} text-[#D4AF37]`}
             onClick={() => setExpandedFolds(prev => ({...prev, [3]: true}))}
             style={{ pointerEvents: 'auto' }}
           >
@@ -688,16 +712,16 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 4 Overlay (Preventive Healthcare) */}
-      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 4 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Description */}
-        <div ref={fold4Box1Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold4Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
-           <p ref={fold4DescRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed text-right ${!expandedFolds[4] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold4DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[4] ? 'max-md:line-clamp-2' : ''}`}>
             Routine health check-ups and baseline health monitoring designed to catch potential medical issues before they become serious.
           </p>
           <button 
-            className={`md:hidden text-[10px] font-bold uppercase tracking-wider mt-4 mb-2 ${!expandedFolds[4] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[4] ? 'block' : 'hidden'} text-[#D4AF37]`}
             onClick={() => setExpandedFolds(prev => ({...prev, [4]: true}))}
             style={{ pointerEvents: 'auto' }}
           >
@@ -706,7 +730,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold4Box2Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold4Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -721,7 +745,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-acc/50"></span>
           </div>
 
-          <h2 ref={fold4TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
+          <h2 ref={fold4TitleRef} className="text-2xl md:text-5xl font-light text-white leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100 text-right">
             {textFold === 4 ? <ReactBitsSplitText text="Preventive Healthcare" splitType="chars" delay={30} /> : "Preventive Healthcare"}
           </h2>
           
@@ -729,7 +753,7 @@ export default function FlipbookHero({ isLoading }) {
             <button onClick={() => setServicesModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
               View Benefits
             </button>
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-3 md:px-8 md:py-4 bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
               Book Check-up
             </button>
           </div>
@@ -738,16 +762,16 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 5 Overlay (Advanced ENT Care) */}
-      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 5 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Description */}
-        <div ref={fold5Box1Ref} className="bg-dom border border-white/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
+        <div ref={fold5Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-white/60"></div>
-           <p ref={fold5DescRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed text-left ${!expandedFolds[5] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold5DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[5] ? 'max-md:line-clamp-2' : ''}`}>
             Dedicated medical care for complex ear, nose, and throat conditions. We provide accurate diagnoses and personalized treatment plans using advanced diagnostic techniques.
           </p>
           <button 
-            className={`md:hidden text-[10px] font-bold uppercase tracking-wider mt-4 mb-2 ${!expandedFolds[5] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[5] ? 'block' : 'hidden'} text-[#D4AF37]`}
             onClick={() => setExpandedFolds(prev => ({...prev, [5]: true}))}
             style={{ pointerEvents: 'auto' }}
           >
@@ -756,7 +780,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold5Box2Ref} className="bg-dom border border-white/20 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
+        <div ref={fold5Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
           {/* White Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-white/60"></div>
           
@@ -771,7 +795,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-white/40"></span>
           </div>
 
-          <h2 ref={fold5TitleRef} className="text-2xl md:text-6xl font-light text-[#F8FAFC] leading-tight mb-6 tracking-tight">
+          <h2 ref={fold5TitleRef} className="text-2xl md:text-6xl font-light text-white leading-tight mb-6 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             ENT Specialists
           </h2>
           
@@ -779,7 +803,7 @@ export default function FlipbookHero({ isLoading }) {
             <button onClick={() => setServicesModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
               View ENT Services
             </button>
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-3 md:px-8 md:py-4 bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
               Consult Specialist
             </button>
           </div>
@@ -788,16 +812,16 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 6 Overlay (The Legacy of Care) */}
-      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 6 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Description */}
-        <div ref={fold6Box1Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold6Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
-           <p ref={fold6DescRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed text-right ${!expandedFolds[6] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold6DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[6] ? 'max-md:line-clamp-2' : ''}`}>
             Experience proactive, patient-centric healthcare with Dr. Gulati. Offering decades of clinical excellence in general medicine, internal medicine, and family health for the CR Park community.
           </p>
           <button 
-            className={`md:hidden text-[10px] font-bold uppercase tracking-wider mt-4 mb-2 ${!expandedFolds[6] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[6] ? 'block' : 'hidden'} text-[#D4AF37]`}
             onClick={() => setExpandedFolds(prev => ({...prev, [6]: true}))}
             style={{ pointerEvents: 'auto' }}
           >
@@ -806,7 +830,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold6Box2Ref} className="bg-dom border border-[#D4AF37]/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
+        <div ref={fold6Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
           {/* Gold Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -821,12 +845,12 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
           </div>
 
-          <h2 ref={fold6TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight text-right">
+          <h2 ref={fold6TitleRef} className="text-2xl md:text-5xl font-light text-white leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100 text-right">
             {textFold === 6 ? <ReactBitsSplitText text="Dr. Ashok K. Gulati" splitType="words" delay={40} /> : "Dr. Ashok K. Gulati"}
           </h2>
           
           <div ref={fold6ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-10">
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-3 md:px-8 md:py-4 bg-[#D4AF37] text-[#04090F] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[#D4AF37] text-[#04090F] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs md:text-sm tracking-wide text-center">
               Schedule Consultation
             </button>
             <button onClick={() => setServicesModalOpen(true)} className="text-[#D4AF37] text-xs md:text-sm font-medium hover:text-[#F3E5AB] transition-colors border-b border-[#D4AF37]/30 hover:border-[#F3E5AB] pb-1">
@@ -838,10 +862,10 @@ export default function FlipbookHero({ isLoading }) {
       </div>
 
       {/* Fold 7 Overlay (Chronic Care Management) */}
-      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
+      <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 gap-6 md:gap-0 mt-12 md:mt-0 transition-all duration-700 ease-out ${textFold === 7 ? 'max-md:opacity-100 max-md:translate-y-0' : 'max-md:opacity-0 max-md:translate-y-8'}`}>
         
         {/* Left Side: Title and CTAs */}
-        <div ref={fold7Box1Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
+        <div ref={fold7Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-xl pointer-events-auto relative overflow-hidden group w-full md:w-auto">
           {/* Cyan Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -856,12 +880,12 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold7TitleRef} className="text-2xl md:text-5xl font-light text-[#F8FAFC] leading-tight mb-10 tracking-tight">
+          <h2 ref={fold7TitleRef} className="text-2xl md:text-5xl font-light text-white leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             {textFold === 7 ? <BlurText text="Chronic Care Management" delay={60} /> : "Chronic Care Management"}
           </h2>
           
           <div ref={fold7ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <button onClick={() => setServicesModalOpen(true)} className="px-6 py-3 md:px-8 md:py-4 bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setServicesModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
               Care Programs
             </button>
             <button onClick={() => setContactModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
@@ -871,13 +895,13 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div ref={fold7Box2Ref} className="bg-dom border border-acc/30 p-4 md:p-14 rounded-sm shadow-2xl max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold7Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-6 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
-           <p ref={fold7DescRef} className={`text-[#CBD5E1] text-xs md:text-lg font-normal leading-relaxed text-left ${!expandedFolds[7] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold7DescRef} className={`text-white text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[7] ? 'max-md:line-clamp-2' : ''}`}>
             Dedicated lifestyle support and meticulous medical care for long-term conditions like diabetes, hypertension, thyroid disorders, and asthma. We walk the journey with you.
           </p>
           <button 
-            className={`md:hidden text-[10px] font-bold uppercase tracking-wider mt-4 mb-2 ${!expandedFolds[7] ? 'block' : 'hidden'} text-[#D4AF37]`}
+            className={`md:hidden text-[12px] font-bold uppercase tracking-wider mt-4 mb-2 min-h-[48px] min-w-[48px] px-4 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${!expandedFolds[7] ? 'block' : 'hidden'} text-[#D4AF37]`}
             onClick={() => setExpandedFolds(prev => ({...prev, [7]: true}))}
             style={{ pointerEvents: 'auto' }}
           >
@@ -887,67 +911,9 @@ export default function FlipbookHero({ isLoading }) {
 
       </div>
 
-      {/* Contact Modal */}
-      {isContactModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm pointer-events-auto">
-          <div className="bg-dom border border-acc/30 p-8 rounded-sm max-w-md w-full relative shadow-2xl">
-            <Magnet padding={10} disabled={false} magnetStrength={3}>
-              <button onClick={() => setContactModalOpen(false)} className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2 text-xl cursor-pointer">✕</button>
-            </Magnet>
-            <h3 className="text-2xl font-light text-white mb-6 tracking-tight">Contact Desk</h3>
-            <GlassIcons 
-              items={[
-                { icon: <MapPin size={24} />, color: 'blue', label: 'D-696, C.R. Park, ND 110019', customClass: 'mb-4 text-left flex gap-4 w-full' },
-                { icon: <Phone size={24} />, color: 'purple', label: '+91 11 2627 0000', customClass: 'mb-4 text-left flex gap-4 w-full' },
-                { icon: <Mail size={24} />, color: 'green', label: 'info@getwellclinic.in', customClass: 'mb-4 text-left flex gap-4 w-full' }
-              ]} 
-              className="flex-col items-start gap-4"
-            />
-            <div className="mt-6 text-[#CBD5E1] text-sm">
-              <p><strong className="text-[#F8FAFC]">Hours:</strong><br />Mon - Sat: 9:00 AM - 8:00 PM<br />Sun: Closed</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Services Modal */}
-      {isServicesModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm pointer-events-auto">
-          <div className="bg-dom border border-acc/30 p-8 rounded-sm max-w-4xl w-full relative shadow-2xl max-h-[90vh] overflow-y-auto">
-            <Magnet padding={10} disabled={false} magnetStrength={3}>
-              <button onClick={() => setServicesModalOpen(false)} className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2 text-xl z-50 cursor-pointer">✕</button>
-            </Magnet>
-            <h3 className="text-2xl font-light text-white mb-6 tracking-tight">Discover Services</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <SpotlightCard className="p-6 cursor-pointer" spotlightColor="rgba(0, 229, 255, 0.2)" onClick={() => { scrollToFold(3); setServicesModalOpen(false); }}>
-                <h4 className="text-acc font-medium mb-2">General Physician</h4>
-                <p className="text-[#CBD5E1] text-sm">Dr. Ankur Gupta - Expert care, fevers, & monitoring.</p>
-              </SpotlightCard>
-              <SpotlightCard className="p-6 cursor-pointer" spotlightColor="rgba(212, 175, 55, 0.2)" onClick={() => { scrollToFold(6); setServicesModalOpen(false); }}>
-                <h4 className="text-[#D4AF37] font-medium mb-2">Acupuncture Therapy</h4>
-                <p className="text-[#CBD5E1] text-sm">Holistic treatment for pain and wellness.</p>
-              </SpotlightCard>
-              <SpotlightCard className="p-6 cursor-pointer" spotlightColor="rgba(0, 229, 255, 0.2)" onClick={() => { scrollToFold(9); setServicesModalOpen(false); }}>
-                <h4 className="text-acc font-medium mb-2">Preventive Healthcare</h4>
-                <p className="text-[#CBD5E1] text-sm">Proactive check-ups and health plans.</p>
-              </SpotlightCard>
-              <SpotlightCard className="p-6 cursor-pointer" spotlightColor="rgba(255, 255, 255, 0.2)" onClick={() => { scrollToFold(12); setServicesModalOpen(false); }}>
-                <h4 className="text-white font-medium mb-2">ENT Specialists</h4>
-                <p className="text-[#CBD5E1] text-sm">Diagnostic precision for ear, nose, throat.</p>
-              </SpotlightCard>
-              <SpotlightCard className="p-6 cursor-pointer" spotlightColor="rgba(212, 175, 55, 0.2)" onClick={() => { scrollToFold(15); setServicesModalOpen(false); }}>
-                <h4 className="text-[#D4AF37] font-medium mb-2">Senior Physician</h4>
-                <p className="text-[#CBD5E1] text-sm">Dr. Ashok K. Gulati - Decades of legacy care.</p>
-              </SpotlightCard>
-              <SpotlightCard className="p-6 cursor-pointer" spotlightColor="rgba(0, 229, 255, 0.2)" onClick={() => { scrollToFold(18); setServicesModalOpen(false); }}>
-                <h4 className="text-acc font-medium mb-2">Chronic Care</h4>
-                <p className="text-[#CBD5E1] text-sm">Management for long-term conditions.</p>
-              </SpotlightCard>
-            </div>
-          </div>
-        </div>
-      )}
-
+            {/* Extracted Modals for Aggressive Memoization */}
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setContactModalOpen(false)} />
+      <ServicesModal isOpen={isServicesModalOpen} onClose={() => setServicesModalOpen(false)} scrollToFold={scrollToFold} />
     </section>
   );
 }
