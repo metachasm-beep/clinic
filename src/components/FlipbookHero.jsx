@@ -261,7 +261,8 @@ export default function FlipbookHero({ isLoading }) {
       }
     };
 
-    const playhead = { frame: 0 };
+    const isMobileForPlayhead = window.innerWidth < 768;
+    const playhead = { frame: isMobileForPlayhead ? 51 : 0 };
     window.addEventListener('resize', handleResize);
     handleResize(); 
 
@@ -381,7 +382,8 @@ export default function FlipbookHero({ isLoading }) {
           // Mobile has 16 logic steps. Total scroll is divided into 16 chunks.
           // Panning occurs strictly on odd steps (1, 3, 5, 7, 9, 11, 13).
           const stepDur = totalDuration / 16;
-          tl.fromTo(playhead, {frame: 0}, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
+          // Step 1: Stay at frame 51 since Fold 0 now shares Fold 1's bg
+          tl.fromTo(playhead, {frame: 51}, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
           tl.fromTo(playhead, {frame: 51}, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
           tl.fromTo(playhead, {frame: 102}, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
           tl.fromTo(playhead, {frame: 156}, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);
@@ -487,7 +489,7 @@ export default function FlipbookHero({ isLoading }) {
 
   return (
     <section ref={containerRef} className="relative w-full h-screen bg-dom overflow-hidden z-10 flex items-center justify-between px-8 md:px-24">
-      <div className="absolute inset-0 z-[5] bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent pointer-events-none md:hidden" />
+      <div className={`absolute inset-0 z-[5] bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent pointer-events-none md:hidden transition-opacity duration-700 ease-in-out ${textFold > 0 ? 'opacity-100' : 'opacity-0'}`} />
       
       {/* Wayfinding Dots (Mobile Only) */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 md:hidden flex">
