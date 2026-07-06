@@ -89,6 +89,11 @@ export default function FlipbookHero({ isLoading }) {
   const fold9TitleRef = useRef(null);
   const fold9Box1Ref = useRef(null);
 
+  // Refs for Fold 10 Text Animation (Patient Knowledge Hub)
+  const fold10Ref = useRef(null);
+  const fold10TitleRef = useRef(null);
+  const fold10Box1Ref = useRef(null);
+
   const [images, setImages] = useState([]);
   const [isContactModalOpen, setContactModalOpen] = useState(false);
   const [isServicesModalOpen, setServicesModalOpen] = useState(false);
@@ -299,11 +304,12 @@ export default function FlipbookHero({ isLoading }) {
       const p7S = p6E + pause; const p7E = p7S + pan;
       const p8S = p7E + pause; const p8E = p8S + pan;
       const p9S = p8E + pause; const p9E = p9S + pan;
-      const totalDuration = p9E + pause;
+      const p10S = p9E + pause; const p10E = p10S + pan;
+      const totalDuration = p10E + pause;
 
       // Make scroll perfectly match the number of folds
       // Increased mobile scroll distance to slow down the animation by 50%
-      const scrollEnd = isMobile ? "+=4000%" : "+=2700%";
+      const scrollEnd = isMobile ? "+=4500%" : "+=3000%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -335,13 +341,13 @@ export default function FlipbookHero({ isLoading }) {
             onUpdate: (self) => {
               if (isMobile) {
                  const p = self.progress;
-                 let step = Math.min(19, Math.max(0, Math.floor(p * 20)));
+                 let step = Math.min(21, Math.max(0, Math.floor(p * 22)));
                  
                  let newBgFold = Math.ceil(step / 2);
                  if (newBgFold > 8) newBgFold = 8; // Max BG is still 8
                  
                  let newTextFold = (step % 2 === 0) ? (step / 2) : null;
-                 if (step >= 18) newTextFold = 9;
+                 if (step >= 20) newTextFold = 10;
 
                  // We completely bypass manual gsap.to(playhead) here!
                  // Mobile background is natively driven by the timeline via scrub below.
@@ -392,12 +398,13 @@ export default function FlipbookHero({ isLoading }) {
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p8S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p9S);
+          tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p10S);
         } else {
           // Mobile native scrub timeline: 
           // Instead of discrete jumps, we map the camera directly to the GSAP timeline scroll proportion (totalDuration).
-          // Mobile has 20 logic steps. Total scroll is divided into 20 chunks.
+          // Mobile has 22 logic steps. Total scroll is divided into 22 chunks.
           // Panning occurs strictly on odd steps.
-          const stepDur = totalDuration / 20;
+          const stepDur = totalDuration / 22;
           tl.to(playhead, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
           tl.to(playhead, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
           tl.to(playhead, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);
@@ -503,6 +510,14 @@ export default function FlipbookHero({ isLoading }) {
           tl.to(fold9Ref.current, { autoAlpha: 1, duration: 0.1 }, t9);
           tl.fromTo(fold9Box1Ref.current, { autoAlpha: 0, y: yOffsetLarge }, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.2 }, t9);
           tl.fromTo(fold9TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t9 + 0.1);
+          tl.to(fold9Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p10S - 0.1);
+
+          // Fold 10: Patient Knowledge Hub
+          const t10 = p10S + 1.5;
+          const fold10TitleSplit = new SplitText(fold10TitleRef.current, { type: "chars,words" });
+          tl.to(fold10Ref.current, { autoAlpha: 1, duration: 0.1 }, t10);
+          tl.fromTo(fold10Box1Ref.current, { autoAlpha: 0, y: yOffsetLarge }, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.2 }, t10);
+          tl.fromTo(fold10TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t10 + 0.1);
         }
 
         // Pad timeline to exact total duration
@@ -523,7 +538,7 @@ export default function FlipbookHero({ isLoading }) {
       
       {/* Wayfinding Dots (Mobile Only) */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 md:hidden flex">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(f => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(f => (
           <div key={f} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${textFold === f ? 'bg-white scale-150 shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-white/20'}`} />
         ))}
       </div>
@@ -1066,6 +1081,98 @@ export default function FlipbookHero({ isLoading }) {
               <div className="mt-auto border-t border-black/10 pt-4">
                 <span className="text-[#0A0A0A] font-medium text-sm">Walk-in & Appointments</span>
               </div>
+            </div>
+
+          </div>
+          
+        </div>
+      </div>
+
+      {/* Fold 10 Overlay (Patient Knowledge Hub - Athenahealth style) */}
+      <div ref={fold10Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 10 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
+        
+        <div ref={fold10Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/60 backdrop-blur-3xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative overflow-hidden flex flex-col items-start text-left">
+          {/* Accent Hairline */}
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc via-acc to-transparent"></div>
+          
+          <div className="flex items-center space-x-4 mb-6">
+            <span className="w-8 h-[1px] bg-acc/50"></span>
+            <ShinyText 
+              text="Explore Our Resources"
+              speed={3} 
+              className="text-xs font-medium uppercase tracking-[0.2em] text-acc" 
+              color="#00E5FF"
+              shineColor="#ffffff"
+            />
+          </div>
+
+          <h2 ref={fold10TitleRef} className="text-2xl md:text-5xl font-light text-white leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            {textFold === 10 ? <BlurText text="Patient Knowledge Hub" delay={50} /> : "Patient Knowledge Hub"}
+          </h2>
+          
+          <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 pb-6">
+            
+            {/* Filter Section (Left Sidebar style) */}
+            <div className="flex flex-col space-y-6 w-full lg:w-1/4 shrink-0">
+              <div>
+                <h3 className="text-white/80 uppercase tracking-widest text-xs font-bold mb-4">Top Challenges</h3>
+                <ul className="space-y-3">
+                  <li><button className="text-white hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Chronic Care Routines</button></li>
+                  <li><button className="text-white hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Managing Seasonal Allergies</button></li>
+                  <li><button className="text-white hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">ENT Infection Prevention</button></li>
+                  <li><button className="text-white hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Pediatric Immunity</button></li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Content Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+              
+              {/* Card 1 */}
+              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                </div>
+                <span className="text-acc text-xs uppercase tracking-widest font-semibold mb-3 z-10">Guide</span>
+                <h4 className="text-xl text-white font-medium mb-3 z-10">The Ultimate Guide to ENT Hygiene</h4>
+                <p className="text-white/60 text-sm leading-relaxed mb-6 z-10 line-clamp-2 md:line-clamp-none">Learn the best practices to maintain ear, nose, and throat health during the heavily polluted winter months in Delhi.</p>
+                <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between z-10">
+                  <span className="text-white/40 text-xs">5 min read</span>
+                  <span className="text-acc group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+
+              {/* Card 2 */}
+              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4V8z"/></svg>
+                </div>
+                <span className="text-[#D4AF37] text-xs uppercase tracking-widest font-semibold mb-3 z-10">Webinar</span>
+                <h4 className="text-xl text-white font-medium mb-3 z-10">Demystifying Acupuncture</h4>
+                <p className="text-white/60 text-sm leading-relaxed mb-6 z-10 line-clamp-2 md:line-clamp-none">Watch Dr. Swarajit Ghosh explain the modern clinical applications of acupuncture therapy for severe chronic pain management.</p>
+                <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between z-10">
+                  <span className="text-white/40 text-xs">45 min watch</span>
+                  <span className="text-[#D4AF37] group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative overflow-hidden md:col-span-2">
+                 <span className="text-white/50 text-xs uppercase tracking-widest font-semibold mb-3 z-10">Success Story</span>
+                 <div className="flex flex-col md:flex-row gap-6 items-start md:items-center z-10">
+                    <div className="w-16 h-16 rounded-full bg-[#1A1A1B] flex items-center justify-center shrink-0 border border-[#D4AF37]/30">
+                       <Star className="text-[#D4AF37] fill-[#D4AF37]" size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-xl text-white font-medium mb-2">Overcoming 10 Years of Migraines</h4>
+                      <p className="text-white/70 text-sm leading-relaxed max-w-2xl line-clamp-2 md:line-clamp-none">Read how a tailored approach combining general medicine and targeted acupuncture helped one of our long-term patients achieve a pain-free life.</p>
+                    </div>
+                    <div className="md:ml-auto mt-4 md:mt-0">
+                      <button className="px-6 py-2 border border-white/20 text-white rounded hover:bg-white hover:text-black transition-colors text-sm font-medium shrink-0">Read Case Study</button>
+                    </div>
+                 </div>
+              </div>
+              
             </div>
 
           </div>
