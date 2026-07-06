@@ -302,7 +302,8 @@ export default function FlipbookHero({ isLoading }) {
       const totalDuration = p9E + pause;
 
       // Make scroll perfectly match the number of folds
-      const scrollEnd = isMobile ? "+=2000%" : "+=2700%";
+      // Increased mobile scroll distance to slow down the animation by 50%
+      const scrollEnd = isMobile ? "+=4000%" : "+=2700%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
