@@ -15,7 +15,8 @@ import Magnet from './react-bits/Magnet';
 import ContactModal from './ContactModal';
 import ServicesModal from './ServicesModal';
 import StarBorder from './react-bits/StarBorder';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Star } from 'lucide-react';
+import reviewsData from '../data/reviews.json';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -77,6 +78,11 @@ export default function FlipbookHero({ isLoading }) {
   const fold7ActionRef = useRef(null);
   const fold7Box1Ref = useRef(null);
   const fold7Box2Ref = useRef(null);
+
+  // Refs for Fold 8 Text Animation (Reviews)
+  const fold8Ref = useRef(null);
+  const fold8TitleRef = useRef(null);
+  const fold8Box1Ref = useRef(null);
 
   const [images, setImages] = useState([]);
   const [isContactModalOpen, setContactModalOpen] = useState(false);
@@ -286,10 +292,11 @@ export default function FlipbookHero({ isLoading }) {
       const p5S = p4E + pause; const p5E = p5S + pan;
       const p6S = p5E + pause; const p6E = p6S + pan;
       const p7S = p6E + pause; const p7E = p7S + pan;
-      const totalDuration = p7E + pause;
+      const p8S = p7E + pause; const p8E = p8S + pan;
+      const totalDuration = p8E + pause;
 
-      // Make scroll perfectly match the number of folds (1400% = 14 viewport heights = 2 swipes per fold on mobile)
-      const scrollEnd = isMobile ? "+=1600%" : "+=2100%";
+      // Make scroll perfectly match the number of folds
+      const scrollEnd = isMobile ? "+=1800%" : "+=2400%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -321,13 +328,13 @@ export default function FlipbookHero({ isLoading }) {
             onUpdate: (self) => {
               if (isMobile) {
                  const p = self.progress;
-                 let step = Math.min(15, Math.max(0, Math.floor(p * 16)));
+                 let step = Math.min(17, Math.max(0, Math.floor(p * 18)));
                  
                  let newBgFold = Math.ceil(step / 2);
-                 if (newBgFold > 7) newBgFold = 7;
+                 if (newBgFold > 8) newBgFold = 8;
                  
                  let newTextFold = (step % 2 === 0) ? (step / 2) : null;
-                 if (step >= 14) newTextFold = 7;
+                 if (step >= 16) newTextFold = 8;
 
                  // We completely bypass manual gsap.to(playhead) here!
                  // Mobile background is natively driven by the timeline via scrub below.
@@ -376,12 +383,13 @@ export default function FlipbookHero({ isLoading }) {
           tl.to(playhead, { frame: 253, ease: "none", duration: pan, onUpdate: renderFrame }, p5S);
           tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
+          tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p8S);
         } else {
           // Mobile native scrub timeline: 
           // Instead of discrete jumps, we map the camera directly to the GSAP timeline scroll proportion (totalDuration).
-          // Mobile has 16 logic steps. Total scroll is divided into 16 chunks.
-          // Panning occurs strictly on odd steps (1, 3, 5, 7, 9, 11, 13).
-          const stepDur = totalDuration / 16;
+          // Mobile has 18 logic steps. Total scroll is divided into 18 chunks.
+          // Panning occurs strictly on odd steps.
+          const stepDur = totalDuration / 18;
           // Step 1: Stay at frame 51 since Fold 0 now shares Fold 1's bg
           tl.fromTo(playhead, {frame: 51}, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
           tl.fromTo(playhead, {frame: 51}, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
@@ -390,6 +398,7 @@ export default function FlipbookHero({ isLoading }) {
           tl.fromTo(playhead, {frame: 208}, { frame: 253, ease: "none", duration: stepDur, onUpdate: renderFrame }, 9 * stepDur);
           tl.fromTo(playhead, {frame: 253}, { frame: 303, ease: "none", duration: stepDur, onUpdate: renderFrame }, 11 * stepDur);
           tl.fromTo(playhead, {frame: 303}, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 13 * stepDur);
+          tl.fromTo(playhead, {frame: 355}, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 15 * stepDur);
         }
 
         // --- 2. TEXT ANIMATION SEQUENCE (DESKTOP ONLY) ---
@@ -473,6 +482,14 @@ export default function FlipbookHero({ isLoading }) {
           tl.fromTo(fold7TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t7 + 0.1);
           tl.fromTo(fold7ActionRef.current, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, t7 + 0.3);
           tl.fromTo(fold7DescSplit.words, { opacity: 0, y: yOffsetSmall }, { opacity: 1, y: 0, stagger: 0.01, ease: "power2.out", duration: 0.2 }, t7 + 0.5);
+          tl.to(fold7Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p8S - 0.1);
+
+          // Fold 8: Patient Reviews
+          const t8 = p8S + 1.5;
+          const fold8TitleSplit = new SplitText(fold8TitleRef.current, { type: "chars,words" });
+          tl.to(fold8Ref.current, { autoAlpha: 1, duration: 0.1 }, t8);
+          tl.fromTo(fold8Box1Ref.current, { autoAlpha: 0, y: yOffsetLarge }, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.2 }, t8);
+          tl.fromTo(fold8TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t8 + 0.1);
         }
 
         // Pad timeline to exact total duration
@@ -493,7 +510,7 @@ export default function FlipbookHero({ isLoading }) {
       
       {/* Wayfinding Dots (Mobile Only) */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 md:hidden flex">
-        {[1, 2, 3, 4, 5, 6, 7].map(f => (
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(f => (
           <div key={f} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${textFold === f ? 'bg-white scale-150 shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-white/20'}`} />
         ))}
       </div>
@@ -913,9 +930,67 @@ export default function FlipbookHero({ isLoading }) {
 
       </div>
 
+      {/* Fold 8 Overlay (Patient Reviews) */}
+      <div ref={fold8Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 8 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
+        
+        <div ref={fold8Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 backdrop-blur-2xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative overflow-hidden flex flex-col items-center">
+          {/* Gold Hairline */}
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
+          
+          <div className="flex items-center space-x-4 mb-6">
+            <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
+            <ShinyText 
+              text="Patient Experiences"
+              speed={3} 
+              className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4AF37]" 
+              color="#D4AF37"
+              shineColor="#ffffff"
+            />
+            <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
+          </div>
+
+          <h2 ref={fold8TitleRef} className="text-2xl md:text-5xl font-light text-white leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
+            {textFold === 8 ? <BlurText text="What Our Patients Say" delay={60} /> : "What Our Patients Say"}
+          </h2>
+          
+          {/* Horizontal Scrolling Carousel */}
+          <div className="w-full overflow-x-auto snap-x snap-mandatory flex space-x-4 pb-6 pt-2 px-2 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {reviewsData.map((review) => (
+              <div key={review.id} className="snap-center shrink-0 w-[85vw] md:w-[350px] bg-[#0A0A0A]/60 border border-white/10 rounded-xl p-6 flex flex-col justify-between hover:border-[#D4AF37]/50 transition-colors duration-300">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className={i < Math.floor(review.rating) ? "text-[#D4AF37] fill-[#D4AF37]" : "text-white/20 fill-transparent"} />
+                      ))}
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">{review.source}</span>
+                  </div>
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed font-light mb-6 italic">
+                    "{review.text}"
+                  </p>
+                </div>
+                <div className="flex items-center justify-between border-t border-white/10 pt-4 mt-auto">
+                  <span className="text-[#D4AF37] font-medium text-sm">{review.author}</span>
+                  <span className="text-white/30 text-xs">{review.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+        </div>
+      </div>
+
             {/* Extracted Modals for Aggressive Memoization */}
       <ContactModal isOpen={isContactModalOpen} onClose={() => setContactModalOpen(false)} />
       <ServicesModal isOpen={isServicesModalOpen} onClose={() => setServicesModalOpen(false)} scrollToFold={scrollToFold} />
+      
+      {/* Hide scrollbar for carousel style */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+      `}} />
     </section>
   );
 }
