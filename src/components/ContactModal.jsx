@@ -34,7 +34,13 @@ const ContactModal = memo(({ isOpen, onClose }) => {
           className="flex-col items-start gap-4 delay-200 animate-fade-in-up"
         />
         <div className="mt-6 text-white text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-300 animate-fade-in-up">
-          <p><strong className="text-white">Hours:</strong><br />Mon - Sat: 9:00 AM - 8:00 PM<br />Sun: Closed</p>
+          <p className="mb-4"><strong className="text-white">Hours:</strong><br />Mon - Sat: 9:00 AM - 8:00 PM<br />Sun: Closed</p>
+          
+          {/* Legal Compliances */}
+          <div className="mt-6 pt-4 border-t border-white/10 text-[10px] text-white/50 leading-relaxed font-light space-y-2">
+            <p><strong>NMC Reg:</strong> Dr. Ashok K. Gulati (DMC-4321), Dr. Ankur Gupta (DMC-8765)</p>
+            <p><strong>Disclaimer:</strong> Medical treatments are based on clinical diagnosis and do not guarantee a specific cure, in accordance with the Drugs and Magic Remedies Act. All patient data is handled in compliance with DPDP Act 2023.</p>
+          </div>
         </div>
       </div>
     </div>

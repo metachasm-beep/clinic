@@ -84,6 +84,11 @@ export default function FlipbookHero({ isLoading }) {
   const fold8TitleRef = useRef(null);
   const fold8Box1Ref = useRef(null);
 
+  // Refs for Fold 9 Text Animation (Facilities)
+  const fold9Ref = useRef(null);
+  const fold9TitleRef = useRef(null);
+  const fold9Box1Ref = useRef(null);
+
   const [images, setImages] = useState([]);
   const [isContactModalOpen, setContactModalOpen] = useState(false);
   const [isServicesModalOpen, setServicesModalOpen] = useState(false);
@@ -293,10 +298,11 @@ export default function FlipbookHero({ isLoading }) {
       const p6S = p5E + pause; const p6E = p6S + pan;
       const p7S = p6E + pause; const p7E = p7S + pan;
       const p8S = p7E + pause; const p8E = p8S + pan;
-      const totalDuration = p8E + pause;
+      const p9S = p8E + pause; const p9E = p9S + pan;
+      const totalDuration = p9E + pause;
 
       // Make scroll perfectly match the number of folds
-      const scrollEnd = isMobile ? "+=1800%" : "+=2400%";
+      const scrollEnd = isMobile ? "+=2000%" : "+=2700%";
       const scrubValue = isMobile ? 0.5 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
@@ -328,13 +334,13 @@ export default function FlipbookHero({ isLoading }) {
             onUpdate: (self) => {
               if (isMobile) {
                  const p = self.progress;
-                 let step = Math.min(17, Math.max(0, Math.floor(p * 18)));
+                 let step = Math.min(19, Math.max(0, Math.floor(p * 20)));
                  
                  let newBgFold = Math.ceil(step / 2);
-                 if (newBgFold > 8) newBgFold = 8;
+                 if (newBgFold > 8) newBgFold = 8; // Max BG is still 8
                  
                  let newTextFold = (step % 2 === 0) ? (step / 2) : null;
-                 if (step >= 16) newTextFold = 8;
+                 if (step >= 18) newTextFold = 9;
 
                  // We completely bypass manual gsap.to(playhead) here!
                  // Mobile background is natively driven by the timeline via scrub below.
@@ -384,12 +390,13 @@ export default function FlipbookHero({ isLoading }) {
           tl.to(playhead, { frame: 303, ease: "none", duration: pan, onUpdate: renderFrame }, p6S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p7S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p8S);
+          tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p9S);
         } else {
           // Mobile native scrub timeline: 
           // Instead of discrete jumps, we map the camera directly to the GSAP timeline scroll proportion (totalDuration).
-          // Mobile has 18 logic steps. Total scroll is divided into 18 chunks.
+          // Mobile has 20 logic steps. Total scroll is divided into 20 chunks.
           // Panning occurs strictly on odd steps.
-          const stepDur = totalDuration / 18;
+          const stepDur = totalDuration / 20;
           tl.to(playhead, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
           tl.to(playhead, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
           tl.to(playhead, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);
@@ -487,6 +494,14 @@ export default function FlipbookHero({ isLoading }) {
           tl.to(fold8Ref.current, { autoAlpha: 1, duration: 0.1 }, t8);
           tl.fromTo(fold8Box1Ref.current, { autoAlpha: 0, y: yOffsetLarge }, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.2 }, t8);
           tl.fromTo(fold8TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t8 + 0.1);
+          tl.to(fold8Ref.current, { autoAlpha: 0, ease: "none", duration: 0.1 }, p9S - 0.1);
+
+          // Fold 9: Clinic Facilities (Maven Option C)
+          const t9 = p9S + 1.5;
+          const fold9TitleSplit = new SplitText(fold9TitleRef.current, { type: "chars,words" });
+          tl.to(fold9Ref.current, { autoAlpha: 1, duration: 0.1 }, t9);
+          tl.fromTo(fold9Box1Ref.current, { autoAlpha: 0, y: yOffsetLarge }, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.2 }, t9);
+          tl.fromTo(fold9TitleSplit.chars, { opacity: 0, y: yOffsetLarge }, { opacity: 1, y: 0, stagger: 0.01, ease: "power3.out", duration: 0.2 }, t9 + 0.1);
         }
 
         // Pad timeline to exact total duration
@@ -507,7 +522,7 @@ export default function FlipbookHero({ isLoading }) {
       
       {/* Wayfinding Dots (Mobile Only) */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-3 md:hidden flex">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map(f => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(f => (
           <div key={f} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${textFold === f ? 'bg-white scale-150 shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-white/20'}`} />
         ))}
       </div>
@@ -973,6 +988,85 @@ export default function FlipbookHero({ isLoading }) {
                 </div>
               </div>
             ))}
+          </div>
+          
+        </div>
+      </div>
+
+      {/* Fold 9 Overlay (Clinic Facilities - Option C) */}
+      <div ref={fold9Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-end max-md:pb-[15vh] md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${textFold === 9 ? 'max-md:opacity-100 max-md:translate-y-0 max-md:scale-100 max-md:blur-none' : 'max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 max-md:blur-[4px]'}`}>
+        
+        <div ref={fold9Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#0A0A0A]/80 backdrop-blur-3xl border border-white/20 p-4 md:p-14 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative overflow-hidden flex flex-col items-center">
+          {/* Gold Hairline */}
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"></div>
+          
+          <div className="flex items-center space-x-4 mb-6">
+            <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
+            <ShinyText 
+              text="Our Excellence"
+              speed={3} 
+              className="text-xs font-medium uppercase tracking-[0.2em] text-[#D4AF37]" 
+              color="#D4AF37"
+              shineColor="#ffffff"
+            />
+            <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
+          </div>
+
+          <h2 ref={fold9TitleRef} className="text-3xl md:text-5xl font-light text-white leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
+            {textFold === 9 ? <BlurText text="Comprehensive Care Facilities" delay={50} /> : "Comprehensive Care Facilities"}
+          </h2>
+          
+          {/* Maven-style High-Contrast Carousel */}
+          <div className="w-full overflow-x-auto snap-x snap-mandatory flex space-x-6 pb-6 pt-4 px-4 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            
+            {/* Card 1 */}
+            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-white border border-white/10 rounded-2xl p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
+              <div className="bg-[#1A1A1B] w-12 h-12 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-500">
+                <span className="text-[#D4AF37] group-hover:text-white transition-colors duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2a2 2 0 0 0-2 2v5H4a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2v-5h5a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-5V4a2 2 0 0 0-2-2h-2z"/></svg>
+                </span>
+              </div>
+              <h3 className="text-2xl text-[#0A0A0A] font-semibold mb-3 tracking-tight">Specialized ENT Care</h3>
+              <p className="text-[#4A4A4A] font-light leading-relaxed mb-6">
+                Advanced diagnostics and treatment for ear, nose, and throat conditions by renowned specialist Dr. Ankur Gupta.
+              </p>
+              <div className="mt-auto border-t border-black/10 pt-4">
+                <span className="text-[#0A0A0A] font-medium text-sm">Consultation: ₹350 - ₹500</span>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-white border border-white/10 rounded-2xl p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
+              <div className="bg-[#1A1A1B] w-12 h-12 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-500">
+                <span className="text-[#D4AF37] group-hover:text-white transition-colors duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </span>
+              </div>
+              <h3 className="text-2xl text-[#0A0A0A] font-semibold mb-3 tracking-tight">General & Chronic Care</h3>
+              <p className="text-[#4A4A4A] font-light leading-relaxed mb-6">
+                Expert management of diabetes, hypertension, and family health under the guidance of Dr. Ashok K. Gulati.
+              </p>
+              <div className="mt-auto border-t border-black/10 pt-4">
+                <span className="text-[#0A0A0A] font-medium text-sm">Comprehensive Diagnostics</span>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-white border border-white/10 rounded-2xl p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
+              <div className="bg-[#1A1A1B] w-12 h-12 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-500">
+                <span className="text-[#D4AF37] group-hover:text-white transition-colors duration-500">
+                  <MapPin size={24} />
+                </span>
+              </div>
+              <h3 className="text-2xl text-[#0A0A0A] font-semibold mb-3 tracking-tight">Prime Accessibility</h3>
+              <p className="text-[#4A4A4A] font-light leading-relaxed mb-6">
+                Located in the heart of South Delhi at D-696, Chittaranjan Park (Opposite Market No. 2). Easy parking and access.
+              </p>
+              <div className="mt-auto border-t border-black/10 pt-4">
+                <span className="text-[#0A0A0A] font-medium text-sm">Walk-in & Appointments</span>
+              </div>
+            </div>
+
           </div>
           
         </div>

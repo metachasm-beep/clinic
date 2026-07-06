@@ -3,6 +3,7 @@ import Lenis from '@studio-freight/lenis';
 import FlipbookHero from './components/FlipbookHero';
 import LoadingScreen from './components/LoadingScreen';
 import ComprehensiveServices from './components/ComprehensiveServices';
+import PrivacyBanner from './components/PrivacyBanner';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,6 +60,8 @@ function App() {
              Call Now
            </a>
         </section>
+        
+        <PrivacyBanner />
       </div>
     </>
   );
