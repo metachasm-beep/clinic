@@ -390,15 +390,12 @@ export default function FlipbookHero({ isLoading }) {
           // Mobile has 18 logic steps. Total scroll is divided into 18 chunks.
           // Panning occurs strictly on odd steps.
           const stepDur = totalDuration / 18;
-          // Step 1: Stay at frame 51 since Fold 0 now shares Fold 1's bg
-          tl.fromTo(playhead, {frame: 51}, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
-          tl.fromTo(playhead, {frame: 51}, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
-          tl.fromTo(playhead, {frame: 102}, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
-          tl.fromTo(playhead, {frame: 156}, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);
-          tl.fromTo(playhead, {frame: 208}, { frame: 253, ease: "none", duration: stepDur, onUpdate: renderFrame }, 9 * stepDur);
-          tl.fromTo(playhead, {frame: 253}, { frame: 303, ease: "none", duration: stepDur, onUpdate: renderFrame }, 11 * stepDur);
-          tl.fromTo(playhead, {frame: 303}, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 13 * stepDur);
-          tl.fromTo(playhead, {frame: 355}, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 15 * stepDur);
+          tl.to(playhead, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
+          tl.to(playhead, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
+          tl.to(playhead, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);
+          tl.to(playhead, { frame: 253, ease: "none", duration: stepDur, onUpdate: renderFrame }, 9 * stepDur);
+          tl.to(playhead, { frame: 303, ease: "none", duration: stepDur, onUpdate: renderFrame }, 11 * stepDur);
+          tl.to(playhead, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 13 * stepDur);
         }
 
         // --- 2. TEXT ANIMATION SEQUENCE (DESKTOP ONLY) ---
