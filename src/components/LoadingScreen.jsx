@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import MagicRings from './react-bits/MagicRings';
-import StarBorder from './react-bits/StarBorder';
 import DecryptedText from './react-bits/DecryptedText';
-import TextPressure from './react-bits/TextPressure';
-import Magnet from './react-bits/Magnet';
 
 export default function LoadingScreen({ onLoaded }) {
   const [progress, setProgress] = useState(0);
-  const totalFrames = 52 + 51 + 54 + 52 + 45 + 50 + 52; // heroscroll2 (52), heroscroll3 (51), heroscroll4 (54), heroscroll5 (52), heroscroll6 (45), heroscroll7 (50), heroscroll8 (52)
+  const totalFrames = 52 + 51 + 54 + 52 + 45 + 50 + 52; 
 
   useEffect(() => {
     let loadedCount = 0;
@@ -81,72 +77,52 @@ export default function LoadingScreen({ onLoaded }) {
   if (progress > 85) loadingPhrase = "READY FOR CONSULTATION";
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0c] overflow-hidden pointer-events-auto" style={{ perspective: 1000 }}>
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[oklch(7%_0.006_95)] overflow-hidden pointer-events-auto">
       
-      {/* Medical Scanner Rings Background */}
-      <div className="absolute inset-0 z-0 opacity-60 mix-blend-screen pointer-events-none">
-        <MagicRings 
-          color="#d4af37" 
-          colorTwo="#00e5ff" 
-          speed={0.8}
-          ringCount={8}
-          baseRadius={0.2}
-          attenuation={15}
-          followMouse={true}
-          mouseInfluence={0.2}
-        />
-      </div>
+      {/* Impeccable Geometry Layout */}
+      <div className="flex flex-col items-center justify-center w-full max-w-lg px-8">
+        
+        {/* Carved-tile Mark */}
+        <div className="relative w-12 h-12 mb-6">
+          <svg viewBox="0 0 40 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" fill="oklch(84% 0.19 80.46)" />
+            <path d="M0 40L40 0" stroke="oklch(7% 0.006 95)" strokeWidth="4" />
+          </svg>
+        </div>
 
-      {/* Glassmorphic Central Hub */}
-      <div 
-        className="relative z-10 flex flex-col items-center justify-center bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-16 shadow-[0_30px_60px_rgba(0,0,0,0.5)] transform translate-z-[20px] will-change-transform"
-      >
-        <div className="w-64 h-24 mb-10 flex items-center justify-center pointer-events-auto">
-          <TextPressure 
-            text="GET WELL" 
-            flex={true} 
-            alpha={false} 
-            stroke={false} 
-            width={true} 
-            weight={true} 
-            italic={true} 
-            textColor="#ffffff"
-            minFontSize={36}
+        {/* Wordmark */}
+        <h1 
+          className="text-[oklch(84%_0.19_80.46)] uppercase tracking-[0.15em] font-medium text-lg mb-12"
+          style={{ fontFamily: "'Alumni Sans', sans-serif" }}
+        >
+          GET WELL CLINIC
+        </h1>
+
+        {/* 1px Gold Hairline Progress Track */}
+        <div className="w-full h-[1px] bg-[oklch(78%_0_0_/_0.16)] mb-6 overflow-hidden">
+          <div 
+            className="h-full bg-[oklch(84%_0.19_80.46)] transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
           />
         </div>
 
-        <Magnet padding={20} disabled={false} magnetStrength={5}>
-          <div className="flex flex-col items-center justify-center cursor-pointer pointer-events-auto">
-            {/* Simple Cyan Medical Cross */}
-            <svg className="w-16 h-16 mb-8 text-[#00e5ff] drop-shadow-[0_0_15px_rgba(0,229,255,0.8)] animate-pulse" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 10h-5V5c0-1.1-.9-2-2-2h-0c-1.1 0-2 .9-2 2v5H5c-1.1 0-2 .9-2 2v0c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h0c1.1 0 2-.9 2-2v-5h5c1.1 0 2-.9 2-2v-0c0-1.1-.9-2-2-2z"/>
-            </svg>
-
-            {/* Neo Kinpaku Progress Bar wrapped in StarBorder */}
-            <StarBorder color="#00e5ff" speed="4s" className="w-64 md:w-80 rounded-full p-1" thickness={2}>
-              <div className="relative w-full h-[6px] bg-black/40 rounded-full overflow-hidden backdrop-blur-sm">
-                <div 
-                  className="h-full bg-gradient-to-r from-[#d4af37] to-[#00e5ff] transition-all duration-300 ease-out shadow-[0_0_10px_#d4af37]"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </StarBorder>
-
-            <div className="mt-8 h-6 text-[#00e5ff] font-mono tracking-widest text-xs flex items-center justify-center pointer-events-none">
-              <div key={loadingPhrase} className="uppercase">
-                <DecryptedText 
-                  text={loadingPhrase} 
-                  animateOn="view" 
-                  revealDirection="center"
-                  speed={80}
-                  maxIterations={15}
-                  characters="⚕✚⚡01"
-                />
-              </div>
-              <span className="ml-3 text-[#d4af37] font-bold">{progress}%</span>
-            </div>
+        {/* Tiny Mono Typography & Decrypted Text */}
+        <div className="w-full flex justify-between items-center text-[oklch(91%_0_0)] font-mono text-[0.72rem] tracking-[0.22em] uppercase">
+          <div key={loadingPhrase} className="opacity-80">
+            <DecryptedText 
+              text={loadingPhrase} 
+              animateOn="view" 
+              revealDirection="start"
+              speed={50}
+              maxIterations={10}
+              characters="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
+            />
           </div>
-        </Magnet>
+          <div className="opacity-80 tabular-nums">
+            {progress.toString().padStart(3, '0')}%
+          </div>
+        </div>
+        
       </div>
     </div>
   );
