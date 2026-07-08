@@ -166,13 +166,15 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
           tl.set({}, {}, totalDuration);
         } else {
           const stepDur = totalDuration / 22;
-          tl.to(playhead, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
-          tl.to(playhead, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
-          tl.to(playhead, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
-          tl.to(playhead, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);
-          tl.to(playhead, { frame: 253, ease: "none", duration: stepDur, onUpdate: renderFrame }, 9 * stepDur);
-          tl.to(playhead, { frame: 303, ease: "none", duration: stepDur, onUpdate: renderFrame }, 11 * stepDur);
-          tl.to(playhead, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 13 * stepDur);
+          const panDur = 0.5 * stepDur;
+          const offset = 0.25 * stepDur;
+          tl.to(playhead, { frame: 51, ease: "none", duration: panDur, onUpdate: renderFrame }, 1 * stepDur + offset);
+          tl.to(playhead, { frame: 102, ease: "none", duration: panDur, onUpdate: renderFrame }, 3 * stepDur + offset);
+          tl.to(playhead, { frame: 156, ease: "none", duration: panDur, onUpdate: renderFrame }, 5 * stepDur + offset);
+          tl.to(playhead, { frame: 208, ease: "none", duration: panDur, onUpdate: renderFrame }, 7 * stepDur + offset);
+          tl.to(playhead, { frame: 253, ease: "none", duration: panDur, onUpdate: renderFrame }, 9 * stepDur + offset);
+          tl.to(playhead, { frame: 303, ease: "none", duration: panDur, onUpdate: renderFrame }, 11 * stepDur + offset);
+          tl.to(playhead, { frame: 355, ease: "none", duration: panDur, onUpdate: renderFrame }, 13 * stepDur + offset);
           tl.set({}, {}, 22 * stepDur);
         }
       }, 50); 
