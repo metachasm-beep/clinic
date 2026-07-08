@@ -10,6 +10,9 @@ export default {
         dom: "#050B14",     // 60% Dominant (Deep Cinematic Slate)
         sec: "#1A2332",     // 30% Secondary (Frosted Muted Slate)
         acc: "#00E5FF",     // 10% Accent (Premium Medical Teal/Cyan)
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
       }
     },
   },

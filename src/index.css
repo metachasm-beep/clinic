@@ -6,6 +6,11 @@
   body {
     @apply bg-dom text-white antialiased overflow-x-hidden;
   }
+  @media (max-width: 767px) {
+    body {
+      @apply bg-[#f8fafc] text-[#0f172a];
+    }
+  }
 }
 
 /* Custom scrollbar to match Lenis smooth scroll aesthetic */
