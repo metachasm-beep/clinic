@@ -615,13 +615,13 @@ export default function FlipbookHero({ isLoading }) {
              {/* Replace with actual logo if needed */}
          </div>
          <div className="flex gap-4 items-center pointer-events-auto">
-            <button onClick={() => setContactModalOpen(true)} className="bg-white/90 hover:bg-white text-black px-5 py-2 md:py-2.5 rounded-full font-bold text-xs md:text-sm shadow-md transition-all">
+            <button onClick={() => setContactModalOpen(true)} className="bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] px-5 py-2 md:py-2.5 rounded-sm font-bold text-xs md:text-sm transition-all">
                Contact Us
             </button>
-            <button onClick={() => setIsMenuOpen(true)} className="bg-white/90 hover:bg-white text-black w-10 h-10 md:w-11 md:h-11 rounded-full flex flex-col justify-center items-center shadow-md transition-all gap-1">
-               <span className="w-4 h-[2px] bg-black rounded-full"></span>
-               <span className="w-4 h-[2px] bg-black rounded-full"></span>
-               <span className="w-4 h-[2px] bg-black rounded-full"></span>
+            <button onClick={() => setIsMenuOpen(true)} className="bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] w-10 h-10 md:w-11 md:h-11 rounded-sm flex flex-col justify-center items-center transition-all gap-1">
+               <span className="w-4 h-[2px] bg-[oklch(4%_0.004_95)] rounded-[1px]"></span>
+               <span className="w-4 h-[2px] bg-[oklch(4%_0.004_95)] rounded-[1px]"></span>
+               <span className="w-4 h-[2px] bg-[oklch(4%_0.004_95)] rounded-[1px]"></span>
             </button>
          </div>
       </div>
@@ -727,7 +727,7 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           {/* Location & Booking Info */}
-          <div ref={fold1Card1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-8 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-md relative overflow-hidden group text-left flex flex-col items-start">
+          <div ref={fold1Card1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-md relative max-h-[85vh] overflow-y-auto scrollbar-hide group text-left flex flex-col items-start">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/80 to-transparent"></div>
             
             <div className="flex items-center space-x-4 mb-4">
@@ -746,7 +746,7 @@ export default function FlipbookHero({ isLoading }) {
               delay={100}
               animateBy="words"
               direction="bottom"
-              className="text-2xl md:text-3xl font-light text-[oklch(91%_0_0)] max-md:text-[#0f4c75] leading-tight mb-4 tracking-tight"
+              className="text-2xl md:text-3xl font-light text-[oklch(91%_0_0)]  leading-tight mb-4 tracking-tight"
             />
             
             <BlurText
@@ -754,11 +754,11 @@ export default function FlipbookHero({ isLoading }) {
               delay={50}
               animateBy="words"
               direction="top"
-              className="text-white max-md:text-slate-900 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-sm font-normal leading-relaxed mb-6"
+              className="text-[oklch(88%_0_0)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-sm font-normal leading-relaxed mb-6"
             />
 
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <a href="https://maps.google.com/?q=D-696,+Opp.+Market+No.+2,+C.R.+Park,+New+Delhi,+110019" target="_blank" rel="noreferrer" className="px-6 py-4 min-h-[48px] min-w-[48px] bg-[#D4AF37] text-[#0A0A0A] font-semibold rounded-sm transition-colors hover:bg-[#F3E5AB] border-none text-xs tracking-wide text-center">
+              <a href="https://maps.google.com/?q=D-696,+Opp.+Market+No.+2,+C.R.+Park,+New+Delhi,+110019" target="_blank" rel="noreferrer" className="px-6 py-4 min-h-[48px] min-w-[48px] bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-semibold rounded-[2px] transition-colors text-xs tracking-wide text-center">
                 Get Directions
               </a>
               <button onClick={() => setContactModalOpen(true)} className="text-[#D4AF37] text-xs font-medium hover:text-[#F3E5AB] transition-colors border-b border-[#D4AF37]/30 hover:border-[#F3E5AB] pb-1 cursor-pointer">
@@ -774,19 +774,19 @@ export default function FlipbookHero({ isLoading }) {
 
         {/* Right Panel */}
         <div className="flex flex-col justify-start pt-8 md:pt-[45vh] items-end pointer-events-auto h-full">
-          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-6 md:p-8 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform">
+          <div ref={fold1Card2Ref} className="max-w-sm text-right bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform">
             <ShinyText 
               text="Book Your Consultation"
               disabled={false} 
               speed={3} 
-              className="text-xl font-semibold uppercase tracking-widest mb-4 text-[oklch(91%_0_0)] max-md:text-[#0f4c75]" 
+              className="text-xl font-semibold uppercase tracking-widest mb-4 text-[oklch(91%_0_0)] " 
               color="oklch(91% 0 0)"
               shineColor="#D4AF37"
             />
-            <p className="text-white max-md:text-slate-900 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 mb-6 font-normal text-sm leading-relaxed">
+            <p className="text-[oklch(88%_0_0)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 mb-6 font-normal text-sm leading-relaxed">
               Schedule an appointment with our expert general physicians or experience holistic acupuncture therapy.
             </p>
-            <button onClick={() => setServicesModalOpen(true)} className="inline-block bg-[#D4AF37] hover:bg-[#F3E5AB] transition-colors duration-300 text-[#0A0A0A] font-bold py-4 px-8 min-h-[48px] min-w-[48px] rounded-sm text-xs md:text-sm tracking-wide cursor-pointer">
+            <button onClick={() => setServicesModalOpen(true)} className="inline-block bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-bold rounded-[2px] py-4 px-8 min-h-[48px] min-w-[48px] transition-colors text-xs md:text-sm tracking-wide cursor-pointer">
               Discover Services
             </button>
           </div>
@@ -797,7 +797,7 @@ export default function FlipbookHero({ isLoading }) {
       {/* Fold 2 Overlays (Dr. Ankur Gupta) */}
       <div ref={fold2Ref} className={`absolute inset-0 z-20 w-full h-full flex items-center justify-center px-4 max-md:items-center md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
-        <div ref={fold2Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/40 max-md:bg-white backdrop-blur-3xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-6 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-4xl pointer-events-auto relative overflow-hidden group flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+        <div ref={fold2Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-4xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group flex flex-col md:flex-row gap-8 md:gap-12 items-center">
           
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc to-transparent"></div>
           
@@ -813,20 +813,20 @@ export default function FlipbookHero({ isLoading }) {
               />
             </div>
 
-            <h2 ref={titleRef} className="text-3xl md:text-5xl lg:text-6xl font-light text-white max-md:text-slate-900 leading-tight mb-2 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
+            <h2 ref={titleRef} className="text-3xl md:text-5xl lg:text-6xl font-light text-[oklch(88%_0_0)] leading-tight mb-2 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
               {textFold === 2 ? <BlurText text="Dr. Ankur Gupta" delay={50} /> : "Dr. Ankur Gupta"}
             </h2>
             <p className="text-acc/80 text-sm md:text-base font-medium tracking-wide uppercase mb-8">Senior ENT Specialist & General Physician</p>
 
             <div className="pl-6 border-l-2 border-acc/30 mb-8 relative">
               <div className="absolute -left-[2px] top-0 h-1/3 w-[2px] bg-acc"></div>
-              <p ref={descRef} className="text-white max-md:text-slate-900/90 text-lg md:text-xl font-light leading-relaxed italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200">
+              <p ref={descRef} className="text-[oklch(88%_0_0)]/90 text-lg md:text-xl font-light leading-relaxed italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200">
                 "Healing begins with precision and compassion. Proactive health monitoring is the cornerstone of a vibrant life."
               </p>
             </div>
             
             <div ref={actionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-4 hidden md:flex">
-              <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+              <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-semibold rounded-[2px] transition-colors text-xs md:text-sm tracking-wide text-center">
                 Schedule Appointment
               </button>
               <button onClick={() => setServicesModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
@@ -836,26 +836,26 @@ export default function FlipbookHero({ isLoading }) {
           </div>
 
           <div className="w-full md:w-1/2 flex flex-col space-y-4 md:pl-8 md:border-l border-white/10">
-            <div className="bg-black/40 max-md:bg-slate-50 p-6 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-acc/30 transition-colors">
+            <div className="bg-[oklch(15%_0.008_95)] p-6 rounded-[2px] border border-[oklch(78%_0_0/0.16)] hover:border-[oklch(70%_0.12_188)] transition-colors">
               <h4 className="text-acc text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-acc"></span> 15+ Years Clinical Excellence
               </h4>
-              <p className="text-white max-md:text-slate-900/70 text-sm font-light leading-relaxed">Delivering expert general medical care and specializing in proactive health screening for the modern patient.</p>
+              <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Delivering expert general medical care and specializing in proactive health screening for the modern patient.</p>
             </div>
-            <div className="bg-black/40 max-md:bg-slate-50 p-6 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-acc/30 transition-colors">
+            <div className="bg-[oklch(15%_0.008_95)] p-6 rounded-[2px] border border-[oklch(78%_0_0/0.16)] hover:border-[oklch(70%_0.12_188)] transition-colors">
               <h4 className="text-acc text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-acc"></span> Advanced ENT Care
               </h4>
-              <p className="text-white max-md:text-slate-900/70 text-sm font-light leading-relaxed">Fellowship trained in advanced endoscopic surgery, acute infections, and complex fever management.</p>
+              <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Fellowship trained in advanced endoscopic surgery, acute infections, and complex fever management.</p>
             </div>
-            <div className="bg-black/40 max-md:bg-slate-50 p-6 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-acc/30 transition-colors">
+            <div className="bg-[oklch(15%_0.008_95)] p-6 rounded-[2px] border border-[oklch(78%_0_0/0.16)] hover:border-[oklch(70%_0.12_188)] transition-colors">
               <h4 className="text-acc text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-acc"></span> Core Philosophy
               </h4>
-              <p className="text-white max-md:text-slate-900/70 text-sm font-light leading-relaxed">Emphasizing preventative healthcare to keep you at your best, catching potential issues before they escalate.</p>
+              <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Emphasizing preventative healthcare to keep you at your best, catching potential issues before they escalate.</p>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-4 md:hidden">
-              <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+              <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-semibold rounded-[2px] transition-colors text-xs md:text-sm tracking-wide text-center">
                 Schedule Appointment
               </button>
             </div>
@@ -867,7 +867,7 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
         {/* Left Side: Title and CTAs */}
-        <div ref={fold3Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold3Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group">
           {/* Kinpaku Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -882,7 +882,7 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold3TitleRef} className="text-2xl md:text-5xl font-light text-white max-md:text-slate-900 leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
+          <h2 ref={fold3TitleRef} className="text-2xl md:text-5xl font-light text-[oklch(88%_0_0)] leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             {textFold === 3 ? <DecryptedText text="Acupuncture Therapy" animateOn="view" speed={80} /> : "Acupuncture Therapy"}
           </h2>
           
@@ -897,9 +897,9 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div ref={fold3Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold3Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
-           <p ref={fold3DescRef} className={`text-white max-md:text-slate-900 text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[3] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold3DescRef} className={`text-[oklch(88%_0_0)] text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[3] ? 'max-md:line-clamp-2' : ''}`}>
             Advanced holistic treatment by Dr. Swarajit Ghosh. Effective for chronic pain management, stress relief, and restoring bodily balance using traditional and modern techniques.
           </p>
           <button 
@@ -917,9 +917,9 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold4Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
         {/* Left Side: Description */}
-        <div ref={fold4Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold4Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group md:mr-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
-           <p ref={fold4DescRef} className={`text-white max-md:text-slate-900 text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[4] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold4DescRef} className={`text-[oklch(88%_0_0)] text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-right ${!expandedFolds[4] ? 'max-md:line-clamp-2' : ''}`}>
             Routine health check-ups and baseline health monitoring designed to catch potential medical issues before they become serious.
           </p>
           <button 
@@ -932,7 +932,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold4Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold4Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -947,7 +947,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-acc/50"></span>
           </div>
 
-          <h2 ref={fold4TitleRef} className="text-2xl md:text-5xl font-light text-white max-md:text-slate-900 leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100 text-right">
+          <h2 ref={fold4TitleRef} className="text-2xl md:text-5xl font-light text-[oklch(88%_0_0)] leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100 text-right">
             {textFold === 4 ? <ReactBitsSplitText text="Preventive Healthcare" splitType="chars" delay={30} /> : "Preventive Healthcare"}
           </h2>
           
@@ -955,7 +955,7 @@ export default function FlipbookHero({ isLoading }) {
             <button onClick={() => setServicesModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
               View Benefits
             </button>
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-semibold rounded-[2px] transition-colors text-xs md:text-sm tracking-wide text-center">
               Book Check-up
             </button>
           </div>
@@ -967,9 +967,9 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold5Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
         {/* Left Side: Description */}
-        <div ref={fold5Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:mr-8 text-left w-full md:w-auto">
+        <div ref={fold5Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group md:mr-8 text-left w-full md:w-auto">
            <div className="absolute top-0 right-0 w-full h-[1px] bg-white/60"></div>
-           <p ref={fold5DescRef} className={`text-white max-md:text-slate-900 text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[5] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold5DescRef} className={`text-[oklch(88%_0_0)] text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[5] ? 'max-md:line-clamp-2' : ''}`}>
             Dedicated medical care for complex ear, nose, and throat conditions. We provide accurate diagnoses and personalized treatment plans using advanced diagnostic techniques.
           </p>
           <button 
@@ -982,7 +982,7 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Title and CTAs */}
-        <div ref={fold5Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
+        <div ref={fold5Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group md:ml-8 md:text-right flex flex-col md:items-end w-full md:w-auto">
           {/* White Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-white/60"></div>
           
@@ -990,14 +990,14 @@ export default function FlipbookHero({ isLoading }) {
             <ShinyText 
               text="Diagnostic Precision"
               speed={3} 
-              className="text-xs font-medium uppercase tracking-[0.2em] text-white max-md:text-slate-900" 
+              className="text-xs font-medium uppercase tracking-[0.2em] text-[oklch(88%_0_0)]" 
               color="#ffffff"
               shineColor="#00E5FF"
             />
             <span className="w-8 h-[1px] bg-white/40"></span>
           </div>
 
-          <h2 ref={fold5TitleRef} className="text-2xl md:text-6xl font-light text-white max-md:text-slate-900 leading-tight mb-6 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
+          <h2 ref={fold5TitleRef} className="text-2xl md:text-6xl font-light text-[oklch(88%_0_0)] leading-tight mb-6 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             ENT Specialists
           </h2>
           
@@ -1005,7 +1005,7 @@ export default function FlipbookHero({ isLoading }) {
             <button onClick={() => setServicesModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
               View ENT Services
             </button>
-            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setContactModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-semibold rounded-[2px] transition-colors text-xs md:text-sm tracking-wide text-center">
               Consult Specialist
             </button>
           </div>
@@ -1017,7 +1017,7 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center px-4 max-md:justify-center max-md:items-center md:px-24 pointer-events-none opacity-0 gap-6 md:gap-12 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
         {/* Left Side: Medical Philosophy & Title */}
-        <div ref={fold6Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/40 max-md:bg-white backdrop-blur-3xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-6 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold6Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group">
           
           {/* Gold Hairline */}
           <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-l from-[#D4AF37] to-transparent"></div>
@@ -1034,14 +1034,14 @@ export default function FlipbookHero({ isLoading }) {
               />
             </div>
 
-            <h2 ref={fold6TitleRef} className="text-3xl md:text-5xl lg:text-6xl font-light text-white max-md:text-slate-900 leading-tight mb-2 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
+            <h2 ref={fold6TitleRef} className="text-3xl md:text-5xl lg:text-6xl font-light text-[oklch(88%_0_0)] leading-tight mb-2 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
               {textFold === 6 ? <ReactBitsSplitText text="Dr. Ashok K. Gulati" splitType="words" delay={40} /> : "Dr. Ashok K. Gulati"}
             </h2>
             <p className="text-[#D4AF37]/80 text-sm md:text-base font-medium tracking-wide uppercase mb-8">Senior Consultant Physician</p>
 
             <div className="pl-6 border-l-2 border-[#D4AF37]/30 mb-8 relative">
               <div className="absolute -left-[2px] top-0 h-1/3 w-[2px] bg-[#D4AF37]"></div>
-              <p ref={fold6DescRef} className="text-white max-md:text-slate-900/90 text-lg md:text-xl font-light leading-relaxed italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200">
+              <p ref={fold6DescRef} className="text-[oklch(88%_0_0)]/90 text-lg md:text-xl font-light leading-relaxed italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200">
                 "Treating the person, not just the symptom. True healthcare is built on decades of trust, listening, and comprehensive family care."
               </p>
             </div>
@@ -1055,26 +1055,26 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Expertise Timeline */}
-        <div ref={fold6Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/40 max-md:bg-white backdrop-blur-3xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-6 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-md pointer-events-auto relative overflow-hidden group flex flex-col space-y-4">
+        <div ref={fold6Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-md pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group flex flex-col space-y-4">
           <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-l from-[#D4AF37] to-transparent"></div>
           
           <div className="bg-black/40 max-md:bg-slate-50 p-5 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-[#D4AF37]/30 transition-colors">
             <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> 40+ Years Legacy
             </h4>
-            <p className="text-white max-md:text-slate-900/70 text-sm font-light leading-relaxed">Dedicated community practice serving generations of families in South Delhi with unmatched diagnostic acumen.</p>
+            <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Dedicated community practice serving generations of families in South Delhi with unmatched diagnostic acumen.</p>
           </div>
           <div className="bg-black/40 max-md:bg-slate-50 p-5 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-[#D4AF37]/30 transition-colors">
             <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Internal Medicine
             </h4>
-            <p className="text-white max-md:text-slate-900/70 text-sm font-light leading-relaxed">Specialized in managing complex chronic conditions including severe diabetes, hypertension, and multi-system disorders.</p>
+            <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Specialized in managing complex chronic conditions including severe diabetes, hypertension, and multi-system disorders.</p>
           </div>
           <div className="bg-black/40 max-md:bg-slate-50 p-5 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-[#D4AF37]/30 transition-colors">
             <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Fellowship & Academia
             </h4>
-            <p className="text-white max-md:text-slate-900/70 text-sm font-light leading-relaxed">MBBS, MD (Internal Medicine). Member of the esteemed Physicians Association and regular contributor to medical symposia.</p>
+            <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">MBBS, MD (Internal Medicine). Member of the esteemed Physicians Association and regular contributor to medical symposia.</p>
           </div>
         </div>
 
@@ -1084,7 +1084,7 @@ export default function FlipbookHero({ isLoading }) {
       <div ref={fold7Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
         {/* Left Side: Title and CTAs */}
-        <div ref={fold7Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative overflow-hidden group">
+        <div ref={fold7Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group">
           {/* Cyan Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
           
@@ -1099,12 +1099,12 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold7TitleRef} className="text-2xl md:text-5xl font-light text-white max-md:text-slate-900 leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
+          <h2 ref={fold7TitleRef} className="text-2xl md:text-5xl font-light text-[oklch(88%_0_0)] leading-tight mb-10 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-100">
             {textFold === 7 ? <BlurText text="Chronic Care Management" delay={60} /> : "Chronic Care Management"}
           </h2>
           
           <div ref={fold7ActionRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <button onClick={() => setServicesModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-acc text-dom font-semibold rounded-sm transition-colors hover:bg-[#00B3CC] border-none text-xs md:text-sm tracking-wide text-center">
+            <button onClick={() => setServicesModalOpen(true)} className="px-6 py-4 md:px-8 md:py-4 min-h-[48px] min-w-[48px] bg-[oklch(84%_0.19_80.46)] hover:bg-[oklch(86%_0.07_84)] text-[oklch(4%_0.004_95)] font-semibold rounded-[2px] transition-colors text-xs md:text-sm tracking-wide text-center">
               Care Programs
             </button>
             <button onClick={() => setContactModalOpen(true)} className="text-acc text-xs md:text-sm font-medium hover:text-[#00B3CC] transition-colors border-b border-acc/30 hover:border-[#00B3CC] pb-1">
@@ -1114,9 +1114,9 @@ export default function FlipbookHero({ isLoading }) {
         </div>
 
         {/* Right Side: Description */}
-        <div ref={fold7Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative overflow-hidden group md:ml-8 text-left md:text-right w-full md:w-auto">
+        <div ref={fold7Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform max-w-[85vw] md:max-w-md pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group md:ml-8 text-left md:text-right w-full md:w-auto">
            <div className="absolute top-0 left-0 w-full h-[1px] bg-acc/80"></div>
-           <p ref={fold7DescRef} className={`text-white max-md:text-slate-900 text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[7] ? 'max-md:line-clamp-2' : ''}`}>
+           <p ref={fold7DescRef} className={`text-[oklch(88%_0_0)] text-sm md:text-lg font-normal leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] delay-200 text-left ${!expandedFolds[7] ? 'max-md:line-clamp-2' : ''}`}>
             Dedicated lifestyle support and meticulous medical care for long-term conditions like diabetes, hypertension, thyroid disorders, and asthma. We walk the journey with you.
           </p>
           <button 
@@ -1133,7 +1133,7 @@ export default function FlipbookHero({ isLoading }) {
       {/* Fold 8 Overlay (Patient Reviews) */}
       <div ref={fold8Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
-        <div ref={fold8Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/30 max-md:bg-white backdrop-blur-2xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-md:shadow-xl transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative overflow-hidden flex flex-col items-center">
+        <div ref={fold8Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide flex flex-col items-center">
           {/* Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-[#D4AF37]/80"></div>
           
@@ -1149,7 +1149,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
           </div>
 
-          <h2 ref={fold8TitleRef} className="text-2xl md:text-5xl font-light text-white max-md:text-slate-900 leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
+          <h2 ref={fold8TitleRef} className="text-2xl md:text-5xl font-light text-[oklch(88%_0_0)] leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
             {textFold === 8 ? <BlurText text="What Our Patients Say" delay={60} /> : "What Our Patients Say"}
           </h2>
           
@@ -1161,18 +1161,18 @@ export default function FlipbookHero({ isLoading }) {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-1">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={14} className={i < Math.floor(review.rating) ? "text-[#D4AF37] fill-[#D4AF37]" : "text-white max-md:text-slate-900/20 fill-transparent"} />
+                        <Star key={i} size={14} className={i < Math.floor(review.rating) ? "text-[#D4AF37] fill-[#D4AF37]" : "text-[oklch(88%_0_0)]/20 fill-transparent"} />
                       ))}
                     </div>
-                    <span className="text-[10px] uppercase tracking-wider text-white max-md:text-slate-900/40">{review.source}</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[oklch(88%_0_0)]/40">{review.source}</span>
                   </div>
-                  <p className="text-sm md:text-base text-white max-md:text-slate-900/90 leading-relaxed font-light mb-6 italic">
+                  <p className="text-sm md:text-base text-[oklch(88%_0_0)]/90 leading-relaxed font-light mb-6 italic">
                     "{review.text}"
                   </p>
                 </div>
                 <div className="flex items-center justify-between border-t border-white/10 pt-4 mt-auto">
                   <span className="text-[#D4AF37] font-medium text-sm">{review.author}</span>
-                  <span className="text-white max-md:text-slate-900/30 text-xs">{review.date}</span>
+                  <span className="text-[oklch(88%_0_0)]/30 text-xs">{review.date}</span>
                 </div>
               </div>
             ))}
@@ -1184,7 +1184,7 @@ export default function FlipbookHero({ isLoading }) {
       {/* Fold 9 Overlay (Clinic Facilities - Option C) */}
       <div ref={fold9Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
-        <div ref={fold9Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#0A0A0A]/80 backdrop-blur-3xl border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative overflow-hidden flex flex-col items-center">
+        <div ref={fold9Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide flex flex-col items-center">
           {/* Gold Hairline */}
           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"></div>
           
@@ -1200,7 +1200,7 @@ export default function FlipbookHero({ isLoading }) {
             <span className="w-8 h-[1px] bg-[#D4AF37]/50"></span>
           </div>
 
-          <h2 ref={fold9TitleRef} className="text-3xl md:text-5xl font-light text-white max-md:text-slate-900 leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
+          <h2 ref={fold9TitleRef} className="text-3xl md:text-5xl font-light text-[oklch(88%_0_0)] leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
             {textFold === 9 ? <BlurText text="Comprehensive Care Facilities" delay={50} /> : "Comprehensive Care Facilities"}
           </h2>
           
@@ -1208,9 +1208,9 @@ export default function FlipbookHero({ isLoading }) {
           <div className="w-full overflow-x-auto snap-x snap-mandatory flex space-x-6 pb-6 pt-4 px-4 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             
             {/* Card 1 */}
-            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-white border border-white/10 rounded-2xl max-md:rounded-2xl p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
+            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-[oklch(15%_0.008_95)] border border-[oklch(78%_0_0/0.16)] rounded-sm p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
               <div className="bg-[#1A1A1B] w-12 h-12 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-500">
-                <span className="text-[#D4AF37] group-hover:text-white max-md:text-slate-900 transition-colors duration-500">
+                <span className="text-[#D4AF37] group-hover:text-[oklch(88%_0_0)] transition-colors duration-500">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2a2 2 0 0 0-2 2v5H4a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2v-5h5a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-5V4a2 2 0 0 0-2-2h-2z"/></svg>
                 </span>
               </div>
@@ -1224,9 +1224,9 @@ export default function FlipbookHero({ isLoading }) {
             </div>
 
             {/* Card 2 */}
-            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-white border border-white/10 rounded-2xl max-md:rounded-2xl p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
+            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-[oklch(15%_0.008_95)] border border-[oklch(78%_0_0/0.16)] rounded-sm p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
               <div className="bg-[#1A1A1B] w-12 h-12 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-500">
-                <span className="text-[#D4AF37] group-hover:text-white max-md:text-slate-900 transition-colors duration-500">
+                <span className="text-[#D4AF37] group-hover:text-[oklch(88%_0_0)] transition-colors duration-500">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                 </span>
               </div>
@@ -1240,9 +1240,9 @@ export default function FlipbookHero({ isLoading }) {
             </div>
 
             {/* Card 3 */}
-            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-white border border-white/10 rounded-2xl max-md:rounded-2xl p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
+            <div className="snap-center shrink-0 w-[80vw] md:w-[380px] bg-[oklch(15%_0.008_95)] border border-[oklch(78%_0_0/0.16)] rounded-sm p-8 flex flex-col hover:scale-[1.02] transition-transform duration-500 shadow-xl group">
               <div className="bg-[#1A1A1B] w-12 h-12 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-500">
-                <span className="text-[#D4AF37] group-hover:text-white max-md:text-slate-900 transition-colors duration-500">
+                <span className="text-[#D4AF37] group-hover:text-[oklch(88%_0_0)] transition-colors duration-500">
                   <MapPin size={24} />
                 </span>
               </div>
@@ -1263,7 +1263,7 @@ export default function FlipbookHero({ isLoading }) {
       {/* Fold 10 Overlay (Patient Knowledge Hub - Athenahealth style) */}
       <div ref={fold10Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
         
-        <div ref={fold10Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[#1A1A1B]/60 max-md:bg-white backdrop-blur-3xl max-md:backdrop-blur-none border border-white/20 max-md:border-[#e2e8f0] p-4 md:p-14 rounded-2xl max-md:rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative overflow-hidden flex flex-col items-start text-left">
+        <div ref={fold10Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide flex flex-col items-start text-left">
           {/* Accent Hairline */}
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-acc via-acc to-transparent"></div>
           
@@ -1278,7 +1278,7 @@ export default function FlipbookHero({ isLoading }) {
             />
           </div>
 
-          <h2 ref={fold10TitleRef} className="text-2xl md:text-5xl font-light text-white max-md:text-slate-900 leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          <h2 ref={fold10TitleRef} className="text-2xl md:text-5xl font-light text-[oklch(88%_0_0)] leading-tight mb-8 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             {textFold === 10 ? <BlurText text="Patient Knowledge Hub" delay={50} /> : "Patient Knowledge Hub"}
           </h2>
           
@@ -1287,12 +1287,12 @@ export default function FlipbookHero({ isLoading }) {
             {/* Filter Section (Left Sidebar style) */}
             <div className="flex flex-col space-y-6 w-full lg:w-1/4 shrink-0">
               <div>
-                <h3 className="text-white max-md:text-slate-900/80 uppercase tracking-widest text-xs font-bold mb-4">Top Challenges</h3>
+                <h3 className="text-[oklch(88%_0_0)]/80 uppercase tracking-widest text-xs font-bold mb-4">Top Challenges</h3>
                 <ul className="space-y-3">
-                  <li><button className="text-white max-md:text-slate-900 hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Chronic Care Routines</button></li>
-                  <li><button className="text-white max-md:text-slate-900 hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Managing Seasonal Allergies</button></li>
-                  <li><button className="text-white max-md:text-slate-900 hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">ENT Infection Prevention</button></li>
-                  <li><button className="text-white max-md:text-slate-900 hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Pediatric Immunity</button></li>
+                  <li><button className="text-[oklch(88%_0_0)] hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Chronic Care Routines</button></li>
+                  <li><button className="text-[oklch(88%_0_0)] hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Managing Seasonal Allergies</button></li>
+                  <li><button className="text-[oklch(88%_0_0)] hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">ENT Infection Prevention</button></li>
+                  <li><button className="text-[oklch(88%_0_0)] hover:text-acc transition-colors text-sm font-medium w-full text-left bg-white/5 px-4 py-2 rounded border-l-2 border-transparent hover:border-acc">Pediatric Immunity</button></li>
                 </ul>
               </div>
             </div>
@@ -1301,46 +1301,46 @@ export default function FlipbookHero({ isLoading }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
               
               {/* Card 1 */}
-              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative overflow-hidden">
+              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative max-h-[85vh] overflow-y-auto scrollbar-hide">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
                 </div>
                 <span className="text-acc text-xs uppercase tracking-widest font-semibold mb-3 z-10">Guide</span>
-                <h4 className="text-xl text-white max-md:text-slate-900 font-medium mb-3 z-10">The Ultimate Guide to ENT Hygiene</h4>
-                <p className="text-white max-md:text-slate-900/60 text-sm leading-relaxed mb-6 z-10 line-clamp-2 md:line-clamp-none">Learn the best practices to maintain ear, nose, and throat health during the heavily polluted winter months in Delhi.</p>
+                <h4 className="text-xl text-[oklch(88%_0_0)] font-medium mb-3 z-10">The Ultimate Guide to ENT Hygiene</h4>
+                <p className="text-[oklch(88%_0_0)]/60 text-sm leading-relaxed mb-6 z-10 line-clamp-2 md:line-clamp-none">Learn the best practices to maintain ear, nose, and throat health during the heavily polluted winter months in Delhi.</p>
                 <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between z-10">
-                  <span className="text-white max-md:text-slate-900/40 text-xs">5 min read</span>
+                  <span className="text-[oklch(88%_0_0)]/40 text-xs">5 min read</span>
                   <span className="text-acc group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
 
               {/* Card 2 */}
-              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative overflow-hidden">
+              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative max-h-[85vh] overflow-y-auto scrollbar-hide">
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4V8z"/></svg>
                 </div>
                 <span className="text-[#D4AF37] text-xs uppercase tracking-widest font-semibold mb-3 z-10">Webinar</span>
-                <h4 className="text-xl text-white max-md:text-slate-900 font-medium mb-3 z-10">Demystifying Acupuncture</h4>
-                <p className="text-white max-md:text-slate-900/60 text-sm leading-relaxed mb-6 z-10 line-clamp-2 md:line-clamp-none">Watch Dr. Swarajit Ghosh explain the modern clinical applications of acupuncture therapy for severe chronic pain management.</p>
+                <h4 className="text-xl text-[oklch(88%_0_0)] font-medium mb-3 z-10">Demystifying Acupuncture</h4>
+                <p className="text-[oklch(88%_0_0)]/60 text-sm leading-relaxed mb-6 z-10 line-clamp-2 md:line-clamp-none">Watch Dr. Swarajit Ghosh explain the modern clinical applications of acupuncture therapy for severe chronic pain management.</p>
                 <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between z-10">
-                  <span className="text-white max-md:text-slate-900/40 text-xs">45 min watch</span>
+                  <span className="text-[oklch(88%_0_0)]/40 text-xs">45 min watch</span>
                   <span className="text-[#D4AF37] group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
 
               {/* Card 3 */}
-              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative overflow-hidden md:col-span-2">
-                 <span className="text-white max-md:text-slate-900/50 text-xs uppercase tracking-widest font-semibold mb-3 z-10">Success Story</span>
+              <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 flex flex-col hover:border-acc/50 transition-colors group cursor-pointer relative max-h-[85vh] overflow-y-auto scrollbar-hide md:col-span-2">
+                 <span className="text-[oklch(88%_0_0)]/50 text-xs uppercase tracking-widest font-semibold mb-3 z-10">Success Story</span>
                  <div className="flex flex-col md:flex-row gap-6 items-start md:items-center z-10">
                     <div className="w-16 h-16 rounded-full bg-[#1A1A1B] flex items-center justify-center shrink-0 border border-[#D4AF37]/30">
                        <Star className="text-[#D4AF37] fill-[#D4AF37]" size={24} />
                     </div>
                     <div>
-                      <h4 className="text-xl text-white max-md:text-slate-900 font-medium mb-2">Overcoming 10 Years of Migraines</h4>
-                      <p className="text-white max-md:text-slate-900/70 text-sm leading-relaxed max-w-2xl line-clamp-2 md:line-clamp-none">Read how a tailored approach combining general medicine and targeted acupuncture helped one of our long-term patients achieve a pain-free life.</p>
+                      <h4 className="text-xl text-[oklch(88%_0_0)] font-medium mb-2">Overcoming 10 Years of Migraines</h4>
+                      <p className="text-[oklch(88%_0_0)]/70 text-sm leading-relaxed max-w-2xl line-clamp-2 md:line-clamp-none">Read how a tailored approach combining general medicine and targeted acupuncture helped one of our long-term patients achieve a pain-free life.</p>
                     </div>
                     <div className="md:ml-auto mt-4 md:mt-0">
-                      <button className="px-6 py-2 border border-white/20 max-md:border-[#e2e8f0] text-white max-md:text-slate-900 rounded hover:bg-white hover:text-black transition-colors text-sm font-medium shrink-0">Read Case Study</button>
+                      <button className="px-6 py-2 border border-white/20 max-md:border-[#e2e8f0] text-[oklch(88%_0_0)] rounded hover:bg-white hover:text-black transition-colors text-sm font-medium shrink-0">Read Case Study</button>
                     </div>
                  </div>
               </div>
