@@ -22,7 +22,7 @@ export default function FoldReviews({ currentTextFold, setContactModalOpen, setS
  return (
  <>
  {/* Fold 8 Overlay (Patient Reviews) */}
- <div ref={fold8Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:scale-[0.92] will-change-[transform,opacity] ${currentTextFold === 8 ? 'max-md:duration-300 !opacity-100 max-md:!opacity-100 max-md:!translate-y-0 max-md:!scale-100 !pointer-events-auto' : 'max-md:duration-75 !opacity-0 max-md:!opacity-0 !pointer-events-none max-md:! max-md:!scale-[0.92]'}`}>
+ <div ref={fold8Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col items-center justify-center px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 will-change-[transform,opacity] ${currentTextFold === 8 ? 'max-md:duration-300 !opacity-100 max-md:!opacity-100 max-md:!translate-y-0 !pointer-events-auto' : 'max-md:duration-75 !opacity-0 max-md:!opacity-0 !pointer-events-none '}`}>
  
  <div ref={fold8Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[95vw] md:max-w-6xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide flex flex-col items-center">
  {/* Gold Hairline */}
