@@ -1352,9 +1352,9 @@ export default function FlipbookHero({ isLoading }) {
         </div>
       </div>
 
-            {/* Extracted Modals for Aggressive Memoization */}
+      {/* Extracted Modals for Aggressive Memoization */}
       <ContactModal isOpen={isContactModalOpen} onClose={() => setContactModalOpen(false)} />
-      <ServicesModal isOpen={isServicesModalOpen} onClose={() => setServicesModalOpen(false)} scrollToFold={scrollToFold} />
+      <ServicesModal isOpen={isServicesModalOpen} onClose={() => setServicesModalOpen(false)} scrollToFold={scrollToFoldIndex} />
       
       {/* Hide scrollbar for carousel style */}
       <style dangerouslySetInnerHTML={{__html: `

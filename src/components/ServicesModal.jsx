@@ -61,12 +61,12 @@ const ServicesModal = memo(({ isOpen, onClose, scrollToFold }) => {
           className="flex-1 overflow-y-auto max-md:flex max-md:flex-row max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory max-md:space-x-4 max-md:pb-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 no-scrollbar"
         >
           {[
-            { fold: 3, title: 'General Physician', desc: 'Dr. Ankur Gupta - Expert care, fevers, & monitoring.', color: 'rgba(0, 229, 255, 0.2)', textClass: 'text-acc' },
-            { fold: 6, title: 'Acupuncture Therapy', desc: 'Holistic treatment for pain and wellness.', color: 'rgba(212, 175, 55, 0.2)', textClass: 'text-[#D4AF37]' },
-            { fold: 9, title: 'Preventive Healthcare', desc: 'Proactive check-ups and health plans.', color: 'rgba(0, 229, 255, 0.2)', textClass: 'text-acc' },
-            { fold: 12, title: 'ENT Specialists', desc: 'Diagnostic precision for ear, nose, throat.', color: 'rgba(255, 255, 255, 0.2)', textClass: 'text-white' },
-            { fold: 15, title: 'Senior Physician', desc: 'Dr. Ashok K. Gulati - Decades of legacy care.', color: 'rgba(212, 175, 55, 0.2)', textClass: 'text-[#D4AF37]' },
-            { fold: 18, title: 'Chronic Care', desc: 'Management for long-term conditions.', color: 'rgba(0, 229, 255, 0.2)', textClass: 'text-acc' }
+            { fold: 2, title: 'General Physician', desc: 'Dr. Ankur Gupta - Expert care, fevers, & monitoring.', color: 'rgba(0, 229, 255, 0.2)', textClass: 'text-acc' },
+            { fold: 3, title: 'Acupuncture Therapy', desc: 'Holistic treatment for pain and wellness.', color: 'rgba(212, 175, 55, 0.2)', textClass: 'text-[#D4AF37]' },
+            { fold: 4, title: 'Preventive Healthcare', desc: 'Proactive check-ups and health plans.', color: 'rgba(0, 229, 255, 0.2)', textClass: 'text-acc' },
+            { fold: 5, title: 'ENT Specialists', desc: 'Diagnostic precision for ear, nose, throat.', color: 'rgba(255, 255, 255, 0.2)', textClass: 'text-white' },
+            { fold: 6, title: 'Senior Physician', desc: 'Dr. Ashok K. Gulati - Decades of legacy care.', color: 'rgba(212, 175, 55, 0.2)', textClass: 'text-[#D4AF37]' },
+            { fold: 7, title: 'Chronic Care', desc: 'Management for long-term conditions.', color: 'rgba(0, 229, 255, 0.2)', textClass: 'text-acc' }
           ].map((item, idx) => (
             <div key={idx} className="service-card max-md:min-w-[85vw] max-md:snap-center shrink-0">
               <SpotlightCard 
