@@ -1058,19 +1058,19 @@ export default function FlipbookHero({ isLoading }) {
         <div ref={fold6Box2Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-md pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group flex flex-col space-y-4">
           <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-l from-[#D4AF37] to-transparent"></div>
           
-          <div className="bg-black/40 max-md:bg-slate-50 p-5 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-[#D4AF37]/30 transition-colors">
+          <div className="bg-[oklch(15%_0.008_95)] p-5 rounded-[2px] border border-[oklch(78%_0_0/0.16)] hover:border-[#D4AF37]/30 transition-colors">
             <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> 40+ Years Legacy
             </h4>
             <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Dedicated community practice serving generations of families in South Delhi with unmatched diagnostic acumen.</p>
           </div>
-          <div className="bg-black/40 max-md:bg-slate-50 p-5 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-[#D4AF37]/30 transition-colors">
+          <div className="bg-[oklch(15%_0.008_95)] p-5 rounded-[2px] border border-[oklch(78%_0_0/0.16)] hover:border-[#D4AF37]/30 transition-colors">
             <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Internal Medicine
             </h4>
             <p className="text-[oklch(88%_0_0)]/70 text-sm font-light leading-relaxed">Specialized in managing complex chronic conditions including severe diabetes, hypertension, and multi-system disorders.</p>
           </div>
-          <div className="bg-black/40 max-md:bg-slate-50 p-5 rounded-xl border border-white/5 max-md:border-slate-200 hover:border-[#D4AF37]/30 transition-colors">
+          <div className="bg-[oklch(15%_0.008_95)] p-5 rounded-[2px] border border-[oklch(78%_0_0/0.16)] hover:border-[#D4AF37]/30 transition-colors">
             <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Fellowship & Academia
             </h4>
