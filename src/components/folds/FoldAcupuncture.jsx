@@ -26,7 +26,7 @@ export default function FoldAcupuncture({ currentTextFold, setContactModalOpen, 
  return (
  <>
  {/* Fold 3 Overlay (Acupuncture Therapy) */}
- <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 will-change-[transform,opacity] ${currentTextFold === 3 ? 'max-md:duration-300 !opacity-100 max-md:!opacity-100 max-md:!translate-y-0 !pointer-events-auto' : 'max-md:duration-75 !opacity-0 max-md:!opacity-0 !pointer-events-none '}`}>
+ <div ref={fold3Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 max-md:justify-center md:px-24 pointer-events-none opacity-0 gap-3 md:gap-0 mt-8 md:mt-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 will-change-[transform,opacity] ${currentTextFold === 3 ? '!opacity-100 max-md:!opacity-100 max-md:!translate-y-0 !pointer-events-auto' : '!opacity-0 max-md:!opacity-0 !pointer-events-none '}`}>
  
  {/* Left Side: Title and CTAs */}
  <div ref={fold3Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 90%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[85vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group">

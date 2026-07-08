@@ -58,7 +58,7 @@ export default function FoldWelcome({ currentTextFold, setContactModalOpen, setS
  return (
  <>
  {/* Fold 1 Overlays */}
- <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8 max-md:items-center transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 will-change-[transform,opacity] ${currentTextFold === 1 ? 'max-md:duration-300 !opacity-100 max-md:!opacity-100 max-md:!translate-y-0 !pointer-events-auto' : 'max-md:duration-75 !opacity-0 max-md:!opacity-0 !pointer-events-none '}`}>
+ <div ref={fold1Ref} className={`absolute inset-0 z-10 w-full h-full p-4 md:p-12 lg:px-24 pointer-events-none grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8 max-md:items-center transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 will-change-[transform,opacity] ${currentTextFold === 1 ? '!opacity-100 max-md:!opacity-100 max-md:!translate-y-0 !pointer-events-auto' : '!opacity-0 max-md:!opacity-0 !pointer-events-none '}`}>
  
  {/* Left Panel */}
  <div className="flex flex-col justify-start pt-[5vh] md:pt-[15vh] pointer-events-auto h-full space-y-4 md:space-y-[4vh]">
