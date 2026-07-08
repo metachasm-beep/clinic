@@ -35,25 +35,22 @@ const ServicesModal = memo(({ isOpen, onClose, scrollToFold }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md pointer-events-auto transition-all duration-500 ease-out">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 pointer-events-auto transition-all duration-500 ease-out">
       <div 
-        className="bg-[#1A1A1B]/40 backdrop-blur-2xl border border-white/20 p-8 rounded-2xl max-w-4xl w-full relative shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-h-[90vh] flex flex-col will-change-transform"
+        className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-8 rounded-[2px] max-w-4xl w-full relative shadow-[0_30px_60px_rgba(0,0,0,0.5)] max-h-[90vh] flex flex-col will-change-transform"
         style={{ perspective: 1000 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none rounded-2xl"></div>
-        <Magnet padding={10} disabled={false} magnetStrength={3}>
-          <button 
-            onClick={() => {
-              if (navigator.vibrate) navigator.vibrate(50);
-              onClose();
-            }} 
-            className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-3 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 z-50 cursor-pointer"
-          >
-            ✕
-          </button>
-        </Magnet>
+        <button 
+          onClick={() => {
+            if (navigator.vibrate) navigator.vibrate(50);
+            onClose();
+          }} 
+          className="absolute top-4 right-4 text-[oklch(88%_0_0)]/50 hover:text-[oklch(84%_0.19_80.46)] transition-colors p-3 min-w-[48px] min-h-[48px] flex items-center justify-center cursor-pointer z-50"
+        >
+          ✕
+        </button>
         
-        <h3 className="text-2xl font-light text-white mb-6 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] shrink-0">Discover Services</h3>
+        <h3 className="text-2xl font-light text-[oklch(91%_0_0)] mb-6 tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] shrink-0">Discover Services</h3>
         
         {/* Horizontal scroll on mobile (swipable), Grid on desktop */}
         <div 
