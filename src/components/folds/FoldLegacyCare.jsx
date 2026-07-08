@@ -25,7 +25,7 @@ export default function FoldLegacyCare({ currentTextFold, setContactModalOpen, s
   return (
     <>
       {/* Fold 6 Overlay (The Legacy of Care - Dr. Ashok K. Gulati) */}
-      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center px-4 max-md:justify-center max-md:items-center md:px-24 pointer-events-none opacity-0 gap-6 md:gap-12 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity]`}>
+      <div ref={fold6Ref} className={`absolute inset-0 z-20 w-full h-full flex flex-col md:flex-row items-center justify-center px-4 max-md:justify-center max-md:items-center md:px-24 pointer-events-none opacity-0 gap-6 md:gap-12 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-md:opacity-0 max-md:translate-y-12 max-md:scale-95 will-change-[transform,opacity] ${currentTextFold === 6 ? '!opacity-100 max-md:!opacity-100 max-md:!translate-y-0 max-md:!scale-100 !pointer-events-auto' : '!opacity-0 max-md:!opacity-0 !pointer-events-none max-md:!translate-y-12 max-md:!scale-95'}`}>
         
         {/* Left Side: Medical Philosophy & Title */}
         <div ref={fold6Box1Ref} style={{ WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent)", transformStyle: "preserve-3d" }} className="bg-[oklch(11%_0.006_95)] border border-[oklch(78%_0_0/0.16)] p-4 md:p-10 rounded-sm transform translate-z-[20px] will-change-transform w-full max-w-[90vw] md:max-w-xl pointer-events-auto relative max-h-[85vh] overflow-y-auto scrollbar-hide group">
