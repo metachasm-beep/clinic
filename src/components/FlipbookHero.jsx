@@ -37,6 +37,7 @@ export default function FlipbookHero({ isLoading, images }) {
   const fold1Ref = useRef(null);
   const fold2Ref = useRef(null);
   const scrollIndicatorRef = useRef(null);
+  const textOverlayRef = useRef(null);
   
 
   const [isContactModalOpen, setContactModalOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function FlipbookHero({ isLoading, images }) {
 
   
 
-  const { bgFold, textFold } = useScrollSequence({ images, canvasRef, containerRef, scrollIndicatorRef });
+  const { bgFold, textFold } = useScrollSequence({ images, canvasRef, containerRef, scrollIndicatorRef, textOverlayRef });
   return (
     <section ref={containerRef} className="relative w-full h-screen bg-dom overflow-hidden z-10 flex items-center justify-between px-8 md:px-24">
 
@@ -139,26 +140,26 @@ export default function FlipbookHero({ isLoading, images }) {
         
       />
 
-      {/* Fold 0: Mobile Hero Header */}
-      <div className={`mobile-hero-overlay md:hidden absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-all md:duration-[800ms] will-change-[transform,opacity] ${textFold === 0 ? 'max-md:duration-300 opacity-100 translate-y-0 scale-100' : 'max-md:duration-75 opacity-0 translate-y-8 scale-95'}`}>
-        <div className="pointer-events-auto w-full px-4 text-center flex flex-col items-center">
-            <h1
-                className="m-0 text-center drop-shadow-2xl"
-                style={{
-                  color: "oklch(91% 0 0)", // champagne
-                  fontFamily: "'Alumni Sans', sans-serif",
-                  fontSize: "clamp(5rem, 18vw, 8rem)",
-                  fontWeight: 400,
-                  lineHeight: 1.02,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase"
-                }}
-            >
-              <ReactBitsSplitText text="Get Well Clinic" splitType="chars" delay={40} />
-            </h1>
-        </div>
-      </div>
-      
+      <div ref={textOverlayRef} className="absolute inset-0 z-20 pointer-events-none">
+          <div className={`mobile-hero-overlay md:hidden absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-all md:duration-[800ms] will-change-[transform,opacity] ${textFold === 0 ? 'max-md:duration-300 opacity-100 translate-y-0 scale-100' : 'max-md:duration-75 opacity-0 translate-y-8 scale-95'}`}>
+            <div className="pointer-events-auto w-full px-4 text-center flex flex-col items-center">
+                <h1
+                    className="m-0 text-center drop-shadow-2xl"
+                    style={{
+                      color: "oklch(91% 0 0)",
+                      fontFamily: "'Alumni Sans', sans-serif",
+                      fontSize: "clamp(5rem, 18vw, 8rem)",
+                      fontWeight: 400,
+                      lineHeight: 1.02,
+                      letterSpacing: "0.15em",
+                      textTransform: "uppercase"
+                    }}
+                >
+                  <ReactBitsSplitText text="Get Well Clinic" splitType="chars" delay={40} />
+                </h1>
+            </div>
+          </div>
+          
             <FoldWelcome currentTextFold={textFold} setContactModalOpen={setContactModalOpen} setServicesModalOpen={setServicesModalOpen} isLoading={isLoading} />
 <FoldDrGupta currentTextFold={textFold} setContactModalOpen={setContactModalOpen} setServicesModalOpen={setServicesModalOpen} isLoading={isLoading} />
 
@@ -176,6 +177,7 @@ export default function FlipbookHero({ isLoading, images }) {
 <FoldFacilities currentTextFold={textFold} setContactModalOpen={setContactModalOpen} setServicesModalOpen={setServicesModalOpen} isLoading={isLoading} />
 
 <FoldKnowledgeHub currentTextFold={textFold} setContactModalOpen={setContactModalOpen} setServicesModalOpen={setServicesModalOpen} isLoading={isLoading} />
+      </div>
 
       
 {/* Extracted Modals for Aggressive Memoization */}

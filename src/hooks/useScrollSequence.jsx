@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
  * This extracts all GSAP Timeline logic, ScrollTrigger calculations, and Canvas WebGL/2D rendering
  * out of the UI layer.
  */
-export function useScrollSequence({ images, canvasRef, containerRef, scrollIndicatorRef }) {
+export const useScrollSequence = ({ images, canvasRef, containerRef, scrollIndicatorRef, textOverlayRef }) => {
   const [bgFold, setBgFold] = useState(1);
   const [textFold, setTextFold] = useState(1);
 
@@ -168,13 +168,27 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
           const stepDur = totalDuration / 22;
           const panDur = 0.5 * stepDur;
           const offset = 0.25 * stepDur;
-          tl.to(playhead, { frame: 51, ease: "none", duration: panDur, onUpdate: renderFrame }, 1 * stepDur + offset);
-          tl.to(playhead, { frame: 102, ease: "none", duration: panDur, onUpdate: renderFrame }, 3 * stepDur + offset);
-          tl.to(playhead, { frame: 156, ease: "none", duration: panDur, onUpdate: renderFrame }, 5 * stepDur + offset);
-          tl.to(playhead, { frame: 208, ease: "none", duration: panDur, onUpdate: renderFrame }, 7 * stepDur + offset);
-          tl.to(playhead, { frame: 253, ease: "none", duration: panDur, onUpdate: renderFrame }, 9 * stepDur + offset);
-          tl.to(playhead, { frame: 303, ease: "none", duration: panDur, onUpdate: renderFrame }, 11 * stepDur + offset);
-          tl.to(playhead, { frame: 355, ease: "none", duration: panDur, onUpdate: renderFrame }, 13 * stepDur + offset);
+          
+          const pans = [
+             { endFrame: 51, stepIndex: 1 },
+             { endFrame: 102, stepIndex: 3 },
+             { endFrame: 156, stepIndex: 5 },
+             { endFrame: 208, stepIndex: 7 },
+             { endFrame: 253, stepIndex: 9 },
+             { endFrame: 303, stepIndex: 11 },
+             { endFrame: 355, stepIndex: 13 }
+          ];
+
+          pans.forEach(pan => {
+             if (textOverlayRef && textOverlayRef.current) {
+                 tl.to(textOverlayRef.current, { opacity: 0, duration: 0.1, ease: "power1.inOut" }, pan.stepIndex * stepDur);
+             }
+             tl.to(playhead, { frame: pan.endFrame, ease: "none", duration: panDur, onUpdate: renderFrame }, pan.stepIndex * stepDur + offset);
+             if (textOverlayRef && textOverlayRef.current) {
+                 tl.to(textOverlayRef.current, { opacity: 1, duration: 0.1, ease: "power1.inOut" }, pan.stepIndex * stepDur + offset + panDur);
+             }
+          });
+
           tl.set({}, {}, 22 * stepDur);
         }
       }, 50); 
