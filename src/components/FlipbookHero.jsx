@@ -87,7 +87,7 @@ export default function FlipbookHero({ isLoading, images }) {
       </div>
 
       {/* Accordion Menu Overlay */}
-      <div className={`fixed inset-0 bg-[#0f172a]/95 backdrop-blur-md z-[70] transition-all duration-500 flex flex-col pt-24 px-6 md:px-24 overflow-y-auto ${isMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-full'}`}>
+      <div className={`fixed inset-0 bg-[#0f172a]/95 backdrop-blur-md z-[70] transition-all duration-500 flex flex-col pt-24 px-6 md:px-24 overflow-y-auto ${isMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'max-md:duration-75 opacity-0 pointer-events-none -translate-y-full'}`}>
          <button onClick={() => setIsMenuOpen(false)} className="absolute top-6 right-6 text-white p-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
          </button>
@@ -118,7 +118,7 @@ export default function FlipbookHero({ isLoading, images }) {
          </div>
       </div>
 
-      <div className={`absolute inset-0 z-[5] bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent pointer-events-none md:hidden transition-opacity duration-700 ease-in-out ${textFold > 0 ? 'opacity-100' : 'opacity-0'}`} />
+      <div className={`absolute inset-0 z-[5] bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent pointer-events-none md:hidden transition-opacity duration-700 ease-in-out ${textFold > 0 ? 'opacity-100' : 'max-md:duration-75 opacity-0'}`} />
       
       {/* Wayfinding Dots (Mobile Only) */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 z-[40] flex-col gap-3 md:hidden flex">
@@ -140,7 +140,7 @@ export default function FlipbookHero({ isLoading, images }) {
       />
 
       {/* Fold 0: Mobile Hero Header */}
-      <div className={`mobile-hero-overlay md:hidden absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-all duration-[800ms] will-change-[transform,opacity] ${textFold === 0 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}>
+      <div className={`mobile-hero-overlay md:hidden absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-all md:duration-[800ms] will-change-[transform,opacity] ${textFold === 0 ? 'max-md:duration-300 opacity-100 translate-y-0 scale-100' : 'max-md:duration-75 opacity-0 translate-y-8 scale-95'}`}>
         <div className="pointer-events-auto w-full px-4 text-center flex flex-col items-center">
             <h1
                 className="m-0 text-center drop-shadow-2xl"
