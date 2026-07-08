@@ -163,6 +163,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p8S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p9S);
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p10S);
+          tl.set({}, {}, totalDuration);
         } else {
           const stepDur = totalDuration / 22;
           tl.to(playhead, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
@@ -172,6 +173,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
           tl.to(playhead, { frame: 253, ease: "none", duration: stepDur, onUpdate: renderFrame }, 9 * stepDur);
           tl.to(playhead, { frame: 303, ease: "none", duration: stepDur, onUpdate: renderFrame }, 11 * stepDur);
           tl.to(playhead, { frame: 355, ease: "none", duration: stepDur, onUpdate: renderFrame }, 13 * stepDur);
+          tl.set({}, {}, 22 * stepDur);
         }
       }, 50); 
     });
