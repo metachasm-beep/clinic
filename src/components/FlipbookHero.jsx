@@ -36,6 +36,7 @@ export default function FlipbookHero({ isLoading, images }) {
   const containerRef = useRef(null);
   const fold1Ref = useRef(null);
   const fold2Ref = useRef(null);
+  const scrollIndicatorRef = useRef(null);
   
 
   const [isContactModalOpen, setContactModalOpen] = useState(false);
