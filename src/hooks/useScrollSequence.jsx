@@ -92,7 +92,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
             pin: true,
             onUpdate: (self) => {
               if (isMobile) {
-                 const p = self.progress;
+                 const p = tl ? tl.progress() : self.progress;
                  let step = Math.min(21, Math.max(0, Math.floor(p * 22)));
                  
                  let newBgFold = Math.ceil(step / 2);
@@ -128,7 +128,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
                     else indicator.style.opacity = '1';
                  }
               } else {
-                 const p = self.progress;
+                 const p = tl ? tl.progress() : self.progress;
                  const t = p * 31; // approximate totalDuration for desktop
                  
                  let step = Math.floor(t / 3) + 1;
