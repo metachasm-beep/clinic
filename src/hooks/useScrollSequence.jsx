@@ -49,7 +49,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
       }
     };
 
-    const playhead = { frame: isMobileForDpr ? 51 : 0 };
+    const playhead = { frame: 0 };
     window.addEventListener('resize', handleResize);
     handleResize(); 
 
@@ -165,6 +165,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
           tl.to(playhead, { frame: 355, ease: "none", duration: pan, onUpdate: renderFrame }, p10S);
         } else {
           const stepDur = totalDuration / 22;
+          tl.to(playhead, { frame: 51, ease: "none", duration: stepDur, onUpdate: renderFrame }, 1 * stepDur);
           tl.to(playhead, { frame: 102, ease: "none", duration: stepDur, onUpdate: renderFrame }, 3 * stepDur);
           tl.to(playhead, { frame: 156, ease: "none", duration: stepDur, onUpdate: renderFrame }, 5 * stepDur);
           tl.to(playhead, { frame: 208, ease: "none", duration: stepDur, onUpdate: renderFrame }, 7 * stepDur);

@@ -140,7 +140,7 @@ export default function FlipbookHero({ isLoading, images }) {
       />
 
       {/* Fold 0: Mobile Hero Header */}
-      <div className={`mobile-hero-overlay md:hidden absolute inset-0 z-30 flex items-center justify-center pointer-events-none opacity-0 translate-y-4 will-change-[transform,opacity] `}>
+      <div className={`mobile-hero-overlay md:hidden absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-all duration-[800ms] will-change-[transform,opacity] ${textFold === 0 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}>
         <div className="pointer-events-auto w-full px-4 text-center flex flex-col items-center">
             <h1
                 className="m-0 text-center drop-shadow-2xl"
