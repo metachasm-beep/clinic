@@ -127,6 +127,16 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
                     else if (velocity > 500) indicator.style.opacity = '0.6';
                     else indicator.style.opacity = '1';
                  }
+              } else {
+                 const p = self.progress;
+                 const t = p * 31; // approximate totalDuration for desktop
+                 
+                 let step = Math.floor(t / 3) + 1;
+                 if (step > 10) step = 10;
+                 if (step < 1) step = 1;
+                 
+                 setBgFold(prev => prev !== step ? step : prev);
+                 setTextFold(prev => prev !== step ? step : prev);
               }
             },
             snap: false

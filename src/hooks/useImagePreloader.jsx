@@ -32,7 +32,7 @@ export function useImagePreloader() {
       for (let i = start; i <= end; i += step) {
         expectedCount++;
         const img = new Image();
-        img.src = `/assets/${folder}/${prefix}_${i.toString().padStart(3, '0')}.webp`;
+        img.src = `/assets/${folder}/${prefix}${i.toString().padStart(3, '0')}.webp`;
         img.onload = checkLoad;
         img.onerror = checkLoad;
         loadedImages[startIndexOffset + (i - start)] = img;
@@ -47,11 +47,11 @@ export function useImagePreloader() {
     // We add the frames to specific absolute array indices so they align with the master GSAP timeline.
     addSequence('heroscroll2', 'scene-', 1, 52, 0); // ends at 51
     addSequence('heroscroll3', 'scene-', 1, 51, 52); // ends at 102
-    addSequence('heroscroll4', 'a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)', 0, 53, 103);
-    addSequence('heroscroll5', 'a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)', 0, 51, 157);
-    addSequence('heroscroll6', 'a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)', 0, 44, 209);
-    addSequence('heroscroll7', 'rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove', 0, 49, 254);
-    addSequence('heroscroll8', 'two-stylized-line-drawn-characters-one-helping-an-ezremove', 0, 51, 304);
+    addSequence('heroscroll4', 'a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_', 0, 53, 103);
+    addSequence('heroscroll5', 'a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_', 0, 51, 157);
+    addSequence('heroscroll6', 'a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_', 0, 44, 209);
+    addSequence('heroscroll7', 'rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_', 0, 49, 254);
+    addSequence('heroscroll8', 'two-stylized-line-drawn-characters-one-helping-an-ezremove_', 0, 51, 304);
 
   }, []);
 
