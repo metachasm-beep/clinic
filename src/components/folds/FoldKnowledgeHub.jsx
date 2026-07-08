@@ -113,8 +113,6 @@ export default function FoldKnowledgeHub({ currentTextFold, setContactModalOpen,
         </div>
       </div>
 
-      {/* Extracted Modals for Aggressive Memoization */}
-      <ContactModal isOpen={isContactModalOpen} onClose={() => setContactModalOpen(false)} />
     </>
   );
 }
