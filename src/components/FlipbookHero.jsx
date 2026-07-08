@@ -101,9 +101,7 @@ export default function FlipbookHero({ isLoading }) {
   const [bgFold, setBgFold] = useState(1);
   const [textFold, setTextFold] = useState(1);
   const [expandedFolds, setExpandedFolds] = useState({});
-  const [canvasBlur, setCanvasBlur] = useState(0);
-  const [scrollOpacity, setScrollOpacity] = useState(1);
-  const frameCount = 356; // 52(heroscroll2) + 51(heroscroll3) + 54(heroscroll4) + 52(heroscroll5) + 45(heroscroll6) + 50(heroscroll7) + 52(heroscroll8)
+      const frameCount = 356; // 52(heroscroll2) + 51(heroscroll3) + 54(heroscroll4) + 52(heroscroll5) + 45(heroscroll6) + 50(heroscroll7) + 52(heroscroll8)
 
   
   const scrollToFoldIndex = (foldIndex) => {
@@ -258,7 +256,7 @@ export default function FlipbookHero({ isLoading }) {
     if (images.length === 0) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
     
     const drawImageCover = (ctx, img, canvas, frameIndex) => {
       if (!img) return;
@@ -282,7 +280,7 @@ export default function FlipbookHero({ isLoading }) {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
       
-      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingEnabled = !isMobileForDpr;
       ctx.imageSmoothingQuality = 'high';
 
       if (images[Math.round(playhead.frame)]) {
@@ -323,7 +321,7 @@ export default function FlipbookHero({ isLoading }) {
       // Make scroll perfectly match the number of folds
       // Increased mobile scroll distance to slow down the animation by 50%
       const scrollEnd = isMobile ? "+=4500%" : "+=3000%";
-      const scrubValue = isMobile ? 0.5 : 1.5;
+      const scrubValue = isMobile ? 1.2 : 1.5;
       const xOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetLarge = reduceMotion ? 0 : (isMobile ? 10 : 20);
       const yOffsetSmall = reduceMotion ? 0 : (isMobile ? 5 : 10);
@@ -386,17 +384,20 @@ export default function FlipbookHero({ isLoading }) {
                  }
                   
                   // Blur canvas on text pauses (even steps)
-                  setCanvasBlur(step % 2 === 0 ? 8 : 0);
+                  if (canvasRef.current) canvasRef.current.style.filter = step % 2 === 0 ? 'blur(8px)' : 'none';
                   
                   // Velocity reactive UI
                   if (self && typeof self.getVelocity === 'function') {
                     const velocity = Math.abs(self.getVelocity());
-                    if (velocity > 1500) {
-                      setScrollOpacity(0.3);
-                    } else if (velocity > 500) {
-                      setScrollOpacity(0.6);
-                    } else {
-                      setScrollOpacity(1);
+                    const scrollIndicator = document.querySelector('.scroll-indicator');
+                    if (scrollIndicator) {
+                      if (velocity > 1500) {
+                        scrollIndicator.style.opacity = '0.3';
+                      } else if (velocity > 500) {
+                        scrollIndicator.style.opacity = '0.6';
+                      } else {
+                        scrollIndicator.style.opacity = '1';
+                      }
                     }
                   }
               }
@@ -676,7 +677,7 @@ export default function FlipbookHero({ isLoading }) {
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-all duration-700 ease-out" 
-        style={{ filter: `blur(${canvasBlur}px)` }}
+        
       />
 
       {/* Fold 0: Mobile Hero Header */}
