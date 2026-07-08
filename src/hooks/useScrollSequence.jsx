@@ -80,7 +80,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
       const totalDuration = p10E + pause;
 
       const scrollEnd = isMobile ? "+=4500%" : "+=3000%";
-      const scrubValue = isMobile ? 1.2 : 1.5;
+      const scrubValue = isMobile ? 0.5 : 1.5;
 
       const buildTimelineTimer = setTimeout(() => {
         tl = gsap.timeline({
@@ -118,7 +118,7 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
                  }
                   
                  // DOM modifications directly for performance
-                 if (canvasRef.current) canvasRef.current.style.filter = step % 2 === 0 ? 'blur(8px)' : 'none';
+                 // Removed expensive blur filter for mobile performance, relying on CSS dark overlays instead
                   
                  if (self && typeof self.getVelocity === 'function' && scrollIndicatorRef?.current) {
                     const velocity = Math.abs(self.getVelocity());
@@ -143,10 +143,12 @@ export function useScrollSequence({ images, canvasRef, containerRef, scrollIndic
           }
         });
 
+        let lastRenderedFrame = -1;
         function renderFrame() {
           const currentFrame = Math.round(playhead.frame);
-          if (images[currentFrame]) {
+          if (currentFrame !== lastRenderedFrame && images[currentFrame]) {
             drawImageCover(ctx, images[currentFrame], canvas, currentFrame);
+            lastRenderedFrame = currentFrame;
           }
         };
 
