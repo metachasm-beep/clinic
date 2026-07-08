@@ -1,74 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DecryptedText from './react-bits/DecryptedText';
 
-export default function LoadingScreen({ onLoaded }) {
-  const [progress, setProgress] = useState(0);
-  const totalFrames = 52 + 51 + 54 + 52 + 45 + 50 + 52; 
-
-  useEffect(() => {
-    let loadedCount = 0;
-    
-    // Mathematically track caching of all 103 high-res frames
-    for (let i = 1; i <= 52; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll2/scene-${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    for (let i = 1; i <= 51; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll3/scene-${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    for (let i = 0; i <= 53; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll4/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (2)_${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    for (let i = 0; i <= 51; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll5/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (3)_${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    for (let i = 0; i <= 44; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll6/a-smooth-169-cinematic-dolly-shot-of-a-doctors-cli (online-video-cutter.com) (4)_${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    for (let i = 0; i <= 49; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll7/rapid-zoom-in-with-an-extreme-dynamic-transition-t-ezremove_${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    for (let i = 0; i <= 51; i++) {
-      const img = new Image();
-      img.src = `/assets/heroscroll8/two-stylized-line-drawn-characters-one-helping-an-ezremove_${i.toString().padStart(3, '0')}.webp`;
-      img.onload = checkLoad;
-      img.onerror = checkLoad;
-    }
-
-    function checkLoad() {
-      loadedCount++;
-      setProgress(Math.round((loadedCount / totalFrames) * 100));
-      
-      if (loadedCount === totalFrames) {
-        setTimeout(() => {
-          onLoaded();
-        }, 800);
-      }
-    }
-  }, [onLoaded]);
+export default function LoadingScreen({ progress }) {
 
   // Loading phase logic
   let loadingPhrase = "INITIALIZING HEALTH PROTOCOLS";

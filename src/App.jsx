@@ -4,9 +4,11 @@ import FlipbookHero from './components/FlipbookHero';
 import LoadingScreen from './components/LoadingScreen';
 import ComprehensiveServices from './components/ComprehensiveServices';
 import PrivacyBanner from './components/PrivacyBanner';
+import { useImagePreloader } from './hooks/useImagePreloader';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const { images, progress, isComplete } = useImagePreloader();
+  const isLoading = !isComplete;
 
   // Initialize Lenis
   useEffect(() => {
@@ -35,7 +37,7 @@ function App() {
 
   return (
     <>
-      {isLoading && <LoadingScreen onLoaded={() => setIsLoading(false)} />}
+      {isLoading && <LoadingScreen progress={progress} />}
       
       <div className={`bg-dom text-white transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         {/* Navbar Overlay - Hidden for Fold 1 */}
@@ -48,7 +50,7 @@ function App() {
         </nav> */}
 
         <div id="hero">
-          <FlipbookHero isLoading={isLoading} />
+          <FlipbookHero isLoading={isLoading} images={images} />
         </div>
 
         <ComprehensiveServices />
